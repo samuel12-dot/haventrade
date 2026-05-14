@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DEFAULT_CART } from './data/index.js';
 import { useAuth } from './context/AuthContext.jsx';
 import Header from './components/Header.jsx';
@@ -14,24 +14,48 @@ import ConfirmationScreen from './screens/ConfirmationScreen.jsx';
 import StorefrontScreen   from './screens/StorefrontScreen.jsx';
 import ProfileScreen      from './screens/ProfileScreen.jsx';
 import OrderHistoryScreen from './screens/OrderHistoryScreen.jsx';
+import SellersScreen      from './screens/SellersScreen.jsx';
 import DashboardScreen    from './screens/DashboardScreen.jsx';
 import EditorScreen       from './screens/EditorScreen.jsx';
 import SignInScreen       from './screens/SignInScreen.jsx';
 import SignUpScreen       from './screens/SignUpScreen.jsx';
 
+function parseHash() {
+  const hash  = window.location.hash.slice(1); // strip leading '#'
+  const [r, q] = hash.split('?');
+  const p = {};
+  if (q) new URLSearchParams(q).forEach((v, k) => { p[k] = v; });
+  return { route: r || 'landing', params: p };
+}
+
 export default function App() {
   const { isAuthenticated } = useAuth();
 
-  const [route,    setRoute]    = useState('landing');
-  const [params,   setParams]   = useState({});
+  const initial = parseHash();
+  const [route,    setRoute]    = useState(initial.route);
+  const [params,   setParams]   = useState(initial.params);
   const [cart,     setCart]     = useState(DEFAULT_CART);
   const [savedSet, setSavedSet] = useState(new Set(['l01', 'l05']));
 
   const navigate = (r, p = {}) => {
+    const query = new URLSearchParams(p).toString();
+    window.location.hash = query ? `${r}?${query}` : r;
     setRoute(r);
     setParams(p);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
+
+  // Handle browser back / forward buttons
+  useEffect(() => {
+    const onHashChange = () => {
+      const { route: r, params: p } = parseHash();
+      setRoute(r);
+      setParams(p);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   const addToCart = (lid, qty = 1) => {
     setCart((prev) => {
@@ -68,6 +92,7 @@ export default function App() {
         {route === 'cart'         && <CartScreen         navigate={navigate} cart={cart} setCart={setCart} />}
         {route === 'checkout'     && <CheckoutScreen     navigate={navigate} cart={cart} setCart={setCart} />}
         {route === 'confirmation' && <ConfirmationScreen navigate={navigate} cart={cart} />}
+        {route === 'sellers'      && <SellersScreen      navigate={navigate} />}
         {route === 'storefront'   && <StorefrontScreen   navigate={navigate} sellerId={params.id || 'sanne'} savedSet={savedSet} toggleSave={toggleSave} />}
         {route === 'profile'      && <ProfileScreen      navigate={navigate} />}
         {route === 'orders'       && <OrderHistoryScreen navigate={navigate} />}

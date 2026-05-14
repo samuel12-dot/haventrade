@@ -23,11 +23,15 @@ export default function PDPScreen({ navigate, listingId, addToCart }) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
-    if (!isMongoId(listingId)) return;
-    api
-      .getListing(listingId)
-      .then(({ listing: data }) => setListing(data))
-      .catch(() => setListing(LISTINGS[0]));
+    setActiveImg(0);
+    setTab('description');
+    if (isMongoId(listingId)) {
+      api.getListing(listingId)
+        .then(({ listing: data }) => setListing(data))
+        .catch(() => setListing(LISTINGS[0]));
+    } else {
+      setListing(LISTINGS.find((l) => l.id === listingId) || LISTINGS[0]);
+    }
   }, [listingId]);
 
   useEffect(() => {

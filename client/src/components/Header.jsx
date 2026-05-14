@@ -180,7 +180,7 @@ function LoggedInHeader({ route, navigate, cartCount }) {
 
   const mobileItems = [
     { label: 'Browse',    action: () => navigate('home'),      active: route === 'home' },
-    { label: 'Sellers',   action: () => navigate('storefront'), active: route === 'storefront' },
+    { label: 'Sellers',   action: () => navigate('sellers'), active: route === 'sellers' || route === 'storefront' },
     { label: 'Orders',    action: () => navigate('orders'),     active: route === 'orders' },
     { label: 'Sell',      action: () => navigate('dashboard'),  active: route === 'dashboard' || route === 'editor' },
     { label: 'Cart',      action: () => navigate('cart'),       active: route === 'cart', badge: cartCount },
@@ -205,7 +205,7 @@ function LoggedInHeader({ route, navigate, cartCount }) {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1 ml-auto">
           <a className={`nav-link${route === 'home' ? ' active' : ''}`} onClick={() => navigate('home')}>Browse</a>
-          <a className={`nav-link${route === 'storefront' ? ' active' : ''}`} onClick={() => navigate('storefront')}>Sellers</a>
+          <a className={`nav-link${route === 'sellers' || route === 'storefront' ? ' active' : ''}`} onClick={() => navigate('sellers')}>Sellers</a>
           <a className={`nav-link${route === 'orders' ? ' active' : ''}`} onClick={() => navigate('orders')}>Orders</a>
           <a className={`nav-link${route === 'dashboard' || route === 'editor' ? ' active' : ''}`} onClick={() => navigate('dashboard')}>
             Sell

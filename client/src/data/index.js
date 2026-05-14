@@ -335,9 +335,10 @@ images: [
     stock: 3,
     sub: "New · 800g, naturally leavened",
     images: [
-      "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1585478259715-876acc5be8eb?auto=format&fit=crop&w=800&q=80",
+      "/images/products/sourdough-loaf/sourdough-loaf1.png",
+      "/images/products/sourdough-loaf/sourdough-loaf2.png",
+      "/images/products/sourdough-loaf/sourdough-loaf3.png",
+      "/images/products/sourdough-loaf/sourdough-loaf4.png",
     ],
     description:
       "800g naturally leavened sourdough, baked this morning in Aisha's cast-iron — crackling crust, open crumb, no additives. Best eaten today, although it toasts beautifully through the weekend.",
@@ -357,9 +358,10 @@ images: [
     stock: 1,
     sub: "Like new · Reupholstered cognac leather",
     images: [
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80",
+      "/images/products/eames-style/eames-style1.png",
+      "/images/products/eames-style/eames-style2.png",
+      "/images/products/eames-style/eames-style3.png",
+      "/images/products/eames-style/eames-style4.png",
     ],
     description:
       "Sanne's studio reupholstered this walnut-veneered lounge chair in full-grain cognac leather — the shell is flawless, the ottoman rocks perfectly, and it reclines like a sigh. Cargo-bike delivery included within 2 km.",
