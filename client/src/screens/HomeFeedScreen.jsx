@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
-import { LISTINGS, CATEGORIES, SELLERS } from '../data/index.js';
+import { LISTINGS, CATEGORIES } from '../data/index.js';
 import { api } from '../api/index.js';
 import ListingCard  from '../components/ListingCard.jsx';
-import MarketTicket from '../components/MarketTicket.jsx';
-import SellerAvatar from '../components/SellerAvatar.jsx';
 import { PinIcon, StarIcon } from '../components/Icons.jsx';
 
 function FilterGroup({ title, children }) {
@@ -69,39 +67,6 @@ function FilterRail() {
   );
 }
 
-function FeaturedSellerTile({ sellerId, navigate }) {
-  const s = SELLERS[sellerId];
-  if (!s) return null;
-  return (
-    <div
-      onClick={() => navigate('storefront', { id: sellerId })}
-      className="col-span-1 sm:col-span-2 bg-surface rounded-2xl border border-border shadow-lift overflow-hidden cursor-pointer flex flex-col sm:flex-row"
-    >
-      <div className={`grad ${s.grad} sm:flex-[0_0_200px] relative h-40 sm:h-auto`}>
-        <div className="absolute top-3 left-3">
-          <MarketTicket label="MEMBER SINCE" value={s.since} rotation={-2} />
-        </div>
-        <div className="absolute bottom-3.5 left-3.5">
-          <SellerAvatar seller={s} size="lg" />
-        </div>
-      </div>
-      <div className="flex-1 p-5 flex flex-col justify-between">
-        <div>
-          <div className="font-mono text-[10px] text-hearth mb-1">FEATURED STOREFRONT</div>
-          <div className="font-serif text-2xl leading-[1.05] mb-1">{s.name}</div>
-          <div className="font-serif italic text-[13px] text-ink-subtle">{s.neighbourhood} · {s.distance} away · {s.rating.toFixed(1)} ★ ({s.reviews})</div>
-        </div>
-        <div className="flex gap-1.5 mt-3 flex-wrap">
-          <span className="tag-soft">TOP RESPONDER</span>
-          <span className="tag-soft tag-soft--peach">ID VERIFIED</span>
-        </div>
-        <div className="font-serif italic text-[13px] text-ink-muted mt-3">
-          "Refinishing mid-century furniture, one careful piece at a time."
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function HomeFeedScreen({ navigate, savedSet, toggleSave }) {
   const [activeCat,   setActiveCat]   = useState(null);
@@ -172,25 +137,15 @@ export default function HomeFeedScreen({ navigate, savedSet, toggleSave }) {
         )}
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px]">
-            {filtered.map((l, i) => {
-              if (i === 5) {
-                return (
-                  <>
-                    <FeaturedSellerTile key="featured" sellerId="sanne" navigate={navigate} />
-                    <ListingCard key={l.id} listing={l} onClick={() => navigate('pdp', { id: l.id })} saved={savedSet.has(l.id)} onSave={toggleSave} />
-                  </>
-                );
-              }
-              return (
-                <ListingCard
-                  key={l.id}
-                  listing={l}
-                  onClick={() => navigate('pdp', { id: l.id })}
-                  saved={savedSet.has(l.id)}
-                  onSave={toggleSave}
-                />
-              );
-            })}
+            {filtered.map((l) => (
+              <ListingCard
+                key={l.id}
+                listing={l}
+                onClick={() => navigate('pdp', { id: l.id })}
+                saved={savedSet.has(l.id)}
+                onSave={toggleSave}
+              />
+            ))}
           </div>
         </div>
       </div>
