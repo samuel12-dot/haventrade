@@ -1,0 +1,17 @@
+{
+  "name": "haventrade",
+  "version": "1.0.0",
+  "description": "HavenTrade — MERN fullstack monorepo",
+  "private": true,
+  "scripts": {
+    "dev":          "concurrently --names \"API,WEB\" --prefix-colors \"yellow,cyan\" \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:server":   "npm run dev    --prefix server",
+    "dev:client":   "npm run dev    --prefix client",
+    "seed":         "npm run seed   --prefix server",
+    "build":        "npm run build  --prefix client",
+    "install:all":  "npm i --prefix server && npm i --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
