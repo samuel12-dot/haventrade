@@ -66,7 +66,7 @@ export default function ListingCard({ listing, onClick, saved, onSave, sold = fa
           <span className="listing-title">{listing.title}</span>
           {isFree
             ? <span className="serif" style={{ fontSize: 22, color: 'var(--moss)', fontStyle: 'italic' }}>Free</span>
-            : <span className="price-md">€{listing.price}</span>
+            : <span className="price-md">₦{listing.price.toLocaleString()}</span>
           }
         </div>
         <div className="listing-sub">{listing.sub}</div>

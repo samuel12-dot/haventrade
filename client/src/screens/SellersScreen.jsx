@@ -5,12 +5,14 @@ import SellerAvatar from '../components/SellerAvatar.jsx';
 import { StarIcon } from '../components/Icons.jsx';
 
 const NEIGHBOURHOOD_DISTANCE = {
-  'Kralingen':           '0.4 km',
-  'Cool':                '1.1 km',
-  'Hillegersberg':       '1.9 km',
-  'Kralingen-Crooswijk': '0.7 km',
-  'Nieuwe Westen':       '1.6 km',
-  'Delfshaven':          '1.8 km',
+  'Maitama':      '0.4 km',
+  'Wuse 2':       '1.1 km',
+  'Asokoro':      '1.9 km',
+  'Garki':        '0.7 km',
+  'Utako':        '1.6 km',
+  'Gwarinpa':     '1.8 km',
+  'Jabi':         '0.6 km',
+  'Central Area': '0.9 km',
 };
 
 function normalizeDbSeller(s) {

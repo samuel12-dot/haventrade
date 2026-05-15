@@ -90,16 +90,16 @@ export default function StorefrontScreen({ navigate, sellerId, savedSet, toggleS
         {tab === 'About' ? (
           <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 md:gap-10 max-w-[980px] mb-[60px]">
             <div className="font-serif text-[18px] leading-[1.6] text-ink-muted">
-              <p className="mt-0">I started this studio in {s.since} after years of refurbishing pieces for friends. Every chair, table or lamp here passes through my workshop on Avenue Concordia — joints re-glued, finishes hand-rubbed, hardware polished — before it heads to its next home.</p>
+              <p className="mt-0">I started this studio in {s.since} after years of refurbishing pieces for friends. Every chair, table or lamp here passes through my workshop on Aminu Kano Crescent — joints re-glued, finishes hand-rubbed, hardware polished — before it heads to its next home.</p>
               <p className="font-serif italic text-[22px] text-hearth border-l-[3px] border-hearth pl-[18px] my-6">
                 "If a piece survived sixty years already, it deserves another sixty."
               </p>
-              <p>I deliver myself by cargo bike within Kralingen and the surrounding neighbourhoods — usually same evening. Pickup welcome with a coffee. Returns? If something doesn't fit your space, I'll bring the bike round and pick it up.</p>
+              <p>I deliver myself by cargo bike within Maitama and the surrounding neighbourhoods — usually same evening. Pickup welcome with a coffee. Returns? If something doesn't fit your space, I'll bring the bike round and pick it up.</p>
             </div>
             <div className="flex flex-col gap-3.5">
-              <MarketTicket label="WORKSHOP" value="Avenue Concordia 47-B" rotation={-2} lg />
+              <MarketTicket label="WORKSHOP" value="Aminu Kano Crescent 47-B" rotation={-2} lg />
               <MarketTicket label="OPEN" value="Wed–Sat, 13:00–18:00" rotation={2} variant="saffron" lg />
-              <MarketTicket label="LANGUAGES" value="NL · EN · FR" rotation={-2} variant="moss" lg />
+              <MarketTicket label="LANGUAGES" value="EN · HA · YO" rotation={-2} variant="moss" lg />
             </div>
           </div>
         ) : (

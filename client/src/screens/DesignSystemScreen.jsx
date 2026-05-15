@@ -15,14 +15,14 @@ const COLOR_TOKENS = [
   ["--surface", "#FFFFFF", "Cards, modals", "var(--ink)"],
   ["--surface-2", "#F4EAD3", "Section accent", "var(--ink)"],
   ["--surface-peach", "#F8C4B0", "Soft highlights", "var(--ink)"],
-  ["--hearth", "#C44A2C", "Primary CTA, prices", "#FBF6EC"],
-  ["--hearth-glow", "#E27A3F", "Gradient companion", "#FBF6EC"],
+  ["--hearth", "#3B82F6", "Primary CTA, prices", "#FFFFFF"],
+  ["--hearth-glow", "#2563EB", "Hover / gradient companion", "#FFFFFF"],
   ["--saffron", "#F2B544", "Accents, live", "var(--ink)"],
   ["--moss", "#2F5D3F", "Success, secondary CTA", "#FBF6EC"],
   ["--moss-soft", "#E5F0E8", "Mint surface", "var(--ink)"],
-  ["--ink", "#1F1410", "Primary text", "#FBF6EC"],
-  ["--ink-muted", "#5C4A3A", "Secondary text", "#FBF6EC"],
-  ["--ink-subtle", "#7A6B5A", "Captions", "#FBF6EC"],
+  ["--ink", "#0A0F1C", "Primary text", "#FFFFFF"],
+  ["--ink-muted", "#3D4B6B", "Secondary text", "#FFFFFF"],
+  ["--ink-subtle", "#6B7A9A", "Captions", "#FFFFFF"],
 ];
 
 const TAGLINES = [
@@ -41,7 +41,7 @@ const TAGLINES = [
   {
     rank: "03",
     line: "Goods, from people you've passed on the bridge.",
-    note: "Most warm-literary. Rotterdam-flavoured. Slightly long for hero, sings as a section pull-quote.",
+    note: "Most warm-literary. Abuja-flavoured. Slightly long for hero, sings as a section pull-quote.",
     winner: false,
   },
   {
@@ -284,9 +284,9 @@ export default function DesignSystemScreen({ navigate }) {
               N° 0247M · 0.4 KM · LIVE NOW
             </div>
             <div className="price-lg mt-[22px]">
-              €85
+              ₦85,000
               <span className="font-serif italic text-[14px] text-ink-subtle ml-2">
-                / free delivery over €30
+                / free delivery over ₦15,000
               </span>
             </div>
           </div>
@@ -300,7 +300,7 @@ export default function DesignSystemScreen({ navigate }) {
         sub="The signature element. Dashed border, slight rotation, mono label, italic value."
       >
         <div className="flex flex-wrap gap-[18px] items-start">
-          <MarketTicket label="N° 0350M" value="Kralingen" rotation={-2} lg />
+          <MarketTicket label="N° 0350M" value="Maitama" rotation={-2} lg />
           <MarketTicket
             label="ETA"
             value="today, 18:00"
@@ -315,7 +315,7 @@ export default function DesignSystemScreen({ navigate }) {
             variant="saffron"
             lg
           />
-          <MarketTicket label="EST. 2026" value="Rotterdam" rotation={3} lg />
+          <MarketTicket label="EST. 2026" value="Abuja" rotation={3} lg />
           <MarketTicket
             label="MEMBER SINCE"
             value="spring '24"

@@ -166,7 +166,7 @@ function TrendingRail({ navigate }) {
     <section className="mt-[88px]">
       <SectionHead
         title="Trending on your street"
-        sub="What Kralingen is buying right now."
+        sub="What Maitama is buying right now."
         right={
           <span className="inline-flex items-center gap-2">
             <span
@@ -213,15 +213,15 @@ function Testimonials() {
     {
       text: "Sold a chair in 40 minutes to someone two streets over. Beats lugging it to the recycling centre.",
       who: "Sanne",
-      where: "Kralingen",
+      where: "Maitama",
       grad: "grad-vintage",
       initial: "S",
       ticket: { l: "MEMBER SINCE", v: "spring '24", rot: -3, variant: "cream" },
     },
     {
-      text: "I bought a sourdough starter and ended up at Aisha's bakery the next morning. That doesn't happen on Marktplaats.",
+      text: "I bought a sourdough starter and ended up at Aisha's bakery the next morning. That doesn't happen on Jiji.",
       who: "Mark",
-      where: "Hillegersberg",
+      where: "Asokoro",
       grad: "grad-cream",
       initial: "M",
       ticket: { l: "VERIFIED", v: "purchase", rot: 3, variant: "moss" },
@@ -230,7 +230,7 @@ function Testimonials() {
     {
       text: "The 2 km radius means I actually meet the people I buy from. It feels like the city used to before everything went online.",
       who: "Linda",
-      where: "Nieuwe Westen",
+      where: "Utako",
       grad: "grad-plum",
       initial: "L",
       ticket: { l: "MEMBER SINCE", v: "summer '23", rot: -2, variant: "peach" },
@@ -278,7 +278,7 @@ function Testimonials() {
 
 function OpenAStall({ navigate }) {
   const stats = [
-    ["€2.4M", "TRADED IN 2025"],
+    ["₦2.4B", "TRADED IN 2025"],
     ["6 HRS", "AVG TIME TO SELL"],
     ["92%", "DELIVERED SAME DAY"],
   ];
@@ -291,20 +291,20 @@ function OpenAStall({ navigate }) {
       }}
     >
       <div
-        className="grad grad-terracotta px-6 sm:px-16 py-[56px] sm:py-[72px] relative overflow-hidden"
-        style={{ color: "var(--canvas)" }}
+        className="grad grad-hero-blue px-6 sm:px-16 py-[56px] sm:py-[72px] relative overflow-hidden"
+        style={{ color: "#FFFFFF" }}
       >
         <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-8 md:gap-12 items-center">
           <div>
             <div className="font-mono text-[11px] text-saffron tracking-widest-2 mb-[18px]">
               FOR SELLERS
             </div>
-            <h2 className="font-serif text-[40px] sm:text-[56px] leading-none tracking-[-0.03em] text-canvas m-0">
+            <h2 className="font-serif text-[40px] sm:text-[56px] leading-none tracking-[-0.03em] m-0" style={{ color: "#FFFFFF" }}>
               Open a stall on your street.
             </h2>
             <div
               className="font-serif italic text-xl sm:text-2xl leading-[1.3] mt-3.5"
-              style={{ color: "rgba(251,246,236,0.9)" }}
+              style={{ color: "rgba(255,255,255,0.88)" }}
             >
               List in 3 minutes. Sell to neighbours by sundown.
             </div>
@@ -314,12 +314,12 @@ function OpenAStall({ navigate }) {
                   key={l}
                   className="flex flex-col gap-1 px-4 py-3 rounded-[10px]"
                   style={{
-                    border: "1.5px dashed rgba(251,246,236,0.5)",
-                    background: "rgba(31,20,16,0.12)",
+                    border: "1.5px dashed rgba(255,255,255,0.45)",
+                    background: "rgba(15,30,80,0.15)",
                     transform: `rotate(${i === 1 ? 1 : -1}deg)`,
                   }}
                 >
-                  <span className="font-serif text-[22px] text-canvas tracking-[-0.02em]">
+                  <span className="font-serif text-[22px] tracking-[-0.02em]" style={{ color: "#FFFFFF" }}>
                     {n}
                   </span>
                   <span className="font-mono text-[9px] text-saffron tracking-[0.16em]">
@@ -353,7 +353,7 @@ function OpenAStall({ navigate }) {
         <div className="absolute top-7 right-8 hidden sm:block">
           <MarketTicket
             label="EST. 2026"
-            value="Rotterdam"
+            value="Abuja"
             rotation={3}
             variant="cream"
             lg
@@ -367,23 +367,23 @@ function OpenAStall({ navigate }) {
 function PressStrip() {
   const press = [
     {
-      name: "NRC Handelsblad",
+      name: "Punch Newspapers",
       cls: "font-serif font-semibold text-[22px] tracking-[-0.02em]",
     },
     {
-      name: "Vers Beton",
+      name: "TechCabal",
       cls: "font-mono font-bold text-sm tracking-widest-2 uppercase",
     },
     {
-      name: "Rotterdam.info",
+      name: "Abuja.info",
       cls: "font-sans font-medium text-lg tracking-[-0.01em]",
     },
     {
-      name: "BNR Nieuwsradio",
+      name: "Channels TV",
       cls: "font-sans font-bold text-[17px] tracking-[0.04em] uppercase",
     },
     {
-      name: "Het Parool",
+      name: "The Cable",
       cls: "font-serif italic font-medium text-[22px] tracking-[-0.015em]",
     },
   ];
@@ -419,7 +419,7 @@ function FAQ() {
     },
     {
       q: "Are sellers verified?",
-      a: "Every seller goes through ID verification with iDIN. Look for the green checkmark on their storefront.",
+      a: "Every seller goes through ID verification with BVN. Look for the green checkmark on their storefront.",
     },
     {
       q: "Can I sell digital goods?",
@@ -494,13 +494,13 @@ export default function LandingScreen({ navigate }) {
       >
         {/* Left hero */}
         <div
-          className="grad grad-terracotta rounded-3xl px-7 sm:px-12 py-9 sm:py-11 flex flex-col justify-between relative md:[grid-row:1/span_2]"
-          style={{ color: "var(--canvas)", minHeight: 480 }}
+          className="grad grad-hero-blue rounded-3xl px-7 sm:px-12 py-9 sm:py-11 flex flex-col justify-between relative md:[grid-row:1/span_2]"
+          style={{ color: "#FFFFFF", minHeight: 480 }}
         >
           <div className="absolute top-7 right-8 z-[2] hidden sm:block">
             <MarketTicket
               label="EST. 2026"
-              value="Rotterdam"
+              value="Abuja"
               rotation={3}
               variant="cream"
               lg
@@ -510,8 +510,8 @@ export default function LandingScreen({ navigate }) {
             <div
               className="inline-flex items-center gap-3 mb-[22px] px-3.5 py-2 rounded-full"
               style={{
-                background: "rgba(251,246,236,0.14)",
-                backdropFilter: "blur(2px)",
+                background: "rgba(255,255,255,0.16)",
+                backdropFilter: "blur(4px)",
               }}
             >
               <HTMonogram size={32} inverse />
@@ -520,19 +520,19 @@ export default function LandingScreen({ navigate }) {
             <StatusPill>247 NEIGHBOURS · LIVE NOW</StatusPill>
             <h1
               className="h-hero mt-5 mb-3 max-w-[580px]"
-              style={{ color: "var(--canvas)" }}
+              style={{ color: "#FFFFFF" }}
             >
               Shop your street.
             </h1>
             <div
               className="font-serif italic text-[24px] sm:text-[32px] leading-[1.05] tracking-[-0.01em] mb-7"
-              style={{ color: "rgba(251,246,236,0.92)" }}
+              style={{ color: "rgba(255,255,255,0.88)" }}
             >
               Meet your neighbours.
             </div>
             <p
               className="text-base max-w-[460px] mb-7 leading-[1.5]"
-              style={{ color: "rgba(251,246,236,0.85)" }}
+              style={{ color: "rgba(255,255,255,0.75)" }}
             >
               A postcode-gated marketplace within a 2km walk. Furniture,
               electronics, vintage, the sourdough your neighbour just baked. One

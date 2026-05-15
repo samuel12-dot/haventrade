@@ -64,8 +64,8 @@ export default function CheckoutScreen({ navigate, cart }) {
   });
 
   const subtotal    = items.reduce((s, i) => s + i.price * i.qty, 0);
-  const deliveryFee = Object.keys(groups).filter((g) => !groups[g].every((i) => i.digital)).length * 2.5;
-  const platformFee = 0.99;
+  const deliveryFee = Object.keys(groups).filter((g) => !groups[g].every((i) => i.digital)).length * 1500;
+  const platformFee = 500;
   const total       = subtotal + deliveryFee + platformFee;
   const sellerCount = Object.keys(groups).length;
 
@@ -79,14 +79,14 @@ export default function CheckoutScreen({ navigate, cart }) {
       <div className="grid gap-7 lg:gap-9 lg:[grid-template-columns:1.7fr_1fr]">
         <div className="flex flex-col gap-4">
           {/* 1. Address */}
-          <Accordion num="1" title="Delivery address" subtitle="3061 GA · Kralingen" open={accordionOpen === 'address'} onToggle={() => toggle('address')}>
+          <Accordion num="1" title="Delivery address" subtitle="900237 · Maitama" open={accordionOpen === 'address'} onToggle={() => toggle('address')}>
             <div className="grid gap-[18px] md:[grid-template-columns:1fr_200px]">
               <div className="flex flex-col gap-3">
-                <FormField label="FULL NAME" value="Mara de Wit" />
-                <FormField label="STREET + NUMBER" value="Avenue Concordia 47-B" />
+                <FormField label="FULL NAME" value="Amara Okonkwo" />
+                <FormField label="STREET + NUMBER" value="Aminu Kano Crescent 47-B" />
                 <div className="grid grid-cols-2 gap-3">
-                  <FormField label="POSTCODE" value="3061 GA" mono />
-                  <FormField label="CITY" value="Rotterdam" />
+                  <FormField label="POSTCODE" value="900237" mono />
+                  <FormField label="CITY" value="Abuja" />
                 </div>
                 <FormField label="DELIVERY NOTES" value="Buzzer 47B, third floor — leave with downstairs neighbour if not home" textarea />
               </div>
@@ -132,7 +132,7 @@ export default function CheckoutScreen({ navigate, cart }) {
                         <div className="font-serif italic text-xs text-ink-subtle">{list.length} items · cargo bike from {s.neighbourhood}</div>
                       </div>
                     </div>
-                    <DeliverySlotPicker slots={[{label:'TONIGHT',value:'18:00–19:00',price:'€2.50'},{label:'TONIGHT',value:'19:00–20:00',price:'€2.50'},{label:'TOMORROW',value:'morning',price:'FREE'},{label:'PICKUP',value:'from seller',price:'FREE'}]} selected={slotPicks[sid] ?? 0} onSelect={(i) => setSlotPicks({ ...slotPicks, [sid]: i })} />
+                    <DeliverySlotPicker slots={[{label:'TONIGHT',value:'18:00–19:00',price:'₦1,500'},{label:'TONIGHT',value:'19:00–20:00',price:'₦1,500'},{label:'TOMORROW',value:'morning',price:'FREE'},{label:'PICKUP',value:'from seller',price:'FREE'}]} selected={slotPicks[sid] ?? 0} onSelect={(i) => setSlotPicks({ ...slotPicks, [sid]: i })} />
                   </div>
                 );
               })}
@@ -140,16 +140,16 @@ export default function CheckoutScreen({ navigate, cart }) {
           </Accordion>
 
           {/* 3. Payment */}
-          <Accordion num="3" title="Payment method" subtitle="iDEAL · Visa · Mastercard" open={accordionOpen === 'payment'} onToggle={() => toggle('payment')}>
+          <Accordion num="3" title="Payment method" subtitle="Bank Transfer · Visa · Mastercard" open={accordionOpen === 'payment'} onToggle={() => toggle('payment')}>
             <div className="flex gap-3 mb-4">
-              <PayOption k="ideal" current={payment} set={setPayment} title="iDEAL" sub="Direct from your Dutch bank account" />
+              <PayOption k="ideal" current={payment} set={setPayment} title="Bank Transfer" sub="Direct from your Nigerian bank account" />
               <PayOption k="card"  current={payment} set={setPayment} title="Card"  sub="Visa, Mastercard, Amex" />
             </div>
             {payment === 'ideal' ? (
               <div>
                 <div className="font-mono text-[10px] text-ink-muted mb-2">YOUR BANK</div>
                 <div className="grid grid-cols-4 gap-2.5">
-                  {['ING', 'Rabobank', 'ABN AMRO', 'Bunq'].map((b, i) => (
+                  {['GTBank', 'Access Bank', 'Zenith Bank', 'First Bank'].map((b, i) => (
                     <div key={b} className={`p-[14px] text-center cursor-pointer rounded-[10px] font-medium text-[13px] border-[1.5px] ${i === 0 ? 'bg-surface-2 border-ink' : 'bg-surface border-border'}`}>{b}</div>
                   ))}
                 </div>
@@ -178,17 +178,17 @@ export default function CheckoutScreen({ navigate, cart }) {
                     <div className="font-medium overflow-hidden text-ellipsis whitespace-nowrap">{it.title}</div>
                     <div className="font-serif italic text-ink-subtle text-[11px]">×{it.qty} · {SELLERS[it.sellerId].name}</div>
                   </div>
-                  <span className="font-mono text-[11px]">{it.price === 0 ? 'FREE' : `€${(it.price * it.qty).toFixed(2)}`}</span>
+                  <span className="font-mono text-[11px]">{it.price === 0 ? 'FREE' : `₦${(it.price * it.qty).toLocaleString()}`}</span>
                 </div>
               ))}
             </div>
-            <SumRow label="Items subtotal" val={`€${subtotal.toFixed(2)}`} />
-            <SumRow label={`Delivery (${sellerCount})`} val={`€${deliveryFee.toFixed(2)}`} />
-            <SumRow label="Platform fee" val={`€${platformFee.toFixed(2)}`} />
+            <SumRow label="Items subtotal" val={`₦${subtotal.toLocaleString()}`} />
+            <SumRow label={`Delivery (${sellerCount})`} val={`₦${deliveryFee.toLocaleString()}`} />
+            <SumRow label="Platform fee" val={`₦${platformFee.toLocaleString()}`} />
             <div className="border-t border-dashed border-border-strong my-3.5" />
             <div className="flex justify-between items-baseline mb-[18px]">
               <span className="text-[13px]">Total</span>
-              <span className="font-serif text-[30px] text-hearth">€{total.toFixed(2)}</span>
+              <span className="font-serif text-[30px] text-hearth">₦{total.toLocaleString()}</span>
             </div>
             <button className="btn btn--primary btn--lg w-full" onClick={() => navigate('confirmation')}>
               Place order <span className="arr">→</span>

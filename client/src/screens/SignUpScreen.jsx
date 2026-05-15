@@ -9,7 +9,7 @@ function AuthBackButton({ navigate }) {
     <button
       onClick={() => navigate('landing')}
       className="inline-flex items-center gap-2 rounded-full text-[13px] text-ink cursor-pointer border border-border transition-colors hover:border-border-strong"
-      style={{ padding: '8px 14px 8px 10px', background: 'rgba(251,246,236,0.92)', backdropFilter: 'blur(8px)' }}
+      style={{ padding: '8px 14px 8px 10px', background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(8px)' }}
       aria-label="Back to HavenTrade"
     >
       <span className="font-mono text-sm text-hearth">←</span>
@@ -22,7 +22,7 @@ function AuthFormField({ label, type = 'text', value, onChange, placeholder, mon
   return (
     <label className="block">
       <div className="font-mono text-[10px] text-ink-muted mb-2 tracking-[0.16em]">{label}</div>
-      <div className="flex items-center gap-2.5 bg-surface border-[1.5px] border-border rounded-xl transition-all" style={{ padding: '4px 6px 4px 12px' }}>
+      <div className="flex items-center gap-2.5 bg-canvas border-[1.5px] border-border rounded-xl transition-all" style={{ padding: '4px 6px 4px 12px' }}>
         {icon && <span className="text-hearth inline-flex flex-shrink-0">{icon}</span>}
         <input
           type={type}
@@ -55,7 +55,7 @@ function OrDivider() {
 
 function GoogleButton() {
   return (
-    <button type="button" className="btn btn--ghost w-full gap-3 font-medium bg-surface border-[1.5px] border-border-strong" style={{ padding: '14px 20px' }}>
+    <button type="button" className="btn btn--ghost w-full gap-3 font-medium bg-canvas border-[1.5px] border-border-strong" style={{ padding: '14px 20px' }}>
       <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" className="flex-shrink-0">
         <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.79 2.71v2.26h2.9c1.7-1.56 2.69-3.87 2.69-6.61z"/>
         <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.83.87-3.06.87a5.33 5.33 0 0 1-5-3.69H.96v2.32A9 9 0 0 0 9 18z"/>
@@ -73,7 +73,7 @@ export default function SignUpScreen({ navigate }) {
   const [name,     setName]     = useState('');
   const [email,    setEmail]    = useState('');
   const [password, setPassword] = useState('');
-  const [postcode, setPostcode] = useState('3061 GA');
+  const [postcode, setPostcode] = useState('900237');
   const [isSeller, setIsSeller] = useState(false);
   const [showPw,   setShowPw]   = useState(false);
   const [error,    setError]    = useState('');
@@ -94,48 +94,48 @@ export default function SignUpScreen({ navigate }) {
   }
 
   return (
-    <div className="min-h-screen bg-canvas relative md:grid md:grid-cols-2">
+    <div className="min-h-screen bg-white relative md:grid md:grid-cols-2">
       <div className="absolute top-4 left-4 md:top-5 md:left-8 z-10">
         <AuthBackButton navigate={navigate} />
       </div>
 
       {/* Left — gradient editorial (hidden on mobile) */}
       <div
-        className="hidden md:flex grad grad-terracotta flex-col justify-between relative overflow-hidden"
-        style={{ padding: '96px 56px 56px', color: 'var(--canvas)', minHeight: '100vh' }}
+        className="hidden md:flex grad grad-hero-blue flex-col justify-between relative overflow-hidden"
+        style={{ padding: '96px 56px 56px', color: '#FFFFFF', minHeight: '100vh' }}
       >
         <div className="absolute top-7 right-8">
-          <MarketTicket label="EST. 2026" value="Rotterdam" rotation={3} variant="cream" lg />
+          <MarketTicket label="EST. 2026" value="Abuja" rotation={3} variant="cream" lg />
         </div>
 
         <div className="relative z-[1] max-w-[500px]">
           <span className="font-mono text-[11px] text-saffron tracking-widest-2">NEW NEIGHBOUR</span>
-          <h1 className="font-serif text-[44px] leading-none tracking-[-0.03em] text-canvas mt-3.5 mb-3.5">
+          <h1 className="font-serif text-[44px] leading-none tracking-[-0.03em] mt-3.5 mb-3.5" style={{ color: '#FFFFFF' }}>
             Welcome to the neighbourhood.
           </h1>
-          <div className="font-serif italic text-xl leading-[1.4]" style={{ color: 'rgba(251,246,236,0.9)' }}>
+          <div className="font-serif italic text-xl leading-[1.4]" style={{ color: 'rgba(255,255,255,0.88)' }}>
             Three minutes to set up. Five seconds to your first listing.
           </div>
         </div>
 
         <div className="relative z-[1] flex flex-col gap-3.5 max-w-[380px]">
           <MarketTicket label="STEP 01" value="confirm your postcode" rotation={-3} lg />
-          <MarketTicket label="STEP 02" value="verify ID with iDIN" rotation={2} variant="saffron" lg />
+          <MarketTicket label="STEP 02" value="verify ID with BVN" rotation={2} variant="saffron" lg />
           <MarketTicket label="STEP 03" value="browse within 2km" rotation={-2} variant="moss" lg />
         </div>
 
         <div className="relative z-[1] mt-12 max-w-[460px]">
-          <div className="font-serif italic text-[17px] text-canvas leading-[1.4]">
+          <div className="font-serif italic text-[17px] leading-[1.4]" style={{ color: '#FFFFFF' }}>
             "Sold a chair in 40 minutes to someone two streets over."
           </div>
           <div className="font-mono text-[10px] text-saffron tracking-widest-2 mt-2.5">
-            — SANNE, KRALINGEN
+            — SANNE, MAITAMA
           </div>
         </div>
       </div>
 
       {/* Right — form */}
-      <div className="flex flex-col justify-center px-6 py-20 md:px-14 md:py-14 max-w-[560px] w-full mx-auto">
+      <div className="flex flex-col justify-center px-6 py-20 md:px-14 md:py-14 max-w-[560px] w-full mx-auto bg-white">
         <h2 className="font-serif text-[28px] tracking-[-0.025em] leading-[1.1] mb-1.5 flex items-baseline gap-2 flex-wrap">
           Create your <HTWordmark size={28} /> account
         </h2>
@@ -165,7 +165,7 @@ export default function SignUpScreen({ navigate }) {
           />
           <AuthFormField
             label="POSTCODE"
-            placeholder="3061 GA"
+            placeholder="900237"
             value={postcode}
             onChange={setPostcode}
             mono
@@ -173,7 +173,7 @@ export default function SignUpScreen({ navigate }) {
           />
 
           {/* Seller toggle */}
-          <label className={`flex items-start gap-3.5 px-4 py-4 rounded-xl border-[1.5px] cursor-pointer transition-colors ${isSeller ? 'bg-moss-soft border-moss' : 'bg-surface border-border'}`}>
+          <label className={`flex items-start gap-3.5 px-4 py-4 rounded-xl border-[1.5px] cursor-pointer transition-colors ${isSeller ? 'bg-moss-soft border-moss' : 'bg-canvas border-border'}`}>
             <input type="checkbox" checked={isSeller} onChange={(e) => setIsSeller(e.target.checked)} className="mt-0.5 flex-shrink-0" />
             <div>
               <div className="text-[14px] font-medium leading-snug">I want to sell on HavenTrade</div>

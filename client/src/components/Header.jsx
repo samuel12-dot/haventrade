@@ -136,7 +136,7 @@ function LoggedOutHeader({ navigate }) {
     <header className="app-header relative">
       <div className="app-header-inner">
         <button type="button" className="brand-mark transition-opacity hover:opacity-70" onClick={() => navigate('landing')} aria-label="HavenTrade — home" style={{ all: 'unset', display: 'inline-flex', alignItems: 'center', gap: 10, cursor: 'pointer', opacity: 1 }}>
-          <HTMonogram size={34} />
+          <HTMonogram size={34} glow />
           <HTWordmark size={22} />
         </button>
 
@@ -151,16 +151,16 @@ function LoggedOutHeader({ navigate }) {
 
           <a
             onClick={() => navigate('signin')}
-            className="font-semibold text-hearth cursor-pointer text-sm ml-2 transition-opacity hover:opacity-75"
-            style={{ padding: '8px 14px' }}
+            className="font-semibold cursor-pointer text-sm ml-2 transition-opacity hover:opacity-75"
+            style={{ padding: '8px 14px', color: '#F2B544' }}
           >
             Sign in
           </a>
 
           <button
             onClick={() => navigate('signup')}
-            className="inline-flex flex-col items-center gap-0.5 rounded-full bg-hearth text-canvas cursor-pointer ml-1 transition-all hover:bg-hearth-glow"
-            style={{ padding: '8px 18px 7px', boxShadow: 'var(--shadow-cta)' }}
+            className="inline-flex flex-col items-center gap-0.5 rounded-full cursor-pointer ml-1 transition-all"
+            style={{ padding: '8px 18px 7px', background: '#F2B544', color: '#FFFFFF', boxShadow: '0 4px 14px rgba(242,181,68,0.35)' }}
           >
             <span className="text-sm font-medium leading-[1.2]">Get started <span className="arr">→</span></span>
           </button>
@@ -192,13 +192,13 @@ function LoggedInHeader({ route, navigate, cartCount }) {
     <header className="app-header relative">
       <div className="app-header-inner">
         <button type="button" className="brand-mark transition-opacity hover:opacity-70" onClick={() => navigate('landing')} aria-label="HavenTrade — home" style={{ all: 'unset', display: 'inline-flex', alignItems: 'center', gap: 10, cursor: 'pointer', opacity: 1 }}>
-          <HTMonogram size={34} />
+          <HTMonogram size={34} glow />
           <HTWordmark size={22} />
         </button>
 
         <div className="postcode-pill hidden lg:inline-flex">
           <span className="pin"><PinIcon size={10} /></span>
-          <span>Browsing <span className="pc-code">3061 GA</span> · <span className="pc-area">Kralingen</span></span>
+          <span>Browsing <span className="pc-code">900237</span> · <span className="pc-area">Maitama</span></span>
           <span className="pc-radius">2 KM</span>
         </div>
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { PinIcon } from './Icons.jsx';
 
 export default function PostcodeInput({ onSubmit }) {
-  const [val, setVal] = useState('3061 GA');
+  const [val, setVal] = useState('900237');
   return (
     <div style={{
       background: 'var(--surface)',

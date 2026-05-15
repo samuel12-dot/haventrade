@@ -42,12 +42,12 @@ export async function createOrder(req, res, next) {
       });
     }
 
-    // Delivery fee: €2.50 per physical seller group
+    // Delivery fee: ₦1,500 per physical seller group
     const physicalSellerIds = [...new Set(
       lineItems.filter((i) => !i.digital).map((i) => i.seller.toString())
     )];
-    const deliveryFee = physicalSellerIds.length * 2.5;
-    const platformFee = 0.99;
+    const deliveryFee = physicalSellerIds.length * 1500;
+    const platformFee = 500;
     const total       = subtotal + deliveryFee + platformFee;
 
     const order = await Order.create({

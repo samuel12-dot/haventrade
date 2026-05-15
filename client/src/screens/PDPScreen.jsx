@@ -370,10 +370,10 @@ export default function PDPScreen({ navigate, listingId, addToCart }) {
               </div>
             ) : (
               <div className="flex items-baseline gap-3.5 flex-wrap">
-                <span className="price-lg">€{listing.price}</span>
+                <span className="price-lg">₦{listing.price.toLocaleString()}</span>
                 {!isDigital && (
                   <span className="font-serif italic text-sm text-ink-subtle">
-                    / free delivery over €30
+                    / free delivery over ₦15,000
                   </span>
                 )}
               </div>
@@ -499,7 +499,7 @@ export default function PDPScreen({ navigate, listingId, addToCart }) {
           <div className="grid gap-6 md:gap-10 max-w-[980px] md:[grid-template-columns:2fr_1fr]">
             <div className="font-serif text-[17px] leading-[1.55] text-ink-muted">
               <p className="mt-0">
-                Sourced from a 1960s living room in Kralingen, this teak
+                Sourced from a 1960s living room in Maitama, this teak
                 armchair has been carefully refinished — joints re-glued,
                 hand-rubbed Danish oil — and is ready for another fifty years of
                 slow Sunday afternoons.
@@ -557,8 +557,8 @@ export default function PDPScreen({ navigate, listingId, addToCart }) {
           <div className="max-w-[720px]">
             <DeliverySlotPicker
               slots={[
-                { label: "TONIGHT", value: "18:00–19:00", price: "€2.50" },
-                { label: "TONIGHT", value: "19:00–20:00", price: "€2.50" },
+                { label: "TONIGHT", value: "18:00–19:00", price: "₦1,500" },
+                { label: "TONIGHT", value: "19:00–20:00", price: "₦1,500" },
                 { label: "TOMORROW", value: "morning", price: "FREE" },
                 { label: "PICKUP", value: "from seller", price: "FREE" },
               ]}

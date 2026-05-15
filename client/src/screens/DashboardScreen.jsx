@@ -1,5 +1,5 @@
 const KPIS = [
-  { lbl: "TODAY'S REVENUE",  val: '€324.50', sub: '+12% vs yesterday',   color: 'text-moss' },
+  { lbl: "TODAY'S REVENUE",  val: '₦324,500', sub: '+12% vs yesterday',   color: 'text-moss' },
   { lbl: 'ORDERS TO FULFIL', val: '3',       sub: 'by 19:00 tonight',    color: 'text-hearth' },
   { lbl: 'ACTIVE LISTINGS',  val: '14',      sub: '2 low-stock',         color: 'text-ink' },
   { lbl: 'PROFILE VIEWS',    val: '147',     sub: 'this week',           color: 'text-ink' },
@@ -70,7 +70,7 @@ export default function DashboardScreen({ navigate }) {
           <div className="bg-ink text-canvas rounded-2xl p-[22px] relative overflow-hidden">
             <span className="font-mono text-[10px] text-saffron uppercase tracking-widest-2">NEXT PICKUP</span>
             <div className="font-serif text-[32px] text-canvas mt-2 tracking-[-0.02em]">18:30</div>
-            <div className="font-serif italic text-[14px] mt-1" style={{ color: 'rgba(251,246,236,0.75)' }}>Mara · Avenue Concordia 47-B</div>
+            <div className="font-serif italic text-[14px] mt-1" style={{ color: 'rgba(251,246,236,0.75)' }}>Amara · Aminu Kano Crescent 47-B</div>
             <button className="btn mt-3.5 bg-saffron text-ink">Mark as packed →</button>
           </div>
 

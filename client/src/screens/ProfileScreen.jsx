@@ -99,8 +99,8 @@ function ProfileTab({ user }) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5 max-w-[520px]">
       <Field label="DISPLAY NAME" value={name} onChange={setName} placeholder="Your name" />
-      <Field label="POSTCODE"     value={postcode} onChange={setPostcode} placeholder="3061 GA" mono />
-      <Field label="NEIGHBOURHOOD" value={neighbourhood} onChange={setNeighbourhood} placeholder="Kralingen" />
+      <Field label="POSTCODE"     value={postcode} onChange={setPostcode} placeholder="900237" mono />
+      <Field label="NEIGHBOURHOOD" value={neighbourhood} onChange={setNeighbourhood} placeholder="Maitama" />
 
       <div>
         <div className="font-mono text-[10px] text-ink-muted mb-3 tracking-[0.16em]">AVATAR COLOUR</div>

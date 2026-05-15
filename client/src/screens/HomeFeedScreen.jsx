@@ -48,10 +48,10 @@ function FilterRail() {
         </FilterGroup>
         <FilterGroup title="Price range">
           <div className="flex justify-between text-xs text-ink-muted mb-1.5">
-            <span className="font-mono">€0</span><span className="font-mono">€500+</span>
+            <span className="font-mono">₦0</span><span className="font-mono">₦500,000+</span>
           </div>
-          <input type="range" min="0" max="500" defaultValue="120" className="w-full accent-hearth" />
-          <div className="text-xs text-ink-subtle mt-1 font-serif italic">up to €120</div>
+          <input type="range" min="0" max="500000" defaultValue="120000" className="w-full accent-hearth" />
+          <div className="text-xs text-ink-subtle mt-1 font-serif italic">up to ₦120,000</div>
         </FilterGroup>
         <FilterGroup title="Distance">
           <input type="range" min="0.2" max="2" step="0.1" defaultValue="2" className="w-full accent-hearth" />
@@ -116,7 +116,7 @@ export default function HomeFeedScreen({ navigate, savedSet, toggleSave }) {
       <div className="flex items-start sm:items-end justify-between mb-5 flex-col sm:flex-row gap-3 sm:gap-0">
         <div>
           <h2 className="h-page mb-1">On your street right now</h2>
-          <span className="font-mono text-[11px] text-ink-subtle">SHOWING {filtered.length} LISTINGS · 3061 GA — KRALINGEN</span>
+          <span className="font-mono text-[11px] text-ink-subtle">SHOWING {filtered.length} LISTINGS · 900237 — MAITAMA</span>
         </div>
         <div className="flex gap-2.5">
           <button className="chip" onClick={() => setShowFilters(!showFilters)}>⚙ Filters {showFilters ? '—' : '+'}</button>

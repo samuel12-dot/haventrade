@@ -231,7 +231,7 @@ export default function EditorScreen({ navigate }) {
               rows={4}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Sourced from a 1960s living room in Kralingen, this teak armchair has been carefully refinished…"
+              placeholder="Sourced from a 1960s living room in Maitama, this teak armchair has been carefully refinished…"
             />
           </Section>
 
@@ -239,7 +239,7 @@ export default function EditorScreen({ navigate }) {
           <Section title="Price" sub="Or make it free." num="04">
             <div className="flex gap-3.5 items-end">
               <div className="flex-1">
-                <div className="font-mono text-[9px] text-ink-muted mb-1.5 uppercase tracking-[0.18em]">EUR</div>
+                <div className="font-mono text-[9px] text-ink-muted mb-1.5 uppercase tracking-[0.18em]">NGN</div>
                 <input
                   className="input font-serif text-[24px]"
                   type="number"
@@ -291,9 +291,9 @@ export default function EditorScreen({ navigate }) {
             <Section title="Delivery" sub="How does this reach the neighbour?" num="06">
               <div className="flex flex-col gap-2.5">
                 {[
-                  ['cargo',  'Cargo-bike courier',   'Platform handles it · €2.50'],
-                  ['self',   "I'll deliver myself",  'Within Kralingen, free over €30'],
-                  ['pickup', 'Pickup from workshop', 'Avenue Concordia 47-B'],
+                  ['cargo',  'Cargo-bike courier',   'Platform handles it · ₦1,500'],
+                  ['self',   "I'll deliver myself",  'Within Maitama, free over ₦15,000'],
+                  ['pickup', 'Pickup from workshop', 'Aminu Kano Crescent 47-B'],
                 ].map(([key, t, s]) => (
                   <label key={key} className="flex items-center gap-3.5 px-[18px] py-3.5 bg-surface border-[1.5px] border-border rounded-xl cursor-pointer">
                     <input type="checkbox" checked={delivery[key]} onChange={(e) => setDelivery((d) => ({ ...d, [key]: e.target.checked }))} />
@@ -319,7 +319,7 @@ export default function EditorScreen({ navigate }) {
             condition:      COND_LABELS[cond - 1],
             conditionLevel: cond,
             distance:       '0.4 km',
-            neighbourhood:  'Kralingen',
+            neighbourhood:  'Maitama',
             grad,
             eta:            'today',
             stock:          1,

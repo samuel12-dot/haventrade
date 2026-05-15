@@ -3,10 +3,10 @@ import { SELLERS } from '../data/index.js';
 import SellerAvatar from '../components/SellerAvatar.jsx';
 
 const ORDERS = [
-  { id: 'o1', num: 'HT-2026-0247', date: 'today, 14:32',    status: 'Active',    statusColor: 'saffron', total: 268.50, sellers: ['sanne', 'aisha', 'pixel'], items: ['Vintage teak armchair', 'Sourdough loaf ×2', 'Rotterdam print'] },
-  { id: 'o2', num: 'HT-2026-0231', date: 'two days ago',    status: 'Delivered', statusColor: 'moss',    total: 45.00,  sellers: ['pieter'],                   items: ['Sony WH-1000XM4 headphones'] },
-  { id: 'o3', num: 'HT-2026-0198', date: 'last week',       status: 'Delivered', statusColor: 'moss',    total: 65.00,  sellers: ['linda'],                    items: ['Mid-century pendant lamp'] },
-  { id: 'o4', num: 'HT-2026-0156', date: 'two weeks ago',   status: 'Delivered', statusColor: 'moss',    total: 20.00,  sellers: ['mark', 'aisha'],            items: ['Wooden train set', 'Monstera cutting'] },
+  { id: 'o1', num: 'HT-2026-0247', date: 'today, 14:32',    status: 'Active',    statusColor: 'saffron', total: 268500, sellers: ['sanne', 'aisha', 'pixel'], items: ['Vintage teak armchair', 'Sourdough loaf ×2', 'Abuja print'] },
+  { id: 'o2', num: 'HT-2026-0231', date: 'two days ago',    status: 'Delivered', statusColor: 'moss',    total: 45000,  sellers: ['pieter'],                   items: ['Sony WH-1000XM4 headphones'] },
+  { id: 'o3', num: 'HT-2026-0198', date: 'last week',       status: 'Delivered', statusColor: 'moss',    total: 65000,  sellers: ['linda'],                    items: ['Mid-century pendant lamp'] },
+  { id: 'o4', num: 'HT-2026-0156', date: 'two weeks ago',   status: 'Delivered', statusColor: 'moss',    total: 20000,  sellers: ['mark', 'aisha'],            items: ['Wooden train set', 'Monstera cutting'] },
   { id: 'o5', num: 'HT-2025-3041', date: 'last month',      status: 'Cancelled', statusColor: 'danger',  total: 0,      sellers: ['daan'],                     items: ['Patagonia raincoat (cancelled by seller)'] },
 ];
 
@@ -66,7 +66,7 @@ export default function OrderHistoryScreen({ navigate }) {
                 </span>
               </div>
               <div className="flex items-center gap-3.5">
-                <span className="font-serif text-[22px] text-hearth">€{o.total.toFixed(2)}</span>
+                <span className="font-serif text-[22px] text-hearth">₦{o.total.toLocaleString()}</span>
                 <span className="text-ink-subtle transition-transform duration-200" style={{ transform: expanded === o.id ? 'rotate(180deg)' : 'none' }}>⌄</span>
               </div>
             </button>
@@ -86,7 +86,7 @@ export default function OrderHistoryScreen({ navigate }) {
                       </div>
                     ))}
                     <div className="font-serif italic text-[13px] text-ink-subtle mt-3">
-                      Delivered to Avenue Concordia 47-B by Sanne herself, on the cargo bike.
+                      Delivered to Aminu Kano Crescent 47-B by Sanne herself, on the cargo bike.
                     </div>
                   </div>
                   <div className="flex flex-col gap-2">

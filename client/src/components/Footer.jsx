@@ -20,10 +20,10 @@ export default function Footer({ navigate }) {
               <HTWordmark size={26} inverse />
             </div>
             <div className="font-serif italic text-base leading-[1.5] max-w-[300px]" style={{ color: 'rgba(251,246,236,0.7)' }}>
-              A postcode-gated neighbourhood marketplace. Made in Rotterdam, for Rotterdammers.
+              A postcode-gated neighbourhood marketplace. Made in Abuja, for Abujans.
             </div>
             <div className="mt-4">
-              <MarketTicket label="EST. 2026" value="Rotterdam, NL" rotation={-2} variant="dark" />
+              <MarketTicket label="EST. 2026" value="Abuja, NG" rotation={-2} variant="dark" />
             </div>
           </div>
 
@@ -51,7 +51,7 @@ export default function Footer({ navigate }) {
 
         <div className="mt-9 pt-[18px] border-t flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2" style={{ borderColor: 'rgba(242,181,68,0.25)' }}>
           <span className="font-mono text-[10px]" style={{ color: 'rgba(251,246,236,0.5)' }}>
-            © HAVENTRADE B.V. — KVK 90458821 — KRALINGEN, ROTTERDAM
+            © HAVENTRADE LTD — RC 1890458 — MAITAMA, ABUJA
           </span>
           <span className="font-serif italic text-[13px]" style={{ color: 'rgba(251,246,236,0.6)' }}>
             "Be a good neighbour."
