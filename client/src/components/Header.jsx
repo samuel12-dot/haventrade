@@ -3,6 +3,80 @@ import { HTMonogram, HTWordmark } from './Brand.jsx';
 import { PinIcon } from './Icons.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 
+function SearchPill({ navigate }) {
+  const [open,  setOpen]  = useState(false);
+  const [query, setQuery] = useState('');
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (open) inputRef.current?.focus();
+  }, [open]);
+
+  function submit(e) {
+    e?.preventDefault();
+    if (query.trim()) {
+      navigate('search', { q: query.trim() });
+      setOpen(false);
+      setQuery('');
+    }
+  }
+
+  function close() { setOpen(false); setQuery(''); }
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') close(); };
+    if (open) document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  if (open) {
+    return (
+      <form
+        onSubmit={submit}
+        className="postcode-pill hidden lg:inline-flex postcode-pill--open"
+      >
+        <span className="pin" style={{ background: 'rgba(255,255,255,0.14)' }}>
+          <svg width="10" height="10" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="2.2" />
+            <path d="M13 13L17 17" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+          </svg>
+        </span>
+        <input
+          ref={inputRef}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search listings…"
+          className="bg-transparent border-none outline-none text-[12px] w-40"
+          style={{ color: 'rgba(251,246,236,0.92)', fontFamily: 'var(--sans)' }}
+        />
+        <button
+          type="button"
+          onClick={close}
+          className="pc-radius"
+          style={{ cursor: 'pointer', letterSpacing: '0.08em' }}
+          aria-label="Close search"
+        >
+          ESC
+        </button>
+      </form>
+    );
+  }
+
+  return (
+    <div
+      className="postcode-pill hidden lg:inline-flex"
+      onClick={() => setOpen(true)}
+      role="button"
+      aria-label="Search listings"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && setOpen(true)}
+    >
+      <span className="pin"><PinIcon size={10} /></span>
+      <span>Browsing <span className="pc-code">900237</span> · <span className="pc-area">Maitama</span></span>
+      <span className="pc-radius">2 KM</span>
+    </div>
+  );
+}
 
 function MobileMenu({ items, onClose }) {
   return (
@@ -198,11 +272,7 @@ function LoggedInHeader({ route, navigate, cartCount }) {
           <HTWordmark size={22} dark />
         </button>
 
-        <div className="postcode-pill hidden lg:inline-flex">
-          <span className="pin"><PinIcon size={10} /></span>
-          <span>Browsing <span className="pc-code">900237</span> · <span className="pc-area">Maitama</span></span>
-          <span className="pc-radius">2 KM</span>
-        </div>
+        <SearchPill navigate={navigate} />
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1 ml-auto">
@@ -220,6 +290,17 @@ function LoggedInHeader({ route, navigate, cartCount }) {
 
         {/* Mobile actions — grouped so only one ml-auto needed */}
         <div className="md:hidden ml-auto flex items-center gap-1">
+          <button
+            className="p-2 transition-colors"
+            style={{ color: 'rgba(251,246,236,0.6)' }}
+            onClick={() => navigate('search', {})}
+            aria-label="Search"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.6" />
+              <path d="M13 13L17 17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+          </button>
           <button
             className="relative p-2 transition-colors"
             style={{ color: 'rgba(251,246,236,0.6)' }}

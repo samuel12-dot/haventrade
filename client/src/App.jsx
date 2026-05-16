@@ -19,6 +19,7 @@ import DashboardScreen    from './screens/DashboardScreen.jsx';
 import EditorScreen       from './screens/EditorScreen.jsx';
 import SignInScreen       from './screens/SignInScreen.jsx';
 import SignUpScreen       from './screens/SignUpScreen.jsx';
+import SearchScreen       from './screens/SearchScreen.jsx';
 
 function parseHash() {
   const hash  = window.location.hash.slice(1); // strip leading '#'
@@ -98,6 +99,7 @@ export default function App() {
         {route === 'orders'       && <OrderHistoryScreen navigate={navigate} />}
         {route === 'dashboard'    && <DashboardScreen    navigate={navigate} />}
         {route === 'editor'       && <EditorScreen       navigate={navigate} />}
+        {route === 'search'       && <SearchScreen       navigate={navigate} query={params.q} savedSet={savedSet} toggleSave={toggleSave} />}
         {route === 'signin'       && <SignInScreen       navigate={navigate} />}
         {route === 'signup'       && <SignUpScreen       navigate={navigate} />}
       </main>

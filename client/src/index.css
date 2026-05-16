@@ -337,6 +337,13 @@ input, textarea, select { font-family: inherit; }
 .grad-moss       { --g1: #2F5D3F; --g2: #6B9F75; }
 .grad-peach      { --g1: #F8C4B0; --g2: #F2B544; }
 .grad-cream      { --g1: #F4EAD3; --g2: #F8C4B0; }
+.grad-ivory    { background: linear-gradient(135deg, #f6efe7 0%, #ead8c8 45%, #d9c2ae 100%); }
+.grad-sunset   { background: linear-gradient(135deg, #f7c7a4 0%, #e38b5b 45%, #c65d3a 100%); }
+.grad-graphite { background: linear-gradient(135deg, #5b5e63 0%, #3f4348 45%, #23272b 100%); }
+.grad-ocean    { background: linear-gradient(135deg, #b8dff2 0%, #5fa8d3 45%, #2f6f91 100%); }
+.grad-amber    { background: linear-gradient(135deg, #ffd7a1 0%, #f2a74b 45%, #c9781d 100%); }
+.grad-camel    { background: linear-gradient(135deg, #f3d2a2 0%, #d9a066 45%, #a86b3d 100%); }
+.grad-indigo   { background: linear-gradient(135deg, #8aa4ff 0%, #4f6edb 45%, #1f2f6f 100%); }
 .grad-vintage    { --g1: #8C5A3A; --g2: #D89B2C; }
 .grad-cool       { --g1: #5C4A3A; --g2: #C44A2C; }
 .grad-plum       { --g1: #8C3A4A; --g2: #E27A3F; }
@@ -379,6 +386,7 @@ input, textarea, select { font-family: inherit; }
   align-items: center;
   gap: 6px;
   background: rgba(10,15,28,0.88);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   color: var(--canvas);
   font-family: var(--mono);
@@ -462,6 +470,7 @@ input, textarea, select { font-family: inherit; }
   position: fixed;
   top: 0; left: 0; right: 0; z-index: 50;
   background: rgba(10,15,28,0.97);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(242,181,68,0.15);
   animation: header-enter 420ms cubic-bezier(0.4, 0, 0.2, 1) both;
@@ -539,6 +548,7 @@ input, textarea, select { font-family: inherit; }
   transition: border-color 150ms ease;
 }
 .postcode-pill:hover { border-color: var(--ink-muted); }
+.postcode-pill--open { border-color: rgba(255,255,255,0.28) !important; }
 .postcode-pill .pin {
   width: 18px; height: 18px;
   background: var(--hearth);
