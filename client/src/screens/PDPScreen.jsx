@@ -10,7 +10,7 @@ import { HeartIcon, StarIcon } from "../components/Icons.jsx";
 
 const isMongoId = (id) => /^[a-f\d]{24}$/i.test(String(id));
 
-export default function PDPScreen({ navigate, listingId, addToCart }) {
+export default function PDPScreen({ navigate, listingId, addToCart, savedSet, toggleSave }) {
   const staticListing = isMongoId(listingId)
     ? null
     : LISTINGS.find((l) => l.id === listingId) || LISTINGS[0];
@@ -449,15 +449,17 @@ export default function PDPScreen({ navigate, listingId, addToCart }) {
             )}
             <button
               className="btn btn--primary btn--lg flex-1"
-              onClick={() => {
-                addToCart(listing.id, qty);
-                navigate("cart");
-              }}
+              onClick={() => addToCart(listing.id, qty)}
             >
               Add to cart <span className="arr">→</span>
             </button>
-            <button className="btn btn--ghost btn--lg" aria-label="Save">
-              <HeartIcon /> Save
+            <button
+              className={`btn btn--lg ${savedSet?.has(listing.id) ? 'btn--primary' : 'btn--ghost'}`}
+              aria-label={savedSet?.has(listing.id) ? 'Remove from wishlist' : 'Save to wishlist'}
+              onClick={() => toggleSave?.(listing.id)}
+            >
+              <HeartIcon filled={savedSet?.has(listing.id)} />
+              {savedSet?.has(listing.id) ? 'Saved' : 'Save'}
             </button>
           </div>
 

@@ -51,7 +51,7 @@ function PayOption({ k, current, set, title, sub }) {
   );
 }
 
-export default function CheckoutScreen({ navigate, cart }) {
+export default function CheckoutScreen({ navigate, cart, onPlaceOrder }) {
   const [accordionOpen, setAccordionOpen] = useState('address');
   const [slotPicks,     setSlotPicks]     = useState({});
   const [payment,       setPayment]       = useState('ideal');
@@ -190,7 +190,7 @@ export default function CheckoutScreen({ navigate, cart }) {
               <span className="text-[13px]">Total</span>
               <span className="font-serif text-[30px] text-hearth">₦{total.toLocaleString()}</span>
             </div>
-            <button className="btn btn--primary btn--lg w-full" onClick={() => navigate('confirmation')}>
+            <button className="btn btn--primary btn--lg w-full" onClick={onPlaceOrder}>
               Place order <span className="arr">→</span>
             </button>
             <div className="font-serif italic text-[11px] text-ink-subtle text-center mt-3 leading-[1.4]">

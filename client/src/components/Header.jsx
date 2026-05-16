@@ -98,7 +98,7 @@ function MobileMenu({ items, onClose }) {
 }
 
 function AccountDropdown({ navigate }) {
-  const { user, logout } = useAuth();
+  const { user, logout, isAuthenticated } = useAuth();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -110,14 +110,26 @@ function AccountDropdown({ navigate }) {
     return () => document.removeEventListener('mousedown', onClickOutside);
   }, []);
 
+  if (!isAuthenticated) {
+    return (
+      <a
+        onClick={() => navigate('signin')}
+        className="font-semibold cursor-pointer text-sm ml-2 transition-opacity hover:opacity-75"
+        style={{ padding: '8px 14px', color: '#F2B544' }}
+      >
+        Sign in
+      </a>
+    );
+  }
+
   async function handleLogout() {
     setOpen(false);
     await logout();
     navigate('landing');
   }
 
-  const initial = user?.name?.[0] || '?';
-  const grad    = user?.grad || 'grad-cool';
+  const initial   = user?.name?.[0] || '?';
+  const grad      = user?.grad || 'grad-cool';
   const firstName = user?.name?.split(' ')[0] || 'Account';
 
   return (
@@ -141,6 +153,7 @@ function AccountDropdown({ navigate }) {
         <div className="absolute top-full right-0 mt-2 bg-surface border border-border rounded-2xl shadow-lift py-2 z-50" style={{ minWidth: 176 }}>
           {[
             { label: 'My profile', route: 'profile' },
+            { label: 'Wishlist',   route: 'wishlist' },
             { label: 'Orders',     route: 'orders' },
             { label: 'Sell',       route: 'dashboard' },
           ].map(({ label, route }) => (
@@ -250,18 +263,19 @@ function LoggedOutHeader({ navigate }) {
   );
 }
 
-function LoggedInHeader({ route, navigate, cartCount }) {
-  const { logout } = useAuth();
+function LoggedInHeader({ route, navigate, cartCount, savedCount }) {
+  const { logout, isAuthenticated } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const mobileItems = [
     { label: 'Browse',    action: () => navigate('home'),      active: route === 'home' },
-    { label: 'Sellers',   action: () => navigate('sellers'), active: route === 'sellers' || route === 'storefront' },
-    { label: 'Orders',    action: () => navigate('orders'),     active: route === 'orders' },
-    { label: 'Sell',      action: () => navigate('dashboard'),  active: route === 'dashboard' || route === 'editor' },
-    { label: 'Cart',      action: () => navigate('cart'),       active: route === 'cart', badge: cartCount },
-    { label: 'Profile',   action: () => navigate('profile'),    active: route === 'profile' },
-    { label: 'Sign out',  action: async () => { await logout(); navigate('landing'); } },
+    { label: 'Sellers',   action: () => navigate('sellers'),   active: route === 'sellers' || route === 'storefront' },
+    { label: 'Wishlist',  action: () => navigate('wishlist'),  active: route === 'wishlist' },
+    { label: 'Orders',    action: () => navigate('orders'),    active: route === 'orders' },
+    { label: 'Sell',      action: () => navigate('dashboard'), active: route === 'dashboard' || route === 'editor' },
+    { label: 'Cart',      action: () => navigate('cart'),      active: route === 'cart', badge: cartCount },
+    { label: 'Profile',   action: () => navigate('profile'),   active: route === 'profile' },
+    ...(isAuthenticated ? [{ label: 'Sign out', action: async () => { await logout(); navigate('landing'); } }] : [{ label: 'Sign in', action: () => navigate('signin') }]),
   ];
 
   return (
@@ -282,6 +296,12 @@ function LoggedInHeader({ route, navigate, cartCount }) {
           <a className={`nav-link${route === 'dashboard' || route === 'editor' ? ' active' : ''}`} onClick={() => navigate('dashboard')}>
             Sell
           </a>
+          <a className={`nav-link${route === 'wishlist' ? ' active' : ''}`} onClick={() => navigate('wishlist')} style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill={route === 'wishlist' ? 'currentColor' : 'none'} aria-hidden="true">
+              <path d="M12 21C12 21 3 13.5 3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.5-9 13-9 13z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Wishlist {savedCount > 0 && <span className="badge">{savedCount}</span>}
+          </a>
           <a className={`nav-link${route === 'cart' ? ' active' : ''}`} onClick={() => navigate('cart')}>
             Cart {cartCount > 0 && <span className="badge">{cartCount}</span>}
           </a>
@@ -300,6 +320,21 @@ function LoggedInHeader({ route, navigate, cartCount }) {
               <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.6" />
               <path d="M13 13L17 17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
+          </button>
+          <button
+            className="relative p-2 transition-colors"
+            style={{ color: 'rgba(251,246,236,0.6)' }}
+            onClick={() => navigate('wishlist')}
+            aria-label="Wishlist"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill={route === 'wishlist' ? 'currentColor' : 'none'} aria-hidden="true">
+              <path d="M12 21C12 21 3 13.5 3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.5-9 13-9 13z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {savedCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-hearth text-canvas font-mono text-[8px] font-bold rounded-full flex items-center justify-center">
+                {savedCount}
+              </span>
+            )}
           </button>
           <button
             className="relative p-2 transition-colors"
@@ -327,7 +362,7 @@ function LoggedInHeader({ route, navigate, cartCount }) {
   );
 }
 
-export default function Header({ route, navigate, cartCount, isLanding }) {
+export default function Header({ route, navigate, cartCount, savedCount, isLanding }) {
   if (isLanding) return <LoggedOutHeader navigate={navigate} />;
-  return <LoggedInHeader route={route} navigate={navigate} cartCount={cartCount} />;
+  return <LoggedInHeader route={route} navigate={navigate} cartCount={cartCount} savedCount={savedCount} />;
 }

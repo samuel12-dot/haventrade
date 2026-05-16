@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { DEFAULT_CART } from './data/index.js';
+import { useState, useEffect, useRef } from 'react';
+import { LISTINGS } from './data/index.js';
 import { useAuth } from './context/AuthContext.jsx';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
@@ -20,6 +20,7 @@ import EditorScreen       from './screens/EditorScreen.jsx';
 import SignInScreen       from './screens/SignInScreen.jsx';
 import SignUpScreen       from './screens/SignUpScreen.jsx';
 import SearchScreen       from './screens/SearchScreen.jsx';
+import WishlistScreen     from './screens/WishlistScreen.jsx';
 
 function parseHash() {
   const hash  = window.location.hash.slice(1); // strip leading '#'
@@ -35,14 +36,59 @@ export default function App() {
   const initial = parseHash();
   const [route,    setRoute]    = useState(initial.route);
   const [params,   setParams]   = useState(initial.params);
-  const [cart,     setCart]     = useState(DEFAULT_CART);
-  const [savedSet, setSavedSet] = useState(new Set(['l01', 'l05']));
+  const [cart,     setCart]     = useState(() => {
+    try {
+      const stored = localStorage.getItem('ht_cart');
+      const parsed = stored ? JSON.parse(stored) : [];
+      return parsed.filter((c) => LISTINGS.some((l) => l.id === c.lid));
+    } catch {
+      return [];
+    }
+  });
+  const [savedSet, setSavedSet] = useState(() => {
+    try {
+      const stored = localStorage.getItem('ht_saved');
+      return stored ? new Set(JSON.parse(stored)) : new Set();
+    } catch {
+      return new Set();
+    }
+  });
+  const [orders,   setOrders]   = useState(() => {
+    try {
+      const stored = localStorage.getItem('ht_orders');
+      return stored ? JSON.parse(stored) : [];
+    } catch { return []; }
+  });
+  const [navStack, setNavStack] = useState([]);
+  const [toast,    setToast]    = useState(null);
+
+  const prevAuthenticated = useRef(isAuthenticated);
+  useEffect(() => {
+    if (prevAuthenticated.current && !isAuthenticated) {
+      setCart([]);
+      setOrders([]);
+      setSavedSet(new Set());
+    }
+    prevAuthenticated.current = isAuthenticated;
+  }, [isAuthenticated]);
 
   const navigate = (r, p = {}) => {
+    setNavStack(prev => [...prev, { route, params }]);
     const query = new URLSearchParams(p).toString();
     window.location.hash = query ? `${r}?${query}` : r;
     setRoute(r);
     setParams(p);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const goBack = () => {
+    if (navStack.length === 0) return;
+    const prev = navStack[navStack.length - 1];
+    setNavStack(s => s.slice(0, -1));
+    const query = new URLSearchParams(prev.params).toString();
+    window.location.hash = query ? `${prev.route}?${query}` : prev.route;
+    setRoute(prev.route);
+    setParams(prev.params);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
@@ -64,7 +110,15 @@ export default function App() {
       if (ex) return prev.map((c) => (c.lid === lid ? { ...c, qty: c.qty + qty } : c));
       return [...prev, { lid, qty }];
     });
+    const listing = LISTINGS.find((l) => l.id === lid);
+    setToast({ title: listing?.title || 'Item', key: Date.now() });
   };
+
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 3500);
+    return () => clearTimeout(t);
+  }, [toast?.key]);
 
   const toggleSave = (id) => {
     setSavedSet((prev) => {
@@ -72,6 +126,39 @@ export default function App() {
       if (next.has(id)) next.delete(id); else next.add(id);
       return next;
     });
+  };
+
+  useEffect(() => {
+    localStorage.setItem('ht_saved', JSON.stringify([...savedSet]));
+  }, [savedSet]);
+
+  useEffect(() => {
+    localStorage.setItem('ht_cart', JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem('ht_orders', JSON.stringify(orders));
+  }, [orders]);
+
+  const placeOrder = () => {
+    const year  = new Date().getFullYear();
+    const num   = `HT-${year}-${String(orders.length + 1).padStart(4, '0')}`;
+    const items = cart.map((c) => ({ ...LISTINGS.find((l) => l.id === c.lid), qty: c.qty })).filter(Boolean);
+    const subtotal    = items.reduce((s, i) => s + i.price * i.qty, 0);
+    const sellerIds   = [...new Set(items.map((i) => i.sellerId))];
+    const deliveryFee = sellerIds.filter((sid) => !items.filter((i) => i.sellerId === sid).every((i) => i.digital)).length * 1500;
+    const total       = subtotal + deliveryFee + 500;
+    const order = {
+      id:       String(Date.now()),
+      num,
+      placedAt: new Date().toISOString(),
+      status:   'Active',
+      total,
+      cart:     [...cart],
+    };
+    setOrders((prev) => [order, ...prev]);
+    setCart([]);
+    navigate('confirmation');
   };
 
   const cartCount    = cart.reduce((s, c) => s + c.qty, 0);
@@ -82,21 +169,48 @@ export default function App() {
   return (
     <div data-screen={route}>
       {!isAuthScreen && (
-        <Header route={route} navigate={navigate} cartCount={cartCount} isLanding={isLanding} />
+        <Header route={route} navigate={navigate} cartCount={cartCount} savedCount={savedSet.size} isLanding={isLanding} />
       )}
 
-      <main style={{ flex: 1, paddingTop: isAuthScreen ? 0 : 66 }}>
-        {route === 'landing'      && <LandingScreen      navigate={navigate} />}
+      <main style={{ flex: 1, paddingTop: isAuthScreen ? 0 : 66, position: 'relative' }}>
+        {!isAuthScreen && route !== 'landing' && navStack.length > 0 && (
+          <button
+            onClick={goBack}
+            aria-label="Go back"
+            style={{
+              position: 'fixed', top: 82, left: 16, zIndex: 49,
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              padding: '7px',
+              borderRadius: 999,
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
+              color: 'var(--ink-muted)',
+              fontSize: 13,
+              fontFamily: 'var(--sans)',
+              cursor: 'pointer',
+              boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
+              transition: 'border-color 150ms, color 150ms',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--ink-muted)'; e.currentTarget.style.color = 'var(--ink)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--ink-muted)'; }}
+          >
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M13 4L7 10L13 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        )}
+        {route === 'landing'      && <LandingScreen      navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
+        {route === 'wishlist'     && <WishlistScreen     navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
         {route === 'design'       && <DesignSystemScreen navigate={navigate} />}
         {route === 'home'         && <HomeFeedScreen     navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
-        {route === 'pdp'          && <PDPScreen          navigate={navigate} listingId={params.id} addToCart={addToCart} />}
+        {route === 'pdp'          && <PDPScreen          navigate={navigate} listingId={params.id} addToCart={addToCart} savedSet={savedSet} toggleSave={toggleSave} />}
         {route === 'cart'         && <CartScreen         navigate={navigate} cart={cart} setCart={setCart} />}
-        {route === 'checkout'     && <CheckoutScreen     navigate={navigate} cart={cart} setCart={setCart} />}
-        {route === 'confirmation' && <ConfirmationScreen navigate={navigate} cart={cart} />}
+        {route === 'checkout'     && <CheckoutScreen     navigate={navigate} cart={cart} setCart={setCart} onPlaceOrder={placeOrder} />}
+        {route === 'confirmation' && <ConfirmationScreen navigate={navigate} orders={orders} />}
         {route === 'sellers'      && <SellersScreen      navigate={navigate} />}
         {route === 'storefront'   && <StorefrontScreen   navigate={navigate} sellerId={params.id || 'sanne'} savedSet={savedSet} toggleSave={toggleSave} />}
-        {route === 'profile'      && <ProfileScreen      navigate={navigate} />}
-        {route === 'orders'       && <OrderHistoryScreen navigate={navigate} />}
+        {route === 'profile'      && <ProfileScreen      navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
+        {route === 'orders'       && <OrderHistoryScreen navigate={navigate} orders={orders} />}
         {route === 'dashboard'    && <DashboardScreen    navigate={navigate} />}
         {route === 'editor'       && <EditorScreen       navigate={navigate} />}
         {route === 'search'       && <SearchScreen       navigate={navigate} query={params.q} savedSet={savedSet} toggleSave={toggleSave} />}
@@ -105,6 +219,37 @@ export default function App() {
       </main>
 
       {!isAuthScreen && <Footer navigate={navigate} />}
+
+      {toast && (
+        <div
+          key={toast.key}
+          style={{
+            position: 'fixed', bottom: 28, left: '50%', transform: 'translateX(-50%)',
+            zIndex: 200, display: 'inline-flex', alignItems: 'center', gap: 12,
+            padding: '12px 16px 12px 14px',
+            background: 'var(--ink)', color: 'var(--canvas)',
+            borderRadius: 999,
+            boxShadow: '0 8px 28px rgba(0,0,0,0.18)',
+            fontFamily: 'var(--sans)', fontSize: 14,
+            whiteSpace: 'nowrap',
+            animation: 'toast-in 260ms cubic-bezier(0.34,1.56,0.64,1) both',
+          }}
+        >
+          <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 22, height: 22, borderRadius: '50%', background: 'var(--moss)', flexShrink: 0 }}>
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M2 6.5l3 3 5-6" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+          <span style={{ color: 'rgba(251,246,236,0.6)', marginRight: 2 }}>Added to cart —</span>
+          <span style={{ fontWeight: 500 }}>{toast.title}</span>
+          <button
+            onClick={() => { setToast(null); navigate('cart'); }}
+            style={{ marginLeft: 8, fontFamily: 'var(--mono)', fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: 'var(--saffron)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+          >
+            VIEW CART →
+          </button>
+        </div>
+      )}
     </div>
   );
 }

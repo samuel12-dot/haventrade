@@ -1,4 +1,4 @@
-import { LISTINGS, SELLERS, DEFAULT_CART } from '../data/index.js';
+import { LISTINGS, SELLERS } from '../data/index.js';
 import MarketTicket from '../components/MarketTicket.jsx';
 import SellerAvatar from '../components/SellerAvatar.jsx';
 import { CheckIcon } from '../components/Icons.jsx';
@@ -92,8 +92,9 @@ function SubDeliveryTimeline({ sellerId, items, index }) {
   );
 }
 
-export default function ConfirmationScreen({ navigate, cart }) {
-  const items  = (cart.length ? cart : DEFAULT_CART).map((c) => ({ ...LISTINGS.find((l) => l.id === c.lid), qty: c.qty }));
+export default function ConfirmationScreen({ navigate, orders = [] }) {
+  const order  = orders[0];
+  const items  = order ? order.cart.map((c) => ({ ...LISTINGS.find((l) => l.id === c.lid), qty: c.qty })).filter(Boolean) : [];
   const groups = {};
   items.forEach((it) => {
     if (!groups[it.sellerId]) groups[it.sellerId] = [];
@@ -104,9 +105,11 @@ export default function ConfirmationScreen({ navigate, cart }) {
     <div className="page">
       {/* Hero */}
       <div className="bg-moss-soft rounded-3xl p-10 mb-8 relative overflow-hidden">
-        <div className="absolute top-6 right-8">
-          <MarketTicket label="ORDER" value="N° HT-2026-0247" rotation={2} variant="moss" lg />
-        </div>
+        {order && (
+          <div className="absolute top-6 right-8">
+            <MarketTicket label="ORDER" value={`N° ${order.num}`} rotation={2} variant="moss" lg />
+          </div>
+        )}
         <div className="w-[72px] h-[72px] rounded-full bg-moss text-canvas flex items-center justify-center mb-[18px]">
           <CheckIcon size={28} />
         </div>

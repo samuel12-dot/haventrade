@@ -14,7 +14,7 @@ function SumRow({ label, bold, val }) {
   );
 }
 
-function OrderSummary({ subtotal, deliveryFee, platformFee, total, cta, onCta, sellerCount, itemCount }) {
+function OrderSummary({ subtotal, deliveryFee, platformFee, total, cta, onCta, sellerCount, itemCount, ctaDisabled }) {
   return (
     <aside className="lg:sticky lg:top-[88px] lg:self-start">
       <div className="bg-surface border border-border rounded-[20px] p-7 shadow-lift">
@@ -27,7 +27,7 @@ function OrderSummary({ subtotal, deliveryFee, platformFee, total, cta, onCta, s
           <span className="text-[15px] font-bold text-ink">Total</span>
           <span className="font-serif text-[36px] font-bold tracking-[-0.02em]" style={{ color: '#F2B544' }}>₦{total.toLocaleString()}</span>
         </div>
-        <button className="btn btn--dark btn--lg w-full" onClick={onCta}>
+        <button className="btn btn--dark btn--lg w-full disabled:opacity-40 disabled:cursor-not-allowed" onClick={onCta} disabled={ctaDisabled}>
           {cta} <span className="arr">→</span>
         </button>
         <div className="font-serif italic text-xs text-ink-subtle text-center mt-3">
@@ -88,12 +88,12 @@ function CartLineItem({ item, setQty, navigate }) {
           <button onClick={() => setQty(item.id, item.qty + 1)}>+</button>
         </div>
       )}
-      <div className="min-w-[80px] text-right">
+      <div className="min-w-[80px] text-right pl-4">
         {isFree
           ? <span className="font-serif text-xl text-moss italic">Free</span>
           : <span className="font-serif font-bold text-[24px] text-ink tracking-[-0.02em]">₦{(item.price * item.qty).toLocaleString()}</span>
         }
-        <button onClick={() => setQty(item.id, 0)} className="inline-flex items-center gap-1 mt-1.5 ml-auto text-[11px] text-ink-muted hover:text-danger transition-colors">
+        <button onClick={() => setQty(item.id, 0)} className="inline-flex items-center gap-1 mt-1.5 ml-4 text-[11px] text-ink-muted hover:text-danger transition-colors">
           <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 2.5h8M4 2.5V1.5h3v1M2.5 2.5l.5 7h5l.5-7" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/></svg>
           Remove
         </button>
@@ -130,7 +130,7 @@ function SellerCartGroup({ sellerId, items, setQty, navigate }) {
 }
 
 export default function CartScreen({ navigate, cart, setCart }) {
-  const items  = cart.map((c) => ({ ...LISTINGS.find((l) => l.id === c.lid), qty: c.qty }));
+  const items  = cart.map((c) => ({ ...LISTINGS.find((l) => l.id === c.lid), qty: c.qty })).filter((i) => i.id);
   const groups = {};
   items.forEach((it) => {
     if (!groups[it.sellerId]) groups[it.sellerId] = [];
@@ -139,7 +139,7 @@ export default function CartScreen({ navigate, cart, setCart }) {
 
   const subtotal    = items.reduce((s, i) => s + i.price * i.qty, 0);
   const deliveryFee = Object.keys(groups).filter((g) => !groups[g].every((i) => i.digital)).length * 1500;
-  const platformFee = 500;
+  const platformFee = items.length > 0 ? 500 : 0;
   const total       = subtotal + deliveryFee + platformFee;
   const sellerCount = Object.keys(groups).length;
 
@@ -152,7 +152,17 @@ export default function CartScreen({ navigate, cart, setCart }) {
     <div className="page">
       <div className="grid gap-7 lg:gap-9 lg:[grid-template-columns:1.7fr_1fr]">
         <div>
-          <h1 className="h-page mb-1.5">Your cart</h1>
+          <div className="flex items-baseline justify-between mb-1.5">
+            <h1 className="h-page">Your cart</h1>
+            {items.length > 0 && (
+              <button
+                onClick={() => setCart([])}
+                className="font-mono text-[10px] tracking-[0.14em] text-ink-muted hover:text-danger transition-colors"
+              >
+                CLEAR ALL
+              </button>
+            )}
+          </div>
           <div className="font-serif italic text-lg text-ink-muted mb-7">
             {items.length} items from {sellerCount} {sellerCount === 1 ? 'neighbour' : 'neighbours'}
           </div>
@@ -173,7 +183,7 @@ export default function CartScreen({ navigate, cart, setCart }) {
           ))}
           <a onClick={() => navigate('home')} className="inline-flex items-center gap-2 mt-2 text-sm text-ink-muted underline underline-offset-4 cursor-pointer">← Keep looking on your street</a>
         </div>
-        <OrderSummary subtotal={subtotal} deliveryFee={deliveryFee} platformFee={platformFee} total={total} cta="Continue to checkout" onCta={() => navigate('checkout')} sellerCount={sellerCount} itemCount={items.length} />
+        <OrderSummary subtotal={subtotal} deliveryFee={deliveryFee} platformFee={platformFee} total={total} cta="Continue to checkout" onCta={() => navigate('checkout')} sellerCount={sellerCount} itemCount={items.length} ctaDisabled={items.length === 0} />
       </div>
     </div>
   );

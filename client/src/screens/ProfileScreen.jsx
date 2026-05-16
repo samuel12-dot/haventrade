@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext.jsx';
 import { api } from '../api/index.js';
+import { LISTINGS } from '../data/index.js';
 import SellerAvatar from '../components/SellerAvatar.jsx';
 import ListingCard  from '../components/ListingCard.jsx';
 import { PinIcon }  from '../components/Icons.jsx';
@@ -150,28 +151,10 @@ function ProfileTab({ user }) {
   );
 }
 
-function SavedTab({ navigate }) {
-  const [listings, setListings] = useState([]);
-  const [loading,  setLoading]  = useState(true);
+function SavedTab({ navigate, savedSet, toggleSave }) {
+  const saved = LISTINGS.filter((l) => savedSet?.has(l.id));
 
-  useEffect(() => {
-    api.getSaved()
-      .then(({ listings: data }) => setListings(data))
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-surface border border-border rounded-2xl aspect-[5/4] animate-pulse" />
-        ))}
-      </div>
-    );
-  }
-
-  if (!listings.length) {
+  if (!saved.length) {
     return (
       <div className="py-16 text-center">
         <div className="font-serif text-2xl text-ink mb-2">Nothing saved yet.</div>
@@ -185,8 +168,14 @@ function SavedTab({ navigate }) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      {listings.map((l) => (
-        <ListingCard key={l.id} listing={l} onClick={() => navigate('pdp', { id: l.id })} />
+      {saved.map((l) => (
+        <ListingCard
+          key={l.id}
+          listing={l}
+          onClick={() => navigate('pdp', { id: l.id })}
+          saved={savedSet?.has(l.id)}
+          onSave={toggleSave}
+        />
       ))}
     </div>
   );
@@ -251,7 +240,7 @@ function SecurityTab() {
   );
 }
 
-export default function ProfileScreen({ navigate }) {
+export default function ProfileScreen({ navigate, savedSet, toggleSave }) {
   const { user, logout, loading } = useAuth();
   const [tab, setTab] = useState('profile');
 
@@ -295,7 +284,7 @@ export default function ProfileScreen({ navigate }) {
       <TabBar tab={tab} setTab={setTab} />
 
       {tab === 'profile'  && <ProfileTab user={user} />}
-      {tab === 'saved'    && <SavedTab navigate={navigate} />}
+      {tab === 'saved'    && <SavedTab navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
       {tab === 'security' && <SecurityTab />}
     </div>
   );

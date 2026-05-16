@@ -160,7 +160,7 @@ function HowItWorks() {
   );
 }
 
-function TrendingRail({ navigate }) {
+function TrendingRail({ navigate, savedSet, toggleSave }) {
   const trending = ["l12", "l02", "l10", "l03"];
   return (
     <section className="mt-[88px]">
@@ -199,6 +199,8 @@ function TrendingRail({ navigate }) {
               <ListingCard
                 listing={listing}
                 onClick={() => navigate("pdp", { id })}
+                saved={savedSet?.has(listing.id)}
+                onSave={toggleSave}
               />
             </div>
           );
@@ -680,7 +682,7 @@ function FAQ() {
   );
 }
 
-export default function LandingScreen({ navigate }) {
+export default function LandingScreen({ navigate, savedSet, toggleSave }) {
   return (
     <div className="page pt-6">
       {/* Bento hero — stacks on mobile */}
@@ -801,6 +803,8 @@ export default function LandingScreen({ navigate }) {
             key={l.id}
             listing={l}
             onClick={() => navigate("pdp", { id: l.id })}
+            saved={savedSet?.has(l.id)}
+            onSave={toggleSave}
           />
         ))}
       </div>
@@ -809,7 +813,7 @@ export default function LandingScreen({ navigate }) {
 
       <MeetNeighbours navigate={navigate} />
       <HowItWorks />
-      <TrendingRail navigate={navigate} />
+      <TrendingRail navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />
       <Testimonials />
       <OpenAStall navigate={navigate} />
       <PressStrip />
