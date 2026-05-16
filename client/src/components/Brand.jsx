@@ -1,6 +1,6 @@
-export function HTWordmark({ size = 24, mono = false, inverse = false, style = {} }) {
-  const haven = inverse ? 'var(--canvas)' : mono ? 'var(--ink)' : 'var(--hearth)';
-  const trade = inverse ? 'var(--canvas)' : 'var(--ink)';
+export function HTWordmark({ size = 24, mono = false, inverse = false, dark = false, style = {} }) {
+  const haven = dark ? 'var(--saffron)' : inverse ? 'var(--canvas)' : mono ? 'var(--ink)' : 'var(--hearth)';
+  const trade = dark || inverse ? 'var(--canvas)' : 'var(--ink)';
   return (
     <span
       className="ht-wordmark"

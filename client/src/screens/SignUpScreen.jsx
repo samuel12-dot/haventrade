@@ -102,33 +102,66 @@ export default function SignUpScreen({ navigate }) {
       {/* Left — gradient editorial (hidden on mobile) */}
       <div
         className="hidden md:flex grad grad-hero-blue flex-col justify-between relative overflow-hidden"
-        style={{ padding: '96px 56px 56px', color: '#FFFFFF', minHeight: '100vh' }}
+        style={{ padding: '96px 56px 56px', color: '#FFF6ED', minHeight: '100vh' }}
       >
-        <div className="absolute top-7 right-8">
+        {/* Seamless readability overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: [
+              'linear-gradient(180deg, rgba(5,10,25,0.28) 0%, rgba(5,10,25,0.10) 35%, transparent 65%)',
+              'linear-gradient(90deg, rgba(5,10,25,0.18) 0%, rgba(5,10,25,0.06) 45%, transparent 80%)',
+              'radial-gradient(circle at 65% 55%, rgba(255,255,255,0.14), transparent 32%)',
+            ].join(', '),
+            zIndex: 0,
+          }}
+        />
+
+        <div className="absolute top-7 right-8" style={{ zIndex: 2 }}>
           <MarketTicket label="EST. 2026" value="Abuja" rotation={3} variant="cream" lg />
         </div>
 
-        <div className="relative z-[1] max-w-[500px]">
-          <span className="font-mono text-[11px] text-saffron tracking-widest-2">NEW NEIGHBOUR</span>
-          <h1 className="font-serif text-[44px] leading-none tracking-[-0.03em] mt-3.5 mb-3.5" style={{ color: '#FFFFFF' }}>
+        <div className="relative max-w-[500px]" style={{ zIndex: 1 }}>
+          <span
+            className="font-mono"
+            style={{
+              color: 'rgba(227,201,143,0.95)',
+              fontSize: 11,
+              letterSpacing: '0.22em',
+              fontWeight: 500,
+              textShadow: '0 1px 2px rgba(0,0,0,0.18)',
+            }}
+          >
+            NEW NEIGHBOUR
+          </span>
+          <h1 className="font-serif text-[44px] leading-none tracking-[-0.03em] mt-3.5 mb-3.5" style={{ color: '#FFF6ED' }}>
             Welcome to the neighbourhood.
           </h1>
-          <div className="font-serif italic text-xl leading-[1.4]" style={{ color: 'rgba(255,255,255,0.88)' }}>
+          <div className="font-serif italic text-xl leading-[1.4]" style={{ color: 'rgba(255,246,237,0.84)' }}>
             Three minutes to set up. Five seconds to your first listing.
           </div>
         </div>
 
-        <div className="relative z-[1] flex flex-col gap-3.5 max-w-[380px]">
+        <div className="relative flex flex-col gap-3.5 max-w-[380px]" style={{ zIndex: 1 }}>
           <MarketTicket label="STEP 01" value="confirm your postcode" rotation={-3} lg />
           <MarketTicket label="STEP 02" value="verify ID with BVN" rotation={2} variant="saffron" lg />
           <MarketTicket label="STEP 03" value="browse within 2km" rotation={-2} variant="moss" lg />
         </div>
 
-        <div className="relative z-[1] mt-12 max-w-[460px]">
-          <div className="font-serif italic text-[17px] leading-[1.4]" style={{ color: '#FFFFFF' }}>
+        <div className="relative mt-12 max-w-[460px]" style={{ zIndex: 1 }}>
+          <div className="font-serif italic text-[17px] leading-[1.4]" style={{ color: 'rgba(255,246,237,0.84)' }}>
             "Sold a chair in 40 minutes to someone two streets over."
           </div>
-          <div className="font-mono text-[10px] text-saffron tracking-widest-2 mt-2.5">
+          <div
+            className="font-mono mt-2.5"
+            style={{
+              color: 'rgba(227,201,143,0.95)',
+              fontSize: 11,
+              letterSpacing: '0.22em',
+              fontWeight: 500,
+              textShadow: '0 1px 2px rgba(0,0,0,0.18)',
+            }}
+          >
             — SANNE, MAITAMA
           </div>
         </div>

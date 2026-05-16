@@ -3,6 +3,7 @@ import { HTMonogram, HTWordmark } from './Brand.jsx';
 import { PinIcon } from './Icons.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 
+
 function MobileMenu({ items, onClose }) {
   return (
     <div className="md:hidden absolute top-full left-0 right-0 z-50 bg-canvas/95 backdrop-blur-md border-b border-border shadow-md py-3 px-4 flex flex-col gap-1">
@@ -94,7 +95,8 @@ function HamburgerButton({ open, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="md:hidden ml-auto p-2 rounded-lg text-ink-muted hover:bg-surface-2 transition-colors"
+      className="md:hidden ml-auto p-2 rounded-lg transition-colors"
+      style={{ color: 'rgba(251,246,236,0.6)' }}
       aria-label={open ? 'Close menu' : 'Open menu'}
     >
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -133,11 +135,11 @@ function LoggedOutHeader({ navigate }) {
   ];
 
   return (
-    <header className="app-header relative">
+    <header className="app-header">
       <div className="app-header-inner">
         <button type="button" className="brand-mark transition-opacity hover:opacity-70" onClick={() => navigate('landing')} aria-label="HavenTrade — home" style={{ all: 'unset', display: 'inline-flex', alignItems: 'center', gap: 10, cursor: 'pointer', opacity: 1 }}>
-          <HTMonogram size={34} glow />
-          <HTWordmark size={22} />
+          <HTMonogram size={34} inverse />
+          <HTWordmark size={22} dark />
         </button>
 
         {/* Desktop nav */}
@@ -189,11 +191,11 @@ function LoggedInHeader({ route, navigate, cartCount }) {
   ];
 
   return (
-    <header className="app-header relative">
+    <header className="app-header">
       <div className="app-header-inner">
         <button type="button" className="brand-mark transition-opacity hover:opacity-70" onClick={() => navigate('landing')} aria-label="HavenTrade — home" style={{ all: 'unset', display: 'inline-flex', alignItems: 'center', gap: 10, cursor: 'pointer', opacity: 1 }}>
-          <HTMonogram size={34} glow />
-          <HTWordmark size={22} />
+          <HTMonogram size={34} inverse />
+          <HTWordmark size={22} dark />
         </button>
 
         <div className="postcode-pill hidden lg:inline-flex">
@@ -219,7 +221,8 @@ function LoggedInHeader({ route, navigate, cartCount }) {
         {/* Mobile actions — grouped so only one ml-auto needed */}
         <div className="md:hidden ml-auto flex items-center gap-1">
           <button
-            className="relative p-2 text-ink-muted hover:text-ink transition-colors"
+            className="relative p-2 transition-colors"
+            style={{ color: 'rgba(251,246,236,0.6)' }}
             onClick={() => navigate('cart')}
             aria-label="Cart"
           >

@@ -149,31 +149,65 @@ export default function SignInScreen({ navigate }) {
       </div>
 
       {/* Right — gradient editorial (hidden on mobile) */}
-      <div className="hidden md:flex grad grad-hero-blue flex-col justify-between relative overflow-hidden" style={{ padding: '96px 56px 56px', color: '#FFFFFF', minHeight: '100vh' }}>
-        <div className="absolute top-7 right-8">
+      <div className="hidden md:flex grad grad-hero-blue flex-col justify-between relative overflow-hidden" style={{ padding: '96px 56px 56px', color: '#FFF6ED', minHeight: '100vh' }}>
+
+        {/* Seamless readability overlay — dark tint on left text area, white lift behind card */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: [
+              'linear-gradient(180deg, rgba(5,10,25,0.28) 0%, rgba(5,10,25,0.10) 35%, transparent 65%)',
+              'linear-gradient(90deg, rgba(5,10,25,0.18) 0%, rgba(5,10,25,0.06) 45%, transparent 80%)',
+              'radial-gradient(circle at 65% 55%, rgba(255,255,255,0.14), transparent 32%)',
+            ].join(', '),
+            zIndex: 0,
+          }}
+        />
+
+        <div className="absolute top-7 right-8" style={{ zIndex: 2 }}>
           <MarketTicket label="LIVE" value="247 neighbours" rotation={3} variant="dark" lg />
         </div>
 
-        <div className="relative z-[1] max-w-[500px]">
-          <span className="font-mono text-[11px] text-saffron tracking-widest-2">SIGN BACK IN</span>
-          <h1 className="font-serif text-[44px] leading-none tracking-[-0.03em] mt-3.5 mb-3.5" style={{ color: '#FFFFFF' }}>
+        <div className="relative max-w-[500px]" style={{ zIndex: 1 }}>
+          <span
+            className="font-mono"
+            style={{
+              color: 'rgba(227,201,143,0.95)',
+              fontSize: 11,
+              letterSpacing: '0.22em',
+              fontWeight: 500,
+              textShadow: '0 1px 2px rgba(0,0,0,0.18)',
+            }}
+          >
+            SIGN BACK IN
+          </span>
+          <h1 className="font-serif text-[44px] leading-none tracking-[-0.03em] mt-3.5 mb-3.5" style={{ color: '#FFF6ED' }}>
             Welcome back.
           </h1>
-          <div className="font-serif italic text-xl leading-[1.4]" style={{ color: 'rgba(255,255,255,0.88)' }}>
+          <div className="font-serif italic text-xl leading-[1.4]" style={{ color: 'rgba(255,246,237,0.84)' }}>
             Your neighbours have been busy.{' '}
-            <span className="text-saffron">17 new listings</span>{' '}
+            <span style={{ color: 'rgba(227,201,143,0.95)' }}>17 new listings</span>{' '}
             on your street since you were last here.
           </div>
         </div>
 
-        <div className="relative z-[1] flex justify-center my-8">
+        <div className="relative flex justify-center my-8" style={{ zIndex: 1 }}>
           <div className="max-w-[360px] w-full rounded-2xl" style={{ transform: 'rotate(2deg)', boxShadow: '0 24px 56px rgba(15,30,80,0.30)' }}>
             <ListingCard listing={teaser} onClick={() => {}} />
           </div>
         </div>
 
-        <div className="relative z-[1] max-w-[460px]">
-          <div className="font-mono text-[10px] tracking-widest-2" style={{ color: 'rgba(255,255,255,0.65)' }}>
+        <div className="relative max-w-[460px]" style={{ zIndex: 1 }}>
+          <div
+            className="font-mono"
+            style={{
+              color: 'rgba(227,201,143,0.95)',
+              fontSize: 11,
+              letterSpacing: '0.22em',
+              fontWeight: 500,
+              textShadow: '0 1px 2px rgba(0,0,0,0.18)',
+            }}
+          >
             JUST ADDED ON YOUR STREET
           </div>
         </div>

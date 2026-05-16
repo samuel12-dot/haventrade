@@ -276,88 +276,284 @@ function Testimonials() {
   );
 }
 
+function SellerGrain() {
+  return (
+    <svg
+      aria-hidden="true"
+      style={{
+        position: "absolute", inset: 0, width: "100%", height: "100%",
+        opacity: 0.038, pointerEvents: "none", zIndex: 1,
+      }}
+    >
+      <filter id="seller-grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch" />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+      <rect width="100%" height="100%" filter="url(#seller-grain)" />
+    </svg>
+  );
+}
+
+function SellerRadiusViz() {
+  const cx = 265, cy = 195;
+  const rings = [
+    { r: 58,  dash: "5 8",  sw: 1.2 },
+    { r: 112, dash: "3 11", sw: 0.9 },
+    { r: 170, dash: "",     sw: 0.7 },
+    { r: 230, dash: "",     sw: 0.5 },
+  ];
+  const nodes = [
+    { x: cx + 52, y: cy - 24, s: 2.8 },
+    { x: cx - 37, y: cy + 46, s: 2.5 },
+    { x: cx + 18, y: cy + 57, s: 2.8 },
+    { x: cx + 104, y: cy + 36, s: 2.5 },
+    { x: cx - 92,  y: cy - 50, s: 2.2 },
+    { x: cx + 60,  y: cy + 110, s: 2.5 },
+    { x: cx - 110, y: cy + 82, s: 2.2 },
+    { x: cx + 145, y: cy - 42, s: 2 },
+    { x: cx - 145, y: cy + 150, s: 2 },
+    { x: cx + 52,  y: cy - 165, s: 2 },
+  ];
+  const lineIdxs = [0, 2, 3, 5, 7];
+
+  return (
+    <div
+      className="absolute inset-0 pointer-events-none hidden md:flex items-center justify-end"
+      style={{ paddingRight: "6%", animation: "ring-breathe 9s ease-in-out infinite" }}
+    >
+      <svg
+        viewBox="0 0 530 390"
+        width="530"
+        height="390"
+        style={{ opacity: 0.1, overflow: "visible", flexShrink: 0 }}
+      >
+        {/* Axis guides */}
+        <line x1={cx - 245} y1={cy} x2={cx + 245} y2={cy} stroke="#BFDBFE" strokeWidth="0.4" />
+        <line x1={cx} y1={cy - 245} x2={cx} y2={cy + 245} stroke="#BFDBFE" strokeWidth="0.4" />
+
+        {/* Concentric rings */}
+        {rings.map(({ r, dash, sw }) => (
+          <circle
+            key={r}
+            cx={cx} cy={cy} r={r}
+            fill="none"
+            stroke="#BFDBFE"
+            strokeWidth={sw}
+            strokeDasharray={dash || undefined}
+          />
+        ))}
+
+        {/* Connection lines from centre */}
+        {lineIdxs.map((i) => (
+          <line
+            key={i}
+            x1={cx} y1={cy}
+            x2={nodes[i].x} y2={nodes[i].y}
+            stroke="#BFDBFE" strokeWidth="0.55"
+          />
+        ))}
+
+        {/* Neighbourhood nodes */}
+        {nodes.map((n, i) => (
+          <circle key={i} cx={n.x} cy={n.y} r={n.s} fill="#BFDBFE" />
+        ))}
+
+        {/* Centre: halo + dot */}
+        <circle cx={cx} cy={cy} r={9}  fill="#BFDBFE" opacity="0.2" />
+        <circle cx={cx} cy={cy} r={4.5} fill="#BFDBFE" opacity="0.9" />
+
+        {/* Labels */}
+        <text
+          x={cx + rings[3].r + 8} y={cy + 4}
+          fontSize="8" fill="#BFDBFE"
+          fontFamily="'JetBrains Mono', monospace"
+          letterSpacing="1.5"
+        >
+          2KM
+        </text>
+        <text
+          x={cx + 10} y={cy - 14}
+          fontSize="7" fill="#BFDBFE"
+          fontFamily="'JetBrains Mono', monospace"
+          letterSpacing="2"
+        >
+          MAITAMA
+        </text>
+      </svg>
+    </div>
+  );
+}
+
 function OpenAStall({ navigate }) {
   const stats = [
     ["₦2.4B", "TRADED IN 2025"],
-    ["6 HRS", "AVG TIME TO SELL"],
-    ["92%", "DELIVERED SAME DAY"],
+    ["6 HRS",  "AVG TIME TO SELL"],
+    ["92%",    "DELIVERED SAME DAY"],
   ];
+  const rotations = [-1, 1, -0.5];
+  const avatars = [
+    { g: "saffron",    l: "M" },
+    { g: "terracotta", l: "K" },
+    { g: "moss",       l: "A" },
+    { g: "vintage",    l: "S" },
+  ];
+
   return (
     <section
       className="mt-[88px]"
-      style={{
-        marginLeft: "calc(50% - 50vw)",
-        marginRight: "calc(50% - 50vw)",
-      }}
+      style={{ marginLeft: "calc(50% - 50vw)", marginRight: "calc(50% - 50vw)" }}
     >
       <div
-        className="grad grad-hero-blue px-6 sm:px-16 py-[56px] sm:py-[72px] relative overflow-hidden"
-        style={{ color: "#FFFFFF" }}
+        className="grad grad-hero-blue relative overflow-hidden"
+        style={{ color: "#F4EFE8", minHeight: 460 }}
       >
-        <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-8 md:gap-12 items-center">
+        {/* Extra depth: deeper navy bottom-right */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at 92% 95%, rgba(6,10,32,0.72) 0%, transparent 50%)",
+            zIndex: 0,
+          }}
+        />
+
+        {/* Left readability layer — full-hero, fades to transparent, no visible edge */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(90deg, rgba(5,10,25,0.20) 0%, rgba(5,10,25,0.08) 38%, transparent 70%)",
+            zIndex: 1,
+          }}
+        />
+
+        {/* Film grain */}
+        <SellerGrain />
+
+        {/* Radius map visualization */}
+        <SellerRadiusViz />
+
+        {/* Content */}
+        <div
+          className="relative max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-[3fr_2fr] items-center px-6 sm:px-16 py-[56px] sm:py-[72px] gap-8"
+          style={{ zIndex: 2 }}
+        >
+          {/* ── Left column ────────────────────── */}
           <div>
-            <div className="font-mono text-[11px] text-saffron tracking-widest-2 mb-[18px]">
-              FOR SELLERS
-            </div>
-            <h2 className="font-serif text-[40px] sm:text-[56px] leading-none tracking-[-0.03em] m-0" style={{ color: "#FFFFFF" }}>
-              Open a stall on your street.
-            </h2>
             <div
-              className="font-serif italic text-xl sm:text-2xl leading-[1.3] mt-3.5"
-              style={{ color: "rgba(255,255,255,0.88)" }}
-            >
-              List in 3 minutes. Sell to neighbours by sundown.
-            </div>
-            <div className="flex gap-3 mt-9 flex-wrap">
-              {stats.map(([n, l], i) => (
-                <div
-                  key={l}
-                  className="flex flex-col gap-1 px-4 py-3 rounded-[10px]"
-                  style={{
-                    border: "1.5px dashed rgba(255,255,255,0.45)",
-                    background: "rgba(15,30,80,0.15)",
-                    transform: `rotate(${i === 1 ? 1 : -1}deg)`,
-                  }}
-                >
-                  <span className="font-serif text-[22px] tracking-[-0.02em]" style={{ color: "#FFFFFF" }}>
-                    {n}
-                  </span>
-                  <span className="font-mono text-[9px] text-saffron tracking-[0.16em]">
-                    {l}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-col items-start gap-3">
-            <button
-              className="btn btn--dark btn--lg"
-              onClick={() => navigate("dashboard")}
+              className="font-mono mb-[22px]"
               style={{
-                fontFamily: "var(--mono)",
-                fontSize: 13,
-                letterSpacing: "0.16em",
-                padding: "20px 32px",
+                color: "rgba(227,201,143,0.95)",
+                fontSize: 11,
+                letterSpacing: "0.22em",
+                fontWeight: 500,
+                textShadow: "0 1px 2px rgba(0,0,0,0.18)",
               }}
             >
-              OPEN YOUR STALL <span className="arr">→</span>
-            </button>
-            <span
-              className="font-serif italic text-sm ml-1"
-              style={{ color: "rgba(251,246,236,0.8)" }}
+              FOR SELLERS
+            </div>
+
+            <h2
+              className="font-serif text-[38px] sm:text-[54px] leading-[0.93] tracking-[-0.03em] mb-5 max-w-[540px]"
+              style={{ color: "#FFF6ED" }}
             >
-              No listing fees, ever.
-            </span>
+              Open a stall on your street.
+            </h2>
+
+            <p
+              className="font-serif italic text-[19px] sm:text-[22px] leading-[1.4] mb-10 max-w-[440px]"
+              style={{ color: "rgba(255,246,237,0.82)" }}
+            >
+              List in 3 minutes. Sell to neighbours by sundown.
+            </p>
+
+            {/* Stat glass cards */}
+            <div className="flex gap-3 flex-wrap mb-10">
+              {stats.map(([n, l], i) => {
+                const rot = rotations[i];
+                return (
+                  <div
+                    key={l}
+                    className="flex flex-col gap-1.5 px-5 py-4 rounded-[12px]"
+                    style={{
+                      background: "rgba(255,255,255,0.08)",
+                      border: "1px solid rgba(255,255,255,0.16)",
+                      backdropFilter: "blur(10px)",
+                      WebkitBackdropFilter: "blur(10px)",
+                      transform: `rotate(${rot}deg)`,
+                      transition: "transform 240ms ease, box-shadow 240ms ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "rotate(0deg) translateY(-2px)";
+                      e.currentTarget.style.boxShadow = "0 6px 24px rgba(0,0,0,0.28)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = `rotate(${rot}deg)`;
+                      e.currentTarget.style.boxShadow = "";
+                    }}
+                  >
+                    <span
+                      className="font-serif text-[26px] leading-none tracking-[-0.03em]"
+                      style={{ color: "#FFF6ED" }}
+                    >
+                      {n}
+                    </span>
+                    <span
+                      className="font-mono"
+                      style={{
+                        color: "rgba(227,201,143,0.95)",
+                        fontSize: 11,
+                        letterSpacing: "0.22em",
+                        fontWeight: 500,
+                        textShadow: "0 1px 2px rgba(0,0,0,0.18)",
+                      }}
+                    >
+                      {l}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* CTA + social proof */}
+            <div className="flex flex-col items-start gap-4">
+              <button className="seller-hero-cta" onClick={() => navigate("dashboard")}>
+                OPEN YOUR STALL <span className="arr">→</span>
+              </button>
+
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-2">
+                  {avatars.map(({ g, l }, idx) => (
+                    <span
+                      key={g}
+                      className={`grad grad-${g} w-[28px] h-[28px] rounded-full inline-flex items-center justify-center font-serif italic text-canvas text-[11px]`}
+                      style={{
+                        border: "1.5px solid rgba(244,239,232,0.22)",
+                        zIndex: avatars.length - idx,
+                      }}
+                    >
+                      {l}
+                    </span>
+                  ))}
+                </div>
+                <span
+                  className="font-serif italic text-[13px]"
+                  style={{ color: "rgba(244,239,232,0.58)" }}
+                >
+                  No listing fees, ever.
+                </span>
+              </div>
+            </div>
           </div>
+
+          {/* ── Right column: visual anchor fills this space absolutely ── */}
+          <div className="hidden md:block" />
         </div>
-        <div className="absolute top-7 right-8 hidden sm:block">
-          <MarketTicket
-            label="EST. 2026"
-            value="Abuja"
-            rotation={3}
-            variant="cream"
-            lg
-          />
+
+        {/* Abuja stamp — integrated top-right */}
+        <div
+          className="absolute top-8 right-9 z-[3] hidden sm:block"
+          style={{ transform: "rotate(2deg)" }}
+        >
+          <MarketTicket label="EST. 2026" value="Abuja" rotation={0} variant="cream" lg />
         </div>
       </div>
     </section>

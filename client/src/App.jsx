@@ -84,7 +84,7 @@ export default function App() {
         <Header route={route} navigate={navigate} cartCount={cartCount} isLanding={isLanding} />
       )}
 
-      <main style={{ flex: 1 }}>
+      <main style={{ flex: 1, paddingTop: isAuthScreen ? 0 : 66 }}>
         {route === 'landing'      && <LandingScreen      navigate={navigate} />}
         {route === 'design'       && <DesignSystemScreen navigate={navigate} />}
         {route === 'home'         && <HomeFeedScreen     navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
