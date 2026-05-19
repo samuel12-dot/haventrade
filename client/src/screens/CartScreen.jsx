@@ -71,33 +71,39 @@ function OrderSummary({ subtotal, deliveryFee, platformFee, total, cta, onCta, s
 function CartLineItem({ item, setQty, navigate }) {
   const isFree = item.price === 0;
   return (
-    <div className="px-4 sm:px-5 py-4 flex items-center gap-3 sm:gap-4 border-b border-dashed border-border">
-      <div className={`grad ${item.grad} w-20 h-20 rounded-xl flex-shrink-0 cursor-pointer`} onClick={() => navigate('pdp', { id: item.id })} />
-      <div className="flex-1 min-w-0">
-        <div className="font-serif font-bold text-[17px] leading-snug mb-1 cursor-pointer" onClick={() => navigate('pdp', { id: item.id })}>{item.title}</div>
-        <div className="font-sans text-[13px] text-ink-muted mb-2">{item.condition} · {item.neighbourhood}</div>
-        <div className={`inline-flex items-center gap-1.5 px-2 py-[3px] rounded-full ${item.digital ? 'bg-saffron' : 'bg-moss-soft'}`}>
-          <span className={`font-mono text-[9px] ${item.digital ? 'text-ink' : 'text-moss'}`}>
-            {item.digital ? 'INSTANT DOWNLOAD' : `DELIVERS TODAY ${item.eta?.split(', ')[1] || '18:00'}`}
-          </span>
+    <div className="px-4 sm:px-5 py-4 border-b border-dashed border-border">
+      {/* Top row: image + details */}
+      <div className="flex gap-3 sm:gap-4">
+        <div className={`grad ${item.grad} w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex-shrink-0 cursor-pointer`} onClick={() => navigate('pdp', { id: item.id })} />
+        <div className="flex-1 min-w-0">
+          <div className="font-serif font-bold text-[15px] sm:text-[17px] leading-snug mb-1 cursor-pointer" onClick={() => navigate('pdp', { id: item.id })}>{item.title}</div>
+          <div className="font-sans text-[12px] text-ink-muted mb-2">{item.condition} · {item.neighbourhood}</div>
+          <div className={`inline-flex items-center gap-1.5 px-2 py-[3px] rounded-full ${item.digital ? 'bg-saffron' : 'bg-moss-soft'}`}>
+            <span className={`font-mono text-[8px] sm:text-[9px] ${item.digital ? 'text-ink' : 'text-moss'}`}>
+              {item.digital ? 'INSTANT DOWNLOAD' : `DELIVERS TODAY ${item.eta?.split(', ')[1] || '18:00'}`}
+            </span>
+          </div>
         </div>
       </div>
-      {!item.digital && (
-        <div className="qty">
-          <button onClick={() => setQty(item.id, item.qty - 1)}>−</button>
-          <span className="n">{item.qty}</span>
-          <button onClick={() => setQty(item.id, item.qty + 1)}>+</button>
+      {/* Bottom row: qty + price + remove */}
+      <div className="flex items-center justify-between mt-3 pl-[76px] sm:pl-[92px]">
+        {!item.digital ? (
+          <div className="qty">
+            <button onClick={() => setQty(item.id, item.qty - 1)}>−</button>
+            <span className="n">{item.qty}</span>
+            <button onClick={() => setQty(item.id, item.qty + 1)}>+</button>
+          </div>
+        ) : <span />}
+        <div className="flex items-center gap-3">
+          {isFree
+            ? <span className="font-serif text-lg text-moss italic">Free</span>
+            : <span className="font-serif font-bold text-[20px] sm:text-[24px] text-ink tracking-[-0.02em]">₦{(item.price * item.qty).toLocaleString()}</span>
+          }
+          <button onClick={() => setQty(item.id, 0)} className="inline-flex items-center gap-1 text-[11px] text-ink-muted hover:text-danger transition-colors">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 2.5h8M4 2.5V1.5h3v1M2.5 2.5l.5 7h5l.5-7" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            Remove
+          </button>
         </div>
-      )}
-      <div className="min-w-[80px] text-right pl-4">
-        {isFree
-          ? <span className="font-serif text-xl text-moss italic">Free</span>
-          : <span className="font-serif font-bold text-[24px] text-ink tracking-[-0.02em]">₦{(item.price * item.qty).toLocaleString()}</span>
-        }
-        <button onClick={() => setQty(item.id, 0)} className="inline-flex items-center gap-1 mt-1.5 ml-4 text-[11px] text-ink-muted hover:text-danger transition-colors">
-          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 2.5h8M4 2.5V1.5h3v1M2.5 2.5l.5 7h5l.5-7" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          Remove
-        </button>
       </div>
     </div>
   );
@@ -109,15 +115,18 @@ function SellerCartGroup({ sellerId, items, setQty, navigate }) {
   const subtotal   = items.reduce((sum, it) => sum + it.price * it.qty, 0);
   return (
     <div className="border border-border rounded-2xl mb-3 bg-surface">
-      <div className="px-5 py-4 border-b border-dashed border-border-strong flex items-center gap-3">
+      <div className="px-4 sm:px-5 py-4 border-b border-dashed border-border-strong flex items-start gap-3">
         <SellerAvatar seller={s} />
-        <div className="flex-1">
-          <div className="font-serif font-bold text-[18px] leading-[1.2] cursor-pointer" onClick={() => navigate('storefront', { id: sellerId })}>{s.name}</div>
-          <div className="font-sans text-[13px] text-ink-muted mt-0.5">
-            {allDigital ? `${s.neighbourhood} · instant download after checkout` : `${s.neighbourhood} · arrives today 18:00–19:00`}
+        <div className="flex-1 min-w-0">
+          <div className="font-serif font-bold text-[16px] sm:text-[18px] leading-[1.2] cursor-pointer" onClick={() => navigate('storefront', { id: sellerId })}>{s.name}</div>
+          <div className="font-sans text-[12px] sm:text-[13px] text-ink-muted mt-0.5">
+            {allDigital ? `${s.neighbourhood} · instant download` : `${s.neighbourhood} · arrives today 18:00–19:00`}
+          </div>
+          <div className={`sm:hidden mt-2 inline-flex border rounded-md px-2 py-1 font-mono text-[8px] tracking-[0.12em] ${allDigital ? 'border-saffron text-ink' : 'border-moss text-moss'}`}>
+            {allDigital ? 'PDF + PNG' : 'ETA TODAY 18:30'}
           </div>
         </div>
-        <div className={`border rounded-lg px-3 py-1.5 font-mono text-[9px] tracking-[0.14em] flex-shrink-0 ${allDigital ? 'border-saffron text-ink' : 'border-moss text-moss'}`}>
+        <div className={`hidden sm:flex border rounded-lg px-3 py-1.5 font-mono text-[9px] tracking-[0.14em] flex-shrink-0 ${allDigital ? 'border-saffron text-ink' : 'border-moss text-moss'}`}>
           {allDigital ? 'PDF + PNG' : 'ETA TODAY 18:30'}
         </div>
       </div>
@@ -172,13 +181,15 @@ export default function CartScreen({ navigate, cart, setCart, onBack, backLabel 
             <>
               <SellerCartGroup key={sid} sellerId={sid} items={list} setQty={setQty} navigate={navigate} />
               {gi === 0 && (
-                <div key="promo" className="bg-saffron rounded-[14px] px-[18px] py-3.5 my-4 flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-ink text-saffron inline-flex items-center justify-center font-mono text-sm">+</span>
-                  <div className="flex-1">
-                    <div className="font-mono text-[10px] text-ink">ALMOST THERE</div>
-                    <div className="font-serif italic text-sm text-ink">Add ₦2,000 more from Sanne's Studio for free delivery on this group</div>
+                <div key="promo" className="bg-saffron rounded-[14px] px-[18px] py-3.5 my-4 flex flex-col sm:flex-row sm:items-center gap-3">
+                  <div className="flex items-start gap-3 flex-1">
+                    <span className="w-8 h-8 rounded-full bg-ink text-saffron inline-flex items-center justify-center font-mono text-sm flex-shrink-0">+</span>
+                    <div>
+                      <div className="font-mono text-[10px] text-ink">ALMOST THERE</div>
+                      <div className="font-serif italic text-sm text-ink">Add ₦2,000 more from Sanne's Studio for free delivery on this group</div>
+                    </div>
                   </div>
-                  <button className="btn btn--dark btn--sm" onClick={() => navigate('storefront', { id: 'sanne' })}>BROWSE STUDIO</button>
+                  <button className="btn btn--dark btn--sm w-full sm:w-auto" onClick={() => navigate('storefront', { id: 'sanne' })}>BROWSE STUDIO</button>
                 </div>
               )}
             </>
