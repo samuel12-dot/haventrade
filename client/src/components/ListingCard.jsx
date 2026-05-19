@@ -2,6 +2,7 @@ import { SELLERS } from '../data/index.js';
 import MarketTicket from './MarketTicket.jsx';
 import SellerAvatar from './SellerAvatar.jsx';
 import { HeartIcon } from './Icons.jsx';
+import { imgUrl } from '../utils/cloudinary.js';
 
 export default function ListingCard({ listing, onClick, saved, onSave, sold = false }) {
   const seller   = listing._seller || SELLERS[listing.sellerId] || {};
@@ -16,8 +17,9 @@ export default function ListingCard({ listing, onClick, saved, onSave, sold = fa
       <div className={`listing-hero grad ${listing.grad}`}>
         {listing.images?.[0] && (
           <img
-            src={listing.images[0]}
+            src={imgUrl(listing.images[0], { width: 400 })}
             alt={listing.title}
+            loading="lazy"
             style={{
               position: 'absolute',
               inset: 0,
