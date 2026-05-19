@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { LISTINGS, SELLERS } from '../data/index.js';
 import SellerAvatar       from '../components/SellerAvatar.jsx';
 import DeliverySlotPicker from '../components/DeliverySlotPicker.jsx';
+import BackLink from '../components/BackLink.jsx';
 
 function SumRow({ label, val }) {
   return (
@@ -51,7 +52,7 @@ function PayOption({ k, current, set, title, sub }) {
   );
 }
 
-export default function CheckoutScreen({ navigate, cart, onPlaceOrder }) {
+export default function CheckoutScreen({ navigate, cart, onPlaceOrder, onBack, backLabel }) {
   const [accordionOpen, setAccordionOpen] = useState('address');
   const [slotPicks,     setSlotPicks]     = useState({});
   const [payment,       setPayment]       = useState('ideal');
@@ -73,6 +74,7 @@ export default function CheckoutScreen({ navigate, cart, onPlaceOrder }) {
 
   return (
     <div className="page">
+      <BackLink onClick={onBack} label={backLabel} />
       <h1 className="h-page mb-1.5">Checkout</h1>
       <div className="font-serif italic text-lg text-ink-muted mb-8">Three small things, then your neighbours start preparing</div>
 

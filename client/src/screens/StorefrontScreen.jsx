@@ -4,8 +4,9 @@ import ListingCard  from '../components/ListingCard.jsx';
 import MarketTicket from '../components/MarketTicket.jsx';
 import SellerAvatar from '../components/SellerAvatar.jsx';
 import { CheckIcon, StarIcon } from '../components/Icons.jsx';
+import BackLink from '../components/BackLink.jsx';
 
-export default function StorefrontScreen({ navigate, sellerId, savedSet, toggleSave }) {
+export default function StorefrontScreen({ navigate, sellerId, savedSet, toggleSave, onBack, backLabel }) {
   const s     = SELLERS[sellerId || 'sanne'];
   const [tab, setTab] = useState('All items');
   const items = LISTINGS.filter((l) => l.sellerId === s.id);
@@ -25,6 +26,7 @@ export default function StorefrontScreen({ navigate, sellerId, savedSet, toggleS
       </div>
 
       <div className="page" style={{ marginTop: -50, paddingTop: 0 }}>
+        <BackLink onClick={onBack} label={backLabel} />
         {/* Profile row */}
         <div className="flex items-end gap-5 mb-6">
           <span className="inline-flex items-center justify-center w-[72px] h-[72px] p-1 bg-canvas rounded-full flex-shrink-0 box-border">

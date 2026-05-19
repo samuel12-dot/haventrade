@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { api } from '../api/index.js';
 import { LISTINGS } from '../data/index.js';
 import SellerAvatar from '../components/SellerAvatar.jsx';
+import BackLink from '../components/BackLink.jsx';
 import ListingCard  from '../components/ListingCard.jsx';
 import { PinIcon }  from '../components/Icons.jsx';
 
@@ -240,7 +241,7 @@ function SecurityTab() {
   );
 }
 
-export default function ProfileScreen({ navigate, savedSet, toggleSave }) {
+export default function ProfileScreen({ navigate, savedSet, toggleSave, onBack, backLabel }) {
   const { user, logout, loading } = useAuth();
   const [tab, setTab] = useState('profile');
 
@@ -257,6 +258,7 @@ export default function ProfileScreen({ navigate, savedSet, toggleSave }) {
 
   return (
     <div className="page pt-8 pb-16">
+      <BackLink onClick={onBack} label={backLabel} />
       {/* Profile header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 pb-8 border-b border-dashed border-border-strong">
         <div className="flex items-center gap-5">

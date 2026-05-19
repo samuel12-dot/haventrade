@@ -1,5 +1,6 @@
 import { LISTINGS } from '../data/index.js';
 import ListingCard from '../components/ListingCard.jsx';
+import BackLink from '../components/BackLink.jsx';
 
 function HeartOutline() {
   return (
@@ -9,11 +10,12 @@ function HeartOutline() {
   );
 }
 
-export default function WishlistScreen({ navigate, savedSet, toggleSave }) {
+export default function WishlistScreen({ navigate, savedSet, toggleSave, onBack, backLabel }) {
   const saved = LISTINGS.filter((l) => savedSet?.has(l.id));
 
   return (
     <div className="page">
+      <BackLink onClick={onBack} label={backLabel} />
       <h1 className="h-page mb-1.5">Wishlist</h1>
 
       {saved.length === 0 ? (

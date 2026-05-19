@@ -8,10 +8,11 @@ import ListingCard from "../components/ListingCard.jsx";
 import DeliverySlotPicker from "../components/DeliverySlotPicker.jsx";
 import { HeartIcon, StarIcon } from "../components/Icons.jsx";
 import { imgUrl } from "../utils/cloudinary.js";
+import BackLink from "../components/BackLink.jsx";
 
 const isMongoId = (id) => /^[a-f\d]{24}$/i.test(String(id));
 
-export default function PDPScreen({ navigate, listingId, addToCart, savedSet, toggleSave }) {
+export default function PDPScreen({ navigate, listingId, addToCart, savedSet, toggleSave, onBack, backLabel }) {
   const staticListing = isMongoId(listingId)
     ? null
     : LISTINGS.find((l) => l.id === listingId) || LISTINGS[0];
@@ -81,19 +82,7 @@ export default function PDPScreen({ navigate, listingId, addToCart, savedSet, to
 
   return (
     <div className="page">
-      {/* Breadcrumb */}
-      <div className="mb-[18px] flex items-center gap-2 text-xs text-ink-subtle flex-wrap">
-        <a
-          onClick={() => navigate("home")}
-          className="cursor-pointer underline underline-offset-[3px]"
-        >
-          Home
-        </a>
-        <span>›</span>
-        <span>{listing.category}</span>
-        <span>›</span>
-        <span className="text-ink">{listing.title}</span>
-      </div>
+      <BackLink onClick={onBack} label={backLabel} />
 
       {/* Main 2-col layout — stacks on mobile */}
       <div className="grid gap-6 md:gap-10 md:[grid-template-columns:7fr_5fr]">

@@ -163,8 +163,17 @@ export default function App() {
 
   const cartCount    = cart.reduce((s, c) => s + c.qty, 0);
   const isAuthScreen = route === 'signin' || route === 'signup';
-  // Show the logged-out marketing header only on landing while not authenticated
   const isLanding    = route === 'landing' && !isAuthenticated;
+
+  const ROUTE_LABELS = {
+    home: 'Browse', search: 'Search', sellers: 'Sellers',
+    cart: 'Cart', wishlist: 'Wishlist', orders: 'Orders',
+    dashboard: 'Dashboard', storefront: 'Storefront',
+    pdp: 'Listing', landing: 'Home', profile: 'Profile',
+  };
+  const prevRoute  = navStack[navStack.length - 1]?.route;
+  const backLabel  = prevRoute ? (ROUTE_LABELS[prevRoute] || 'Back') : null;
+  const onBack     = navStack.length > 0 ? goBack : null;
 
   return (
     <div data-screen={route}>
@@ -172,48 +181,22 @@ export default function App() {
         <Header route={route} navigate={navigate} cartCount={cartCount} savedCount={savedSet.size} isLanding={isLanding} />
       )}
 
-      <main style={{ flex: 1, paddingTop: isAuthScreen ? 0 : 66, position: 'relative' }}>
-        {!isAuthScreen && route !== 'landing' && navStack.length > 0 && (
-          <button
-            onClick={goBack}
-            aria-label="Go back"
-            style={{
-              position: 'fixed', top: 82, left: 16, zIndex: 49,
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              padding: '7px',
-              borderRadius: 999,
-              background: 'var(--surface)',
-              border: '1px solid var(--border)',
-              color: 'var(--ink-muted)',
-              fontSize: 13,
-              fontFamily: 'var(--sans)',
-              cursor: 'pointer',
-              boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
-              transition: 'border-color 150ms, color 150ms',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--ink-muted)'; e.currentTarget.style.color = 'var(--ink)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--ink-muted)'; }}
-          >
-            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M13 4L7 10L13 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-        )}
+      <main style={{ flex: 1, paddingTop: isAuthScreen ? 0 : 'var(--header-h)', position: 'relative' }}>
         {route === 'landing'      && <LandingScreen      navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
-        {route === 'wishlist'     && <WishlistScreen     navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
+        {route === 'wishlist'     && <WishlistScreen     navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
         {route === 'design'       && <DesignSystemScreen navigate={navigate} />}
         {route === 'home'         && <HomeFeedScreen     navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
-        {route === 'pdp'          && <PDPScreen          navigate={navigate} listingId={params.id} addToCart={addToCart} savedSet={savedSet} toggleSave={toggleSave} />}
-        {route === 'cart'         && <CartScreen         navigate={navigate} cart={cart} setCart={setCart} />}
-        {route === 'checkout'     && <CheckoutScreen     navigate={navigate} cart={cart} setCart={setCart} onPlaceOrder={placeOrder} />}
+        {route === 'pdp'          && <PDPScreen          navigate={navigate} listingId={params.id} addToCart={addToCart} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
+        {route === 'cart'         && <CartScreen         navigate={navigate} cart={cart} setCart={setCart} onBack={onBack} backLabel={backLabel} />}
+        {route === 'checkout'     && <CheckoutScreen     navigate={navigate} cart={cart} setCart={setCart} onPlaceOrder={placeOrder} onBack={onBack} backLabel={backLabel} />}
         {route === 'confirmation' && <ConfirmationScreen navigate={navigate} orders={orders} />}
-        {route === 'sellers'      && <SellersScreen      navigate={navigate} />}
-        {route === 'storefront'   && <StorefrontScreen   navigate={navigate} sellerId={params.id || 'sanne'} savedSet={savedSet} toggleSave={toggleSave} />}
-        {route === 'profile'      && <ProfileScreen      navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
-        {route === 'orders'       && <OrderHistoryScreen navigate={navigate} orders={orders} />}
-        {route === 'dashboard'    && <DashboardScreen    navigate={navigate} />}
-        {route === 'editor'       && <EditorScreen       navigate={navigate} />}
-        {route === 'search'       && <SearchScreen       navigate={navigate} query={params.q} savedSet={savedSet} toggleSave={toggleSave} />}
+        {route === 'sellers'      && <SellersScreen      navigate={navigate} onBack={onBack} backLabel={backLabel} />}
+        {route === 'storefront'   && <StorefrontScreen   navigate={navigate} sellerId={params.id || 'sanne'} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
+        {route === 'profile'      && <ProfileScreen      navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
+        {route === 'orders'       && <OrderHistoryScreen navigate={navigate} orders={orders} onBack={onBack} backLabel={backLabel} />}
+        {route === 'dashboard'    && <DashboardScreen    navigate={navigate} onBack={onBack} backLabel={backLabel} />}
+        {route === 'editor'       && <EditorScreen       navigate={navigate} onBack={onBack} backLabel={backLabel} />}
+        {route === 'search'       && <SearchScreen       navigate={navigate} query={params.q} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
         {route === 'signin'       && <SignInScreen       navigate={navigate} />}
         {route === 'signup'       && <SignUpScreen       navigate={navigate} />}
       </main>

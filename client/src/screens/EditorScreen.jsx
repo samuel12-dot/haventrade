@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import ListingCard from '../components/ListingCard.jsx';
 import { api } from '../api/index.js';
+import BackLink from '../components/BackLink.jsx';
 
 function Section({ title, sub, num, children }) {
   return (
@@ -29,7 +30,7 @@ function Field({ label, children }) {
 const COND_LABELS = ['For parts', 'Fair', 'Good', 'Like new', 'New'];
 const MAX_PHOTOS  = 6;
 
-export default function EditorScreen({ navigate }) {
+export default function EditorScreen({ navigate, onBack, backLabel }) {
   const fileRef = useRef(null);
   const [pendingSlot, setPendingSlot] = useState(null);
 
@@ -130,6 +131,7 @@ export default function EditorScreen({ navigate }) {
 
   return (
     <div className="page">
+      <BackLink onClick={onBack} label={backLabel} />
       <input
         ref={fileRef}
         type="file"

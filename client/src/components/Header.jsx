@@ -310,17 +310,19 @@ function LoggedInHeader({ route, navigate, cartCount, savedCount }) {
 
         {/* Mobile actions — grouped so only one ml-auto needed */}
         <div className="md:hidden ml-auto flex items-center gap-1">
-          <button
-            className="p-2 transition-colors"
-            style={{ color: 'rgba(251,246,236,0.6)' }}
-            onClick={() => navigate('search', {})}
-            aria-label="Search"
-          >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M13 13L17 17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-            </svg>
-          </button>
+          {route !== 'search' && route !== 'home' && (
+            <button
+              className="p-2 transition-colors"
+              style={{ color: 'rgba(251,246,236,0.6)' }}
+              onClick={() => navigate('search', {})}
+              aria-label="Search"
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.6" />
+                <path d="M13 13L17 17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              </svg>
+            </button>
+          )}
           <button
             className="relative p-2 transition-colors"
             style={{ color: 'rgba(251,246,236,0.6)' }}

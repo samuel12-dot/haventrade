@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { SELLERS } from '../data/index.js';
 import { api } from '../api/index.js';
+import BackLink from '../components/BackLink.jsx';
 import SellerAvatar from '../components/SellerAvatar.jsx';
 import { StarIcon } from '../components/Icons.jsx';
 
@@ -76,7 +77,7 @@ function SellerCard({ seller, onClick }) {
   );
 }
 
-export default function SellersScreen({ navigate }) {
+export default function SellersScreen({ navigate, onBack, backLabel }) {
   const staticSellers = Object.values(SELLERS);
   const [sellers, setSellers] = useState(staticSellers);
   const [loading, setLoading] = useState(true);
@@ -100,6 +101,7 @@ export default function SellersScreen({ navigate }) {
 
   return (
     <div className="page">
+      <BackLink onClick={onBack} label={backLabel} />
       <h1 className="h-page mb-1">Your neighbours</h1>
       <div className="font-serif italic text-[18px] text-ink-muted mb-8">
         {sellers.length} sellers trading within 2km

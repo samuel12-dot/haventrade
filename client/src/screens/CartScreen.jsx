@@ -1,6 +1,7 @@
 import { LISTINGS, SELLERS } from '../data/index.js';
 import MarketTicket from '../components/MarketTicket.jsx';
 import SellerAvatar from '../components/SellerAvatar.jsx';
+import BackLink from '../components/BackLink.jsx';
 
 function SumRow({ label, bold, val }) {
   const parts = label.match(/^([^(]*)(\(.*\))?$/);
@@ -129,7 +130,7 @@ function SellerCartGroup({ sellerId, items, setQty, navigate }) {
   );
 }
 
-export default function CartScreen({ navigate, cart, setCart }) {
+export default function CartScreen({ navigate, cart, setCart, onBack, backLabel }) {
   const items  = cart.map((c) => ({ ...LISTINGS.find((l) => l.id === c.lid), qty: c.qty })).filter((i) => i.id);
   const groups = {};
   items.forEach((it) => {
@@ -150,6 +151,7 @@ export default function CartScreen({ navigate, cart, setCart }) {
 
   return (
     <div className="page">
+      <BackLink onClick={onBack} label={backLabel} />
       <div className="grid gap-7 lg:gap-9 lg:[grid-template-columns:1.7fr_1fr]">
         <div>
           <div className="flex items-baseline justify-between mb-1.5">
