@@ -776,6 +776,20 @@ input, textarea, select { font-family: inherit; }
    Responsive overrides
    ============================================================ */
 
+/* Orders table responsive grid */
+.orders-table-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 100px;
+  gap: 12px;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .orders-table-row { grid-template-columns: 100px 1fr 1fr 120px; }
+}
+@media (min-width: 1024px) {
+  .orders-table-row { grid-template-columns: 100px 1fr 1fr 110px 90px; }
+}
+
 @media (max-width: 767px) {
   :root { --header-h: 60px; }
   .page { padding: 16px; }

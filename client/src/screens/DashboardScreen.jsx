@@ -47,18 +47,22 @@ export default function DashboardScreen({ navigate }) {
             <div className="font-serif text-[22px]">Recent orders</div>
             <span className="font-mono text-[10px] text-ink-subtle uppercase tracking-[0.14em]">SHOWING 5 OF 12</span>
           </div>
-          <div className="overflow-x-auto">
+          <div>
             {/* Column headers */}
-            <div className="px-[22px] py-2.5 border-b border-border font-mono text-[9px] text-ink-subtle uppercase tracking-[0.14em] grid gap-3 items-center min-w-[560px]" style={{ gridTemplateColumns: '100px 1fr 1fr 110px 90px' }}>
-              <span>ORDER N°</span><span>ITEM</span><span>BUYER</span><span>STATUS</span><span className="text-right">ACTION</span>
+            <div className="orders-table-row px-[22px] py-2.5 border-b border-border font-mono text-[9px] text-ink-subtle uppercase tracking-[0.14em]">
+              <span>ORDER N°</span>
+              <span>ITEM</span>
+              <span className="hidden md:block">BUYER</span>
+              <span>STATUS</span>
+              <span className="hidden lg:block text-right">ACTION</span>
             </div>
             {RECENT_ORDERS.map((r, i) => (
-              <div key={i} className="px-[22px] py-3.5 border-b border-dashed border-border grid gap-3 items-center min-w-[560px]" style={{ gridTemplateColumns: '100px 1fr 1fr 110px 90px' }}>
+              <div key={i} className="orders-table-row px-[22px] py-3.5 border-b border-dashed border-border">
                 <span className="font-mono text-[11px] text-ink">HT-{r.num}</span>
                 <span className="text-[13px]">{r.item}</span>
-                <span className="font-serif italic text-[13px] text-ink-muted">{r.buyer}</span>
+                <span className="hidden md:block font-serif italic text-[13px] text-ink-muted">{r.buyer}</span>
                 <span className={`font-mono text-[9px] uppercase tracking-[0.14em] ${r.color}`}>{r.status}</span>
-                <button className="chip justify-self-end">{r.action}</button>
+                <button className="hidden lg:block chip justify-self-end">{r.action}</button>
               </div>
             ))}
           </div>
