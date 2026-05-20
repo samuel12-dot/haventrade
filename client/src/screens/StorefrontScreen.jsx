@@ -16,7 +16,11 @@ export default function StorefrontScreen({ navigate, sellerId, savedSet, toggleS
   return (
     <div>
       {/* Hero banner */}
-      <div className={`grad ${s.grad} h-[220px] relative overflow-hidden`}>
+      <div
+        className={`h-[220px] relative overflow-hidden ${s.banner ? '' : `grad ${s.grad}`}`}
+        style={s.banner ? { backgroundImage: `url(${s.banner})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}
+      >
+        {s.banner && <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.28) 100%)' }} />}
         <div className="absolute top-7 right-9">
           <MarketTicket label="EST." value={s.since} rotation={3} variant="cream" lg />
         </div>
