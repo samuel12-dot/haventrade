@@ -12,22 +12,24 @@ function SubDeliveryTimeline({ sellerId, items, index }) {
     : ['Placed', 'Accepted', 'Out for delivery', 'Delivered'];
 
   return (
-    <div className="bg-surface border border-border rounded-[18px] p-[22px] mb-[14px]">
+    <div className="bg-surface border border-border rounded-[18px] p-4 sm:p-[22px] mb-[14px]">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <SellerAvatar seller={s} size="md" />
-        <div className="flex-1">
-          <div className="font-serif text-[19px] leading-[1.1]">{s.name}</div>
-          <div className="font-serif italic text-[13px] text-ink-subtle">
+      <div className="flex items-start gap-3 mb-4">
+        <SellerAvatar seller={s} size="md" className="flex-shrink-0" />
+        <div className="flex-1 min-w-0">
+          <div className="font-serif text-[17px] sm:text-[19px] leading-[1.2] truncate">{s.name}</div>
+          <div className="font-serif italic text-[12px] sm:text-[13px] text-ink-subtle">
             {items.length} {items.length === 1 ? 'item' : 'items'} · {allDigital ? 'instant download' : `delivery from ${s.neighbourhood}`}
           </div>
         </div>
-        <MarketTicket
-          label={allDigital ? 'DELIVERED' : 'ETA'}
-          value={allDigital ? 'just now' : index === 0 ? 'today, 18:30' : 'today, 19:00'}
-          rotation={2}
-          variant={allDigital ? 'moss' : 'saffron'}
-        />
+        <div className="flex-shrink-0">
+          <MarketTicket
+            label={allDigital ? 'DELIVERED' : 'ETA'}
+            value={allDigital ? 'just now' : index === 0 ? 'today, 18:30' : 'today, 19:00'}
+            rotation={2}
+            variant={allDigital ? 'moss' : 'saffron'}
+          />
+        </div>
       </div>
 
       {/* Timeline */}
@@ -55,7 +57,7 @@ function SubDeliveryTimeline({ sellerId, items, index }) {
                   <div className={`flex-1 h-0.5 ${i < stepIdx ? 'bg-moss' : 'bg-border'}`} />
                 )}
               </div>
-              <span className="font-mono text-[9px] uppercase tracking-[0.14em] mt-1.5 text-center" style={{ color: current ? 'var(--ink)' : 'var(--ink-subtle)' }}>
+              <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.1em] sm:tracking-[0.14em] mt-1.5 text-center leading-tight" style={{ color: current ? 'var(--ink)' : 'var(--ink-subtle)' }}>
                 {label}
               </span>
             </div>
@@ -119,7 +121,7 @@ export default function ConfirmationScreen({ navigate, orders = [] }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-[2fr_1fr] gap-9">
+      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-7 lg:gap-9">
         <div>
           <div className="divider-ticket">
             <span className="mono text-[11px] text-hearth">YOUR DELIVERIES · TIMELINE</span>
