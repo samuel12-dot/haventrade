@@ -348,7 +348,7 @@ input, textarea, select { font-family: inherit; }
 .grad-vintage    { --g1: #8C5A3A; --g2: #D89B2C; }
 .grad-cool       { --g1: #5C4A3A; --g2: #C44A2C; }
 .grad-plum       { --g1: #8C3A4A; --g2: #E27A3F; }
-.grad-deepmoss   { --g1: #1F4530; --g2: #6B9F75; }
+.grad-deepmoss   { --g1: #5E4B3C; --g2: #1F3A32; }
 .grad-sun        { --g1: #F2B544; --g2: #F8C4B0; }
 .grad-copper      { background: linear-gradient(135deg, #F2D2B6 0%, #D98A4E 40%, #A95A2A 70%, #2A140C 100%); }
 .grad-copper-deep { background: linear-gradient(135deg, #D7B49E 0%, #B86A3A 40%, #6F381E 70%, #140B08 100%); }
