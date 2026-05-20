@@ -389,9 +389,10 @@ export const LISTINGS = [
     digital: true,
     sub: "Digital · 300 DPI PDF + PNG",
     images: [
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=80",
+      "/images/products/archictecture-print/archictecture-print1.png",
+      "/images/products/archictecture-print/archictecture-print2.png",
+      "/images/products/archictecture-print/archictecture-print3.png",
+      "/images/products/archictecture-print/archictecture-print4.png",
     ],
     description:
       "A high-contrast architectural illustration of Abuja's skyline — Pixel Dispatch's signature ink-and-negative-space style, print-ready at 300 DPI in both PDF and PNG. Instant download, yours to frame.",
