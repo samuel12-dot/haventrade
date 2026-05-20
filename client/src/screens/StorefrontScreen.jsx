@@ -25,14 +25,14 @@ export default function StorefrontScreen({ navigate, sellerId, savedSet, toggleS
         </div>
       </div>
 
-      <div className="page" style={{ marginTop: -50, paddingTop: 0 }}>
+      <div className="page" style={{ marginTop: -16, paddingTop: 0 }}>
         <BackLink onClick={onBack} label={backLabel} />
         {/* Profile row */}
-        <div className="flex items-end gap-5 mb-6">
-          <span className="inline-flex items-center justify-center w-[72px] h-[72px] p-1 bg-canvas rounded-full flex-shrink-0 box-border">
+        <div className="flex items-start gap-5 mb-6">
+          <span className="inline-flex items-center justify-center w-[72px] h-[72px] p-1 bg-canvas rounded-full flex-shrink-0 box-border" style={{ marginTop: -20 }}>
             <SellerAvatar seller={s} size="lg" />
           </span>
-          <div className="flex-1 min-w-0 pb-1.5">
+          <div className="flex-1 min-w-0 pt-1">
             <div className="flex items-center gap-2.5">
               <h1 className="h-page mb-1">{s.name}</h1>
               <span className="w-6 h-6 rounded-full bg-moss text-canvas flex items-center justify-center flex-shrink-0">
