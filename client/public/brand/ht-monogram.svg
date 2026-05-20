@@ -1,0 +1,17 @@
+<svg viewBox="0 0 100 100" width="200" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HavenTrade">
+  <defs>
+    <radialGradient id="ht-paper" cx="34%" cy="28%" r="80%">
+      <stop offset="0%"   stop-color="#FFFCF4" />
+      <stop offset="100%" stop-color="#FBF6EC" />
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="url(#ht-paper)" stroke="#C44A2C" stroke-width="1.5" stroke-dasharray="3 3" />
+  <path d="M 30 74 L 30 46 Q 30 26 50 26 Q 70 26 70 46 L 70 74" fill="none" stroke="#1F1410" stroke-width="1.5" stroke-linecap="round" opacity="0.4" />
+  <rect x="35.5" y="38"   width="4.4"  height="32"  fill="#C44A2C" />
+  <rect x="60.1" y="38"   width="4.4"  height="32"  fill="#C44A2C" />
+  <rect x="39.9" y="51.6" width="20.2" height="3.2"  fill="#C44A2C" />
+  <rect x="32.5" y="38"   width="10.4" height="1.8"  fill="#C44A2C" />
+  <rect x="32.5" y="68.2" width="10.4" height="1.8"  fill="#C44A2C" />
+  <rect x="57.1" y="38"   width="10.4" height="1.8"  fill="#C44A2C" />
+  <rect x="57.1" y="68.2" width="10.4" height="1.8"  fill="#C44A2C" />
+</svg>
