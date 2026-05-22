@@ -227,6 +227,16 @@ export const LISTINGS = [
     ],
     description:
       "Sourced from a 1960s living room in Maitama, this teak armchair has been carefully refinished — joints re-glued, hand-rubbed Danish oil — and is ready for another fifty years of slow Sunday afternoons. Pet-free, plant-friendly home; pickup or cargo-bike delivery within 2 km.",
+    details: [
+      ["DIMENSIONS",  "76 × 72 × 88 cm"],
+      ["WEIGHT",      "11.4 kg"],
+      ["MATERIALS",   "Solid teak, cotton canvas"],
+      ["ORIGIN",      "Denmark, ca. 1960s"],
+      ["FRAME",       "Solid teak, hand-rubbed Danish oil"],
+      ["UPHOLSTERY",  "Cotton canvas, cognac"],
+      ["CONDITION",   "Like new · Refinished walnut frame"],
+      ["WARRANTY",    "30-day neighbour return"],
+    ],
   },
   {
     id: "l02",
@@ -250,6 +260,15 @@ export const LISTINGS = [
     ],
     description:
       "Industry-leading noise cancellation in near-perfect condition — original charging case, all ear-pad foam intact, barely any wear on the headband. Pieter upgraded to the XM5; your ears reap the benefit.",
+    details: [
+      ["BATTERY",       "Up to 30 hours"],
+      ["CONNECTIVITY",  "Bluetooth 5.0 · 3.5 mm jack"],
+      ["NOISE CANCEL",  "Industry-leading ANC"],
+      ["INCLUDED",      "Original case, cables, all ear pads"],
+      ["COMPATIBLE",    "iOS · Android · PC"],
+      ["CONDITION",     "Good · Light wear on headband"],
+      ["WARRANTY",      "30-day neighbour return"],
+    ],
   },
   {
     id: "l03",
@@ -273,6 +292,15 @@ export const LISTINGS = [
     ],
     description:
       "Solid 4×4 Kallax from Mark's Asokoro move-out — a few surface scratches on the top panel but structurally sound, all 16 compartments intact. Ideal for records, books, or a wall of plants.",
+    details: [
+      ["DIMENSIONS",    "147 × 147 × 39 cm"],
+      ["WEIGHT",        "~50 kg"],
+      ["MATERIALS",     "Particleboard, foil surface"],
+      ["COMPARTMENTS",  "16 cubbies"],
+      ["COLOUR",        "White"],
+      ["CONDITION",     "Fair · Surface scratches on top panel"],
+      ["WARRANTY",      "30-day neighbour return"],
+    ],
   },
   {
     id: "l04",
@@ -296,6 +324,14 @@ export const LISTINGS = [
     ],
     description:
       "100g of Aisha's five-year-old starter — lively, wheaty, and ready to bake with by tomorrow morning. Comes with a handwritten recipe card and enough flour to feed it through the weekend.",
+    details: [
+      ["CONTENTS",      "100g starter + flour + recipe card"],
+      ["STARTER AGE",   "5 years active"],
+      ["HYDRATION",     "100% — equal flour & water"],
+      ["FLOUR TYPE",    "Whole wheat blend"],
+      ["READY TO BAKE", "By tomorrow morning"],
+      ["ALLERGENS",     "Wheat · gluten"],
+    ],
   },
   {
     id: "l05",
@@ -319,6 +355,15 @@ export const LISTINGS = [
     ],
     description:
       "A brushed-brass pendant from Linda's Utako trove — warm Edison glow, rewired to Nigerian spec, ready to hang. The kind of lamp that makes every dinner feel like a special occasion.",
+    details: [
+      ["ERA",           "1960s–1970s"],
+      ["MATERIALS",     "Brushed brass, linen shade"],
+      ["WIRING",        "Rewired to Nigerian spec"],
+      ["CORD LENGTH",   "1.8 m"],
+      ["BULB",          "E27 — Edison bulb included"],
+      ["CONDITION",     "Like new · Professionally restored"],
+      ["WARRANTY",      "30-day neighbour return"],
+    ],
   },
   {
     id: "l06",
@@ -342,6 +387,15 @@ export const LISTINGS = [
     ],
     description:
       "Patagonia Torrentshell in women's M — lightly worn, DWR still beads water, all zips smooth. Abuja rain meets its match; Daan is downsizing the outdoor wardrobe.",
+    details: [
+      ["SIZE",          "Women's M"],
+      ["FIT",           "Regular / relaxed"],
+      ["MATERIAL",      "H2No® Performance Shell"],
+      ["WATERPROOFING", "DWR still active — beads water"],
+      ["ZIPS",          "All smooth · pit zips intact"],
+      ["CONDITION",     "Good · Lightly worn, no rips"],
+      ["WARRANTY",      "30-day neighbour return"],
+    ],
   },
   {
     id: "l07",
@@ -365,6 +419,15 @@ export const LISTINGS = [
     ],
     description:
       "Fifty-piece beechwood train set — all tracks, engines, and wagons accounted for, no splinters, no missing pegs. Mark's kids have outgrown it; the next generation of engineers awaits.",
+    details: [
+      ["PIECES",        "50 — all tracks, engines & wagons"],
+      ["MATERIAL",      "Solid beechwood"],
+      ["PAINT",         "Water-based, non-toxic"],
+      ["AGE RANGE",     "2–6 years"],
+      ["COMPATIBLE",    "BRIO · IKEA LILLABO"],
+      ["CONDITION",     "Like new · No missing pegs"],
+      ["WARRANTY",      "30-day neighbour return"],
+    ],
   },
   {
     id: "l08",
@@ -388,6 +451,14 @@ export const LISTINGS = [
     ],
     description:
       "Rooted Monstera deliciosa cutting with four healthy leaves and a root ball ready for a 15 cm pot — propagated in Aisha's sunny Garki kitchen, no pesticides, lots of love.",
+    details: [
+      ["VARIETY",       "Monstera deliciosa"],
+      ["POT SIZE",      "15 cm nursery pot"],
+      ["HEIGHT",        "~40 cm from soil"],
+      ["ROOTED",        "Yes — active root system"],
+      ["LIGHT",         "Bright indirect"],
+      ["WATERING",      "Every 7–10 days"],
+    ],
   },
   {
     id: "l09",
@@ -412,6 +483,14 @@ export const LISTINGS = [
     ],
     description:
       "A high-contrast architectural illustration of Abuja's skyline — Pixel Dispatch's signature ink-and-negative-space style, print-ready at 300 DPI in both PDF and PNG. Instant download, yours to frame.",
+    details: [
+      ["FORMAT",        "PDF + PNG"],
+      ["RESOLUTION",    "300 DPI · 4961 × 7016 px"],
+      ["PRINT SIZE",    "A2 — 420 × 594 mm"],
+      ["STYLE",         "Ink · architectural line art"],
+      ["LICENSE",       "Personal use · single household"],
+      ["FILE SIZE",     "~84 MB"],
+    ],
   },
   {
     id: "l10",
@@ -435,6 +514,15 @@ export const LISTINGS = [
     ],
     description:
       "Cherry-red Le Creuset 24 cm dutch oven — well-loved in the best sense, enamel intact inside and out, lid seals perfectly. The pot that turns a Tuesday into a slow-cooked occasion.",
+    details: [
+      ["DIAMETER",      "24 cm"],
+      ["CAPACITY",      "4.2 L"],
+      ["MATERIAL",      "Enamelled cast iron"],
+      ["COLOUR",        "Flame / cherry red"],
+      ["OVEN SAFE",     "Up to 260°C"],
+      ["CONDITION",     "Good · No chips, minor staining"],
+      ["WARRANTY",      "30-day neighbour return"],
+    ],
   },
   {
     id: "l11",
@@ -458,6 +546,14 @@ export const LISTINGS = [
     ],
     description:
       "800g naturally leavened sourdough, baked this morning in Aisha's cast-iron — crackling crust, open crumb, no additives. Best eaten today, although it toasts beautifully through the weekend.",
+    details: [
+      ["WEIGHT",        "~800 g"],
+      ["FLOUR",         "Stone-ground whole wheat + rye"],
+      ["BAKED",         "This morning, 06:00"],
+      ["BEST BEFORE",   "Today — toasts through the weekend"],
+      ["STARTER",       "Aisha's 5-year culture"],
+      ["ALLERGENS",     "Wheat · gluten"],
+    ],
   },
   {
     id: "l12",
@@ -481,6 +577,15 @@ export const LISTINGS = [
     ],
     description:
       "Soft cream-colored Uniqlo fleece pullover with relaxed oversized fit and half-zip collar. Warm without bulk, ideal for layering during cooler Abuja evenings. Slight signs of use but still super soft.",
+    details: [
+      ["SIZE",          "Men's M"],
+      ["FIT",           "Oversized / boxy"],
+      ["MATERIAL",      "Polyester fleece"],
+      ["COLOUR",        "Ecru / off-white"],
+      ["CLOSURE",       "Half-zip"],
+      ["CONDITION",     "Good · No pilling, soft throughout"],
+      ["WARRANTY",      "30-day neighbour return"],
+    ],
   },
   {
     id: "l13",
@@ -504,6 +609,15 @@ export const LISTINGS = [
     ],
     description:
       "Classic Levi's 501s in a naturally faded mid-blue wash with straight-leg fit and vintage character. Broken in perfectly over time with subtle whiskering and durable heavyweight denim still holding shape.",
+    details: [
+      ["WAIST × INSEAM", "W30 × L32"],
+      ["FIT",            "Straight leg · original 501"],
+      ["MATERIAL",       "100% heavyweight denim"],
+      ["WASH",           "Naturally faded mid-blue"],
+      ["CLOSURE",        "Button fly"],
+      ["CONDITION",      "Very good · Broken in, no damage"],
+      ["WARRANTY",       "30-day neighbour return"],
+    ],
   },
   {
     id: "l14",
@@ -527,6 +641,15 @@ export const LISTINGS = [
     ],
     description:
       "Oversized Acne Studios scarf in warm camel wool with brushed texture and fringed edges. Lightweight yet insulating, perfect for harmattan layering and neutral minimalist outfits.",
+    details: [
+      ["DIMENSIONS",  "230 × 80 cm"],
+      ["MATERIAL",    "Lambswool blend"],
+      ["COLOUR",      "Warm camel"],
+      ["TEXTURE",     "Brushed, fringed ends"],
+      ["WEIGHT",      "Lightweight — easy to layer"],
+      ["CONDITION",   "Like new · No pilling or wear"],
+      ["WARRANTY",    "30-day neighbour return"],
+    ],
   },
   {
     id: "l15",
@@ -550,6 +673,15 @@ export const LISTINGS = [
     ],
     description:
       "Vintage-inspired Carhartt chore jacket in faded caramel brown canvas — relaxed unisex fit with soft flannel lining and worn-in character. Minor signs of wear add patina, all buttons intact, and pockets still sturdy enough for daily use.",
+    details: [
+      ["SIZE",        "Unisex L"],
+      ["FIT",         "Relaxed / boxy"],
+      ["MATERIAL",    "Washed canvas, flannel lining"],
+      ["COLOUR",      "Faded caramel brown"],
+      ["POCKETS",     "4 utility pockets — all sturdy"],
+      ["CONDITION",   "Very good · Natural fading, buttons intact"],
+      ["WARRANTY",    "30-day neighbour return"],
+    ],
   },
   {
     id: "l16",
@@ -573,6 +705,15 @@ export const LISTINGS = [
     ],
     description:
       "Apple Magic Keyboard with Touch ID in crisp white finish — barely used, responsive keys, and battery still holds charge for weeks. Comes with original braided USB-C cable and protective sleeve.",
+    details: [
+      ["CONNECTIVITY", "USB-C + Bluetooth"],
+      ["BATTERY",      "Weeks per charge"],
+      ["TOUCH ID",     "Yes"],
+      ["LAYOUT",       "Full size · US English"],
+      ["INCLUDED",     "Braided USB-C cable + sleeve"],
+      ["CONDITION",    "Like new · Barely used"],
+      ["WARRANTY",     "30-day neighbour return"],
+    ],
   },
   {
     id: "l17",
@@ -596,6 +737,15 @@ export const LISTINGS = [
     ],
     description:
       "Nintendo Switch OLED with vivid 7-inch display and white Joy-Cons. Light signs of use on the dock but screen is flawless with screen protector applied since day one.",
+    details: [
+      ["DISPLAY",           "7-inch OLED · 720p handheld"],
+      ["STORAGE",           "64 GB internal"],
+      ["INCLUDED",          "Dock · Joy-Con pair · AC adapter"],
+      ["SCREEN PROTECTOR",  "Yes — applied from day one"],
+      ["BATTERY",           "~4.5 hours average gameplay"],
+      ["CONDITION",         "Very good · Screen flawless, dock light wear"],
+      ["WARRANTY",          "30-day neighbour return"],
+    ],
   },
   {
     id: "l18",
@@ -619,6 +769,15 @@ export const LISTINGS = [
     ],
     description:
       "Ergonomic Logitech MX Master 3S in graphite black — ideal for creatives and productivity setups. MagSpeed scroll wheel feels buttery smooth, and the silent clicks make it perfect for office work.",
+    details: [
+      ["CONNECTIVITY", "Bluetooth + USB-A receiver"],
+      ["BATTERY",      "70 days per charge"],
+      ["SCROLL WHEEL", "MagSpeed electromagnetic"],
+      ["BUTTONS",      "7 programmable"],
+      ["COMPATIBLE",   "Windows · macOS · iPadOS"],
+      ["CONDITION",    "Good · Smooth scroll, silent clicks"],
+      ["WARRANTY",     "30-day neighbour return"],
+    ],
   },
   {
     id: "l19",
@@ -642,6 +801,15 @@ export const LISTINGS = [
     ],
     description:
       "Latest-generation Kindle Paperwhite with warm adjustable lighting and weeks-long battery life. Perfect for travel or late-night reading sessions without eye strain.",
+    details: [
+      ["DISPLAY",    "6.8\" 300 PPI Paperwhite"],
+      ["STORAGE",    "8 GB"],
+      ["WATERPROOF", "IPX8 — yes"],
+      ["LIGHTING",   "Warm adjustable · 17 LEDs"],
+      ["BATTERY",    "Weeks per charge"],
+      ["CONDITION",  "Very good · No scratches, ad-free"],
+      ["WARRANTY",   "30-day neighbour return"],
+    ],
   },
   {
     id: "l20",
@@ -665,6 +833,15 @@ export const LISTINGS = [
     ],
     description:
       "Portable Marshall Emberton II Bluetooth speaker with signature retro styling and surprisingly deep bass. Battery still lasts all weekend, and the textured finish hides wear nicely.",
+    details: [
+      ["BATTERY",      "Up to 30 hours"],
+      ["WATERPROOF",   "IP67"],
+      ["CONNECTIVITY", "Bluetooth 5.1"],
+      ["RANGE",        "Up to 10 m"],
+      ["DIMENSIONS",   "168 × 70 × 70 mm"],
+      ["CONDITION",    "Good · Minor scuffs on base"],
+      ["WARRANTY",     "30-day neighbour return"],
+    ],
   },
   {
     id: "l21",
@@ -688,6 +865,15 @@ export const LISTINGS = [
     ],
     description:
       "Vintage-inspired Eames-style three-seater sofa in rich cognac leather with tufted seat detailing and solid walnut legs. Beautiful patina, deep comfortable cushions, and a timeless mid-century silhouette that elevates any living space.",
+    details: [
+      ["DIMENSIONS",   "215 × 85 × 80 cm"],
+      ["WEIGHT",       "~48 kg"],
+      ["UPHOLSTERY",   "Full-grain cognac leather"],
+      ["LEGS",         "Solid walnut"],
+      ["SEATS",        "3"],
+      ["CONDITION",    "Very good · Rich patina, no tears"],
+      ["WARRANTY",     "30-day neighbour return"],
+    ],
   },
 
   {
@@ -712,6 +898,15 @@ export const LISTINGS = [
     ],
     description:
       "Restored vintage rotary desk phone in soft cream finish with classic analog dialing and authentic retro detailing. Fully functional and ideal for desks, studios, or nostalgic interiors.",
+    details: [
+      ["ERA",         "ca. 1970s"],
+      ["COLOUR",      "Cream / ivory"],
+      ["MECHANISM",   "Rotary dial"],
+      ["WORKING",     "Yes — fully functional"],
+      ["CORD",        "Restored coiled handset cord"],
+      ["CONDITION",   "Very good · Cleaned and tested"],
+      ["WARRANTY",    "30-day neighbour return"],
+    ],
   },
 
   {
@@ -736,6 +931,15 @@ export const LISTINGS = [
     ],
     description:
       "Authentic 1970s teak wood record cabinet with sliding compartments and vinyl storage. Rich wood grain and beautiful aging throughout. A statement piece for collectors and vintage interiors.",
+    details: [
+      ["ERA",          "1970s"],
+      ["DIMENSIONS",   "~120 × 45 × 80 cm"],
+      ["MATERIAL",     "Solid teak"],
+      ["COMPARTMENTS", "Sliding vinyl storage"],
+      ["ORIGIN",       "West Africa, period piece"],
+      ["CONDITION",    "Good · Minor edge wear, solid structure"],
+      ["WARRANTY",     "30-day neighbour return"],
+    ],
   },
   {
   id: "k24",
@@ -759,6 +963,15 @@ export const LISTINGS = [
   ],
   description:
     "Large Montessori-inspired rainbow stacking toy made from smooth natural wood with soft pastel finishes. Encourages creative play, balancing, sorting, and motor skill development.",
+  details: [
+    ["PIECES",      "11 arches + base"],
+    ["MATERIAL",    "Natural solid wood"],
+    ["PAINT",       "Non-toxic water-based pastels"],
+    ["AGE RANGE",   "12 months +"],
+    ["DIMENSIONS",  "~38 cm wide fully assembled"],
+    ["CONDITION",   "Very good · No chips or cracks"],
+    ["WARRANTY",    "30-day neighbour return"],
+  ],
 },
 
 {
@@ -783,6 +996,15 @@ export const LISTINGS = [
   ],
   description:
     "Functional IKEA FLISAT children's activity table with matching stools. Ideal for drawing, LEGO play, sensory bins, and crafts. Structurally solid with light cosmetic wear.",
+  details: [
+    ["INCLUDES",     "Table + 2 stools"],
+    ["TABLE SIZE",   "83 × 58 × 45 cm"],
+    ["STOOL HEIGHT", "26 cm"],
+    ["MATERIAL",     "Solid pine"],
+    ["AGE RANGE",    "3–10 years"],
+    ["CONDITION",    "Good · Light pencil marks"],
+    ["WARRANTY",     "30-day neighbour return"],
+  ],
 }
 ];
 

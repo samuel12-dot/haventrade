@@ -17,14 +17,18 @@ function Accordion({ num, title, subtitle, open, onToggle, children }) {
   return (
     <div className="bg-surface border border-border rounded-2xl overflow-hidden">
       <button onClick={onToggle} className="w-full px-6 py-5 flex items-center gap-4 text-left">
-        <span className={`w-8 h-8 rounded-full inline-flex items-center justify-center font-mono text-[13px] font-bold ${open ? 'bg-hearth text-canvas' : 'bg-surface-2 text-ink-muted'}`}>{num}</span>
+        <span className={`w-8 h-8 rounded-full inline-flex items-center justify-center font-mono text-[13px] font-bold transition-colors duration-200 ${open ? 'bg-hearth text-canvas' : 'bg-surface-2 text-ink-muted'}`}>{num}</span>
         <div className="flex-1">
           <div className="font-serif text-xl leading-[1.1]">{title}</div>
           <div className="font-serif italic text-[13px] text-ink-subtle">{subtitle}</div>
         </div>
-        <span className="text-lg text-ink-muted transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'none' }}>⌄</span>
+        <span className="text-lg text-ink-muted transition-transform duration-300" style={{ transform: open ? 'rotate(180deg)' : 'none', display: 'inline-block' }}>⌄</span>
       </button>
-      {open && <div className="px-6 pb-6 border-t border-dashed border-border-strong pt-5">{children}</div>}
+      <div className={`accordion-body${open ? ' open' : ''}`}>
+        <div>
+          <div className="px-6 pb-6 border-t border-dashed border-border-strong pt-5">{children}</div>
+        </div>
+      </div>
     </div>
   );
 }

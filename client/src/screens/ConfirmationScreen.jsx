@@ -108,15 +108,15 @@ export default function ConfirmationScreen({ navigate, orders = [] }) {
       {/* Hero */}
       <div className="bg-moss-soft rounded-3xl p-10 mb-8 relative overflow-hidden">
         {order && (
-          <div className="absolute top-6 right-8">
+          <div className="absolute top-6 right-8 anim-fade-in ad-3">
             <MarketTicket label="ORDER" value={`N° ${order.num}`} rotation={2} variant="moss" lg />
           </div>
         )}
-        <div className="w-[72px] h-[72px] rounded-full bg-moss text-canvas flex items-center justify-center mb-[18px]">
+        <div className="w-[72px] h-[72px] rounded-full bg-moss text-canvas flex items-center justify-center mb-[18px] anim-fade-up ad-0">
           <CheckIcon size={28} />
         </div>
-        <h1 className="h-page mb-2">Order placed!</h1>
-        <div className="font-serif italic text-[19px] text-ink-muted max-w-[580px] leading-[1.4]">
+        <h1 className="h-page mb-2 anim-fade-up ad-1">Order placed!</h1>
+        <div className="font-serif italic text-[19px] text-ink-muted max-w-[580px] leading-[1.4] anim-fade-up ad-2">
           Your neighbours have been notified. {Object.keys(groups).length} sub-deliveries are being prepared — we'll keep you posted as each one moves.
         </div>
       </div>
@@ -127,7 +127,9 @@ export default function ConfirmationScreen({ navigate, orders = [] }) {
             <span className="mono text-[11px] text-hearth">YOUR DELIVERIES · TIMELINE</span>
           </div>
           {Object.entries(groups).map(([sid, list], gi) => (
-            <SubDeliveryTimeline key={sid} sellerId={sid} items={list} index={gi} />
+            <div key={sid} className={`anim-fade-up ad-${Math.min(gi + 2, 6)}`}>
+              <SubDeliveryTimeline sellerId={sid} items={list} index={gi} />
+            </div>
           ))}
         </div>
 

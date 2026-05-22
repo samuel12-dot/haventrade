@@ -491,21 +491,12 @@ export default function PDPScreen({ navigate, listingId, addToCart, savedSet, to
         {tab === "description" && (
           <div className="grid gap-6 md:gap-10 max-w-[980px] md:[grid-template-columns:2fr_1fr]">
             <div className="font-serif text-[17px] leading-[1.55] text-ink-muted">
-              <p className="mt-0">
-                Sourced from a 1960s living room in Maitama, this teak
-                armchair has been carefully refinished — joints re-glued,
-                hand-rubbed Danish oil — and is ready for another fifty years of
-                slow Sunday afternoons.
-              </p>
-              <p>
-                The cushion has been re-stuffed with new foam and reupholstered
-                in a cognac canvas that softens with use. No splits, no wobble,
-                no smoker's perfume. Pet-free, plant-friendly home.
-              </p>
-              <p className="font-serif italic text-[15px] text-ink-subtle">
-                Pickup or two-wheel delivery within 2km — I'll bring it round on
-                the cargo bike, today between 18:00 and 19:00.
-              </p>
+              <p className="mt-0">{listing.description}</p>
+              {!isDigital && listing.eta && (
+                <p className="font-serif italic text-[15px] text-ink-subtle">
+                  Pickup or delivery within 2 km — {listing.eta}, by bike from {listing.neighbourhood}.
+                </p>
+              )}
             </div>
             <div>
               {seller.name && (
@@ -523,16 +514,13 @@ export default function PDPScreen({ navigate, listingId, addToCart, savedSet, to
 
         {tab === "item details" && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[980px]">
-            {[
-              ["DIMENSIONS", "76 × 72 × 88 cm"],
-              ["WEIGHT", "11.4 kg"],
-              ["MATERIALS", "Teak, canvas"],
-              ["ORIGIN", "Denmark, ca. 1962"],
-              ["FRAME", "Solid teak, oiled"],
-              ["UPHOLSTERY", "Cotton canvas, cognac"],
-              ["CONDITION", listing.condition.toUpperCase()],
-              ["WARRANTY", "30-day neighbour return"],
-            ].map(([k, v]) => (
+            {(listing.details?.length ? listing.details : [
+              ["CATEGORY",     listing.category],
+              ["CONDITION",    listing.condition],
+              ["NEIGHBOURHOOD", listing.neighbourhood],
+              ["ETA",          listing.eta || "—"],
+              ["WARRANTY",     "30-day neighbour return"],
+            ]).map(([k, v]) => (
               <div
                 key={k}
                 className="p-[14px] bg-surface border border-border rounded-xl"
@@ -569,12 +557,12 @@ export default function PDPScreen({ navigate, listingId, addToCart, savedSet, to
 
         {tab === "license & format" && (
           <div className="max-w-[720px] grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {[
-              ["FORMAT", "PDF + PNG"],
-              ["RESOLUTION", "300 DPI · 4961 × 7016 px"],
-              ["LICENSE", "Personal use, single household"],
-              ["FILE SIZE", "84 MB"],
-            ].map(([k, v]) => (
+            {(listing.details?.length ? listing.details : [
+              ["FORMAT",     "PDF + PNG"],
+              ["RESOLUTION", "300 DPI"],
+              ["LICENSE",    "Personal use, single household"],
+              ["FILE SIZE",  "—"],
+            ]).map(([k, v]) => (
               <div
                 key={k}
                 className="p-4 bg-surface border border-border rounded-xl"

@@ -1,9 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { SELLERS } from '../data/index.js';
 import { api } from '../api/index.js';
 import BackLink from '../components/BackLink.jsx';
 import SellerAvatar from '../components/SellerAvatar.jsx';
 import { StarIcon } from '../components/Icons.jsx';
+
+function useInView(opts = {}) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { threshold: 0.02, ...opts }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, inView];
+}
 
 const NEIGHBOURHOOD_DISTANCE = {
   'Maitama':      '0.4 km',
@@ -81,6 +97,7 @@ export default function SellersScreen({ navigate, onBack, backLabel }) {
   const staticSellers = Object.values(SELLERS);
   const [sellers, setSellers] = useState(staticSellers);
   const [loading, setLoading] = useState(true);
+  const [gridRef, gridInView] = useInView();
 
   useEffect(() => {
     api.getSellers()
@@ -114,13 +131,14 @@ export default function SellersScreen({ navigate, onBack, backLabel }) {
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {sellers.map((s) => (
-            <SellerCard
-              key={s.id}
-              seller={s}
-              onClick={() => navigate('storefront', { id: s.id })}
-            />
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {sellers.map((s, i) => (
+            <div key={s.id} className={`reveal sd-${(i % 4) + 1} ${gridInView ? 'in-view' : ''}`}>
+              <SellerCard
+                seller={s}
+                onClick={() => navigate('storefront', { id: s.id })}
+              />
+            </div>
           ))}
         </div>
       )}

@@ -22,7 +22,7 @@ function AuthFormField({ label, type = 'text', value, onChange, placeholder, suf
   return (
     <label className="block">
       <div className="font-mono text-[10px] text-ink-muted mb-2 tracking-[0.16em]">{label}</div>
-      <div className="flex items-center gap-2.5 bg-canvas border-[1.5px] border-border rounded-xl transition-all" style={{ padding: '4px 6px 4px 12px' }}>
+      <div className="auth-field-wrap flex items-center gap-2.5 bg-canvas border-[1.5px] border-border rounded-xl" style={{ padding: '4px 6px 4px 12px' }}>
         <input
           type={type}
           value={value}
@@ -69,6 +69,7 @@ export default function SignInScreen({ navigate }) {
   const [showPw,   setShowPw]   = useState(false);
   const [error,    setError]    = useState('');
   const [loading,  setLoading]  = useState(false);
+  const [errorKey, setErrorKey] = useState(0);
 
   const teaser = LISTINGS.find((l) => l.id === 'l12') || LISTINGS[0];
 
@@ -81,6 +82,7 @@ export default function SignInScreen({ navigate }) {
       navigate('home');
     } catch (err) {
       setError(err.message || 'Sign in failed. Please try again.');
+      setErrorKey((k) => k + 1);
     } finally {
       setLoading(false);
     }
@@ -101,7 +103,7 @@ export default function SignInScreen({ navigate }) {
           Pick up where the neighbours left you.
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form key={errorKey} onSubmit={handleSubmit} className={`flex flex-col gap-4${error ? ' shake' : ''}`}>
           <AuthFormField label="EMAIL" type="email" placeholder="you@example.com" value={email} onChange={setEmail} />
           <AuthFormField
             label="PASSWORD"

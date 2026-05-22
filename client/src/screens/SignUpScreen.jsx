@@ -22,7 +22,7 @@ function AuthFormField({ label, type = 'text', value, onChange, placeholder, mon
   return (
     <label className="block">
       <div className="font-mono text-[10px] text-ink-muted mb-2 tracking-[0.16em]">{label}</div>
-      <div className="flex items-center gap-2.5 bg-canvas border-[1.5px] border-border rounded-xl transition-all" style={{ padding: '4px 6px 4px 12px' }}>
+      <div className="auth-field-wrap flex items-center gap-2.5 bg-canvas border-[1.5px] border-border rounded-xl" style={{ padding: '4px 6px 4px 12px' }}>
         {icon && <span className="text-hearth inline-flex flex-shrink-0">{icon}</span>}
         <input
           type={type}
@@ -78,6 +78,7 @@ export default function SignUpScreen({ navigate }) {
   const [showPw,   setShowPw]   = useState(false);
   const [error,    setError]    = useState('');
   const [loading,  setLoading]  = useState(false);
+  const [errorKey, setErrorKey] = useState(0);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -88,6 +89,7 @@ export default function SignUpScreen({ navigate }) {
       navigate('home');
     } catch (err) {
       setError(err.message || 'Registration failed. Please try again.');
+      setErrorKey((k) => k + 1);
     } finally {
       setLoading(false);
     }
@@ -176,7 +178,7 @@ export default function SignUpScreen({ navigate }) {
           Free, forever. No card.
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form key={errorKey} onSubmit={handleSubmit} className={`flex flex-col gap-4${error ? ' shake' : ''}`}>
           <AuthFormField label="DISPLAY NAME" placeholder="Mara de Wit" value={name} onChange={setName} />
           <AuthFormField label="EMAIL" type="email" placeholder="mara@example.com" value={email} onChange={setEmail} />
           <AuthFormField

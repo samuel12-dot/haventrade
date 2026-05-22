@@ -1,4 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
+function useInView(opts = {}) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { threshold: 0.02, rootMargin: '0px 0px -20px 0px', ...opts }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, inView];
+}
 import { LISTINGS, SELLERS } from '../data/index.js';
 import ListingCard  from '../components/ListingCard.jsx';
 import MarketTicket from '../components/MarketTicket.jsx';
@@ -12,6 +28,7 @@ export default function StorefrontScreen({ navigate, sellerId, savedSet, toggleS
   const items = LISTINGS.filter((l) => l.sellerId === s.id);
   const cats  = [...new Set(items.map((l) => l.category))];
   const tabs  = ['All items', ...cats, 'About', 'Reviews', 'Policies'];
+  const [gridRef, gridInView] = useInView();
 
   return (
     <div>
@@ -86,6 +103,7 @@ export default function StorefrontScreen({ navigate, sellerId, savedSet, toggleS
                 padding: '12px 18px',
                 borderBottom: tab === t ? '2px solid var(--hearth)' : '2px solid transparent',
                 color: tab === t ? 'var(--ink)' : 'var(--ink-muted)',
+                transition: 'color 0.2s ease, border-color 0.2s ease',
               }}
             >
               {t}
@@ -109,9 +127,11 @@ export default function StorefrontScreen({ navigate, sellerId, savedSet, toggleS
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px]">
-            {(tab === 'All items' ? items : items.filter((l) => l.category === tab)).map((l) => (
-              <ListingCard key={l.id} listing={l} onClick={() => navigate('pdp', { id: l.id })} saved={savedSet.has(l.id)} onSave={toggleSave} />
+          <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px]">
+            {(tab === 'All items' ? items : items.filter((l) => l.category === tab)).map((l, i) => (
+              <div key={l.id} className={`reveal sd-${(i % 3) + 1} ${gridInView ? 'in-view' : ''}`}>
+                <ListingCard listing={l} onClick={() => navigate('pdp', { id: l.id })} saved={savedSet.has(l.id)} onSave={toggleSave} />
+              </div>
             ))}
           </div>
         )}

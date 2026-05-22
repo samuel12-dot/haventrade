@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { SELLERS } from '../data/index.js';
 import MarketTicket from './MarketTicket.jsx';
 import SellerAvatar from './SellerAvatar.jsx';
@@ -5,6 +6,7 @@ import { HeartIcon } from './Icons.jsx';
 import { imgUrl } from '../utils/cloudinary.js';
 
 export default function ListingCard({ listing, onClick, saved, onSave, sold = false }) {
+  const [popped, setPopped] = useState(false);
   const seller   = listing._seller || SELLERS[listing.sellerId] || {};
   const isFree   = listing.price === 0;
   const isDigital = listing.digital;
@@ -54,8 +56,12 @@ export default function ListingCard({ listing, onClick, saved, onSave, sold = fa
         </div>
         <div className="corner br">
           <button
-            className={`heart-btn${saved ? ' saved' : ''}`}
-            onClick={(e) => { e.stopPropagation(); onSave && onSave(listing.id); }}
+            className={`heart-btn${saved ? ' saved' : ''}${popped ? ' pop' : ''}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (!saved) { setPopped(true); setTimeout(() => setPopped(false), 420); }
+              onSave && onSave(listing.id);
+            }}
             aria-label="Save"
           >
             <HeartIcon filled={saved} />

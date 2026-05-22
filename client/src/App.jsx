@@ -182,23 +182,25 @@ export default function App() {
       )}
 
       <main style={{ flex: 1, paddingTop: isAuthScreen ? 0 : 'var(--header-h)', position: 'relative' }}>
-        {route === 'landing'      && <LandingScreen      navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
-        {route === 'wishlist'     && <WishlistScreen     navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
-        {route === 'design'       && <DesignSystemScreen navigate={navigate} />}
-        {route === 'home'         && <HomeFeedScreen     navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
-        {route === 'pdp'          && <PDPScreen          navigate={navigate} listingId={params.id} addToCart={addToCart} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
-        {route === 'cart'         && <CartScreen         navigate={navigate} cart={cart} setCart={setCart} onBack={onBack} backLabel={backLabel} />}
-        {route === 'checkout'     && <CheckoutScreen     navigate={navigate} cart={cart} setCart={setCart} onPlaceOrder={placeOrder} onBack={onBack} backLabel={backLabel} />}
-        {route === 'confirmation' && <ConfirmationScreen navigate={navigate} orders={orders} />}
-        {route === 'sellers'      && <SellersScreen      navigate={navigate} onBack={onBack} backLabel={backLabel} />}
-        {route === 'storefront'   && <StorefrontScreen   navigate={navigate} sellerId={params.id || 'sanne'} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
-        {route === 'profile'      && <ProfileScreen      navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
-        {route === 'orders'       && <OrderHistoryScreen navigate={navigate} orders={orders} onBack={onBack} backLabel={backLabel} />}
-        {route === 'dashboard'    && <DashboardScreen    navigate={navigate} onBack={onBack} backLabel={backLabel} />}
-        {route === 'editor'       && <EditorScreen       navigate={navigate} onBack={onBack} backLabel={backLabel} />}
-        {route === 'search'       && <SearchScreen       navigate={navigate} query={params.q} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
-        {route === 'signin'       && <SignInScreen       navigate={navigate} />}
-        {route === 'signup'       && <SignUpScreen       navigate={navigate} />}
+        <div key={route} className={isAuthScreen ? 'anim-fade-in' : 'page-enter'}>
+          {route === 'landing'      && <LandingScreen      navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
+          {route === 'wishlist'     && <WishlistScreen     navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
+          {route === 'design'       && <DesignSystemScreen navigate={navigate} />}
+          {route === 'home'         && <HomeFeedScreen     navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
+          {route === 'pdp'          && <PDPScreen          navigate={navigate} listingId={params.id} addToCart={addToCart} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
+          {route === 'cart'         && <CartScreen         navigate={navigate} cart={cart} setCart={setCart} onBack={onBack} backLabel={backLabel} />}
+          {route === 'checkout'     && <CheckoutScreen     navigate={navigate} cart={cart} setCart={setCart} onPlaceOrder={placeOrder} onBack={onBack} backLabel={backLabel} />}
+          {route === 'confirmation' && <ConfirmationScreen navigate={navigate} orders={orders} />}
+          {route === 'sellers'      && <SellersScreen      navigate={navigate} onBack={onBack} backLabel={backLabel} />}
+          {route === 'storefront'   && <StorefrontScreen   navigate={navigate} sellerId={params.id || 'sanne'} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
+          {route === 'profile'      && <ProfileScreen      navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
+          {route === 'orders'       && <OrderHistoryScreen navigate={navigate} orders={orders} onBack={onBack} backLabel={backLabel} />}
+          {route === 'dashboard'    && <DashboardScreen    navigate={navigate} onBack={onBack} backLabel={backLabel} />}
+          {route === 'editor'       && <EditorScreen       navigate={navigate} onBack={onBack} backLabel={backLabel} />}
+          {route === 'search'       && <SearchScreen       navigate={navigate} query={params.q} savedSet={savedSet} toggleSave={toggleSave} onBack={onBack} backLabel={backLabel} />}
+          {route === 'signin'       && <SignInScreen       navigate={navigate} />}
+          {route === 'signup'       && <SignUpScreen       navigate={navigate} />}
+        </div>
       </main>
 
       {!isAuthScreen && <Footer navigate={navigate} />}

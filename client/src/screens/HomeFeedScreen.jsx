@@ -1,8 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { LISTINGS, CATEGORIES } from '../data/index.js';
 import { api } from '../api/index.js';
 import ListingCard  from '../components/ListingCard.jsx';
 import { PinIcon, StarIcon } from '../components/Icons.jsx';
+
+function useInView(opts = {}) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { threshold: 0.02, rootMargin: '0px 0px -20px 0px', ...opts }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, inView];
+}
 
 function FilterGroup({ title, children }) {
   return (
@@ -73,6 +89,7 @@ export default function HomeFeedScreen({ navigate, savedSet, toggleSave }) {
   const [showFilters, setShowFilters] = useState(false);
   const [sort,        setSort]        = useState('Closest');
   const [listings,    setListings]    = useState(LISTINGS);
+  const [gridRef, gridInView] = useInView();
 
   useEffect(() => {
     api.getListings({ limit: 48 })
@@ -136,15 +153,16 @@ export default function HomeFeedScreen({ navigate, savedSet, toggleSave }) {
           </div>
         )}
         <div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[18px]">
-            {filtered.map((l) => (
-              <ListingCard
-                key={l.id}
-                listing={l}
-                onClick={() => navigate('pdp', { id: l.id })}
-                saved={savedSet.has(l.id)}
-                onSave={toggleSave}
-              />
+          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[18px]">
+            {filtered.map((l, i) => (
+              <div key={l.id} className={`reveal sd-${(i % 3) + 1} ${gridInView ? 'in-view' : ''}`}>
+                <ListingCard
+                  listing={l}
+                  onClick={() => navigate('pdp', { id: l.id })}
+                  saved={savedSet.has(l.id)}
+                  onSave={toggleSave}
+                />
+              </div>
             ))}
           </div>
         </div>

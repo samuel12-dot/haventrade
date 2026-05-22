@@ -300,10 +300,10 @@ function LoggedInHeader({ route, navigate, cartCount, savedCount }) {
             <svg width="15" height="15" viewBox="0 0 24 24" fill={route === 'wishlist' ? 'currentColor' : 'none'} aria-hidden="true">
               <path d="M12 21C12 21 3 13.5 3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.5-9 13-9 13z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            Wishlist {savedCount > 0 && <span className="badge">{savedCount}</span>}
+            Wishlist {savedCount > 0 && <span key={savedCount} className="badge">{savedCount}</span>}
           </a>
           <a className={`nav-link${route === 'cart' ? ' active' : ''}`} onClick={() => navigate('cart')}>
-            Cart {cartCount > 0 && <span className="badge">{cartCount}</span>}
+            Cart {cartCount > 0 && <span key={cartCount} className="badge">{cartCount}</span>}
           </a>
           <AccountDropdown navigate={navigate} />
         </nav>
@@ -333,7 +333,7 @@ function LoggedInHeader({ route, navigate, cartCount, savedCount }) {
               <path d="M12 21C12 21 3 13.5 3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.5-9 13-9 13z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             {savedCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-hearth text-canvas font-mono text-[8px] font-bold rounded-full flex items-center justify-center">
+              <span key={savedCount} className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-hearth text-canvas font-mono text-[8px] font-bold rounded-full flex items-center justify-center" style={{ animation: 'ht-badge-bounce 0.32s cubic-bezier(0.34,1.56,0.64,1) both' }}>
                 {savedCount}
               </span>
             )}
@@ -350,7 +350,7 @@ function LoggedInHeader({ route, navigate, cartCount, savedCount }) {
               <circle cx="17" cy="16.5" r="1.5" fill="currentColor"/>
             </svg>
             {cartCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-hearth text-canvas font-mono text-[8px] font-bold rounded-full flex items-center justify-center">
+              <span key={cartCount} className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-hearth text-canvas font-mono text-[8px] font-bold rounded-full flex items-center justify-center" style={{ animation: 'ht-badge-bounce 0.32s cubic-bezier(0.34,1.56,0.64,1) both' }}>
                 {cartCount}
               </span>
             )}
