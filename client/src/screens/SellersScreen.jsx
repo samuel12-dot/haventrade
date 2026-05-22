@@ -96,15 +96,12 @@ function SellerCard({ seller, onClick }) {
 export default function SellersScreen({ navigate, onBack, backLabel }) {
   const staticSellers = Object.values(SELLERS);
   const [sellers, setSellers] = useState(staticSellers);
-  const [loading, setLoading] = useState(true);
-  const [gridRef, gridInView] = useInView();
 
   useEffect(() => {
     api.getSellers()
       .then(({ sellers: data }) => {
         if (data.length > 0) {
           const normalized = data.map(normalizeDbSeller);
-          // DB sellers first, then static ones that don't clash by name
           const dbNames = new Set(normalized.map((s) => s.name.toLowerCase()));
           const uniqueStatic = staticSellers.filter(
             (s) => !dbNames.has(s.name.toLowerCase())
@@ -112,8 +109,7 @@ export default function SellersScreen({ navigate, onBack, backLabel }) {
           setSellers([...normalized, ...uniqueStatic]);
         }
       })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+      .catch(() => {});
   }, []);
 
   return (
@@ -124,24 +120,16 @@ export default function SellersScreen({ navigate, onBack, backLabel }) {
         {sellers.length} sellers trading within 2km
       </div>
 
-      {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="bg-surface border border-border rounded-2xl h-64 animate-pulse" />
-          ))}
-        </div>
-      ) : (
-        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {sellers.map((s, i) => (
-            <div key={s.id} className={`reveal sd-${(i % 4) + 1} ${gridInView ? 'in-view' : ''}`}>
-              <SellerCard
-                seller={s}
-                onClick={() => navigate('storefront', { id: s.id })}
-              />
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {sellers.map((s, i) => (
+          <div key={s.id} className="anim-fade-up" style={{ animationDelay: `${i * 45}ms` }}>
+            <SellerCard
+              seller={s}
+              onClick={() => navigate('storefront', { id: s.id })}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
