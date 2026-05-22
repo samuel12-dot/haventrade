@@ -99,6 +99,7 @@ export default function PDPScreen({ navigate, listingId, addToCart, savedSet, to
                 <img
                   src={imgUrl(listing.images[activeImg], { width: 800 })}
                   alt={listing.title}
+                  fetchpriority="high"
                   style={{
                     width: "100%",
                     height: "100%",
