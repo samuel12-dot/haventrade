@@ -36,29 +36,6 @@ function AuthFormField({ label, type = 'text', value, onChange, placeholder, suf
   );
 }
 
-function OrDivider() {
-  return (
-    <div className="flex items-center gap-3.5 my-[22px]">
-      <span className="flex-1 border-t border-dashed border-border-strong" />
-      <span className="font-mono text-[10px] text-ink-subtle tracking-[0.2em]">OR</span>
-      <span className="flex-1 border-t border-dashed border-border-strong" />
-    </div>
-  );
-}
-
-function GoogleButton() {
-  return (
-    <button type="button" className="btn btn--ghost w-full gap-3 font-medium bg-canvas border-[1.5px] border-border-strong" style={{ padding: '14px 20px' }}>
-      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" className="flex-shrink-0">
-        <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.79 2.71v2.26h2.9c1.7-1.56 2.69-3.87 2.69-6.61z"/>
-        <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.83.87-3.06.87a5.33 5.33 0 0 1-5-3.69H.96v2.32A9 9 0 0 0 9 18z"/>
-        <path fill="#FBBC05" d="M4 10.74A5.4 5.4 0 0 1 3.71 9c0-.6.1-1.19.29-1.74V4.94H.96A9 9 0 0 0 0 9c0 1.45.35 2.83.96 4.06L4 10.74z"/>
-        <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58A9 9 0 0 0 .96 4.94L4 7.26C4.71 5.13 6.7 3.58 9 3.58z"/>
-      </svg>
-      Continue with Google
-    </button>
-  );
-}
 
 export default function SignInScreen({ navigate }) {
   const { login } = useAuth();
@@ -138,8 +115,6 @@ export default function SignInScreen({ navigate }) {
             {loading ? 'Signing in…' : <>Sign in <span className="arr">→</span></>}
           </button>
 
-          <OrDivider />
-          <GoogleButton />
         </form>
 
         <div className="mt-7 pt-[18px] border-t border-dashed border-border-strong text-sm text-ink-muted text-center">

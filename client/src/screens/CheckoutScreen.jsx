@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { LISTINGS, SELLERS } from '../data/index.js';
+import { useAuth } from '../context/AuthContext.jsx';
 import SellerAvatar       from '../components/SellerAvatar.jsx';
 import DeliverySlotPicker from '../components/DeliverySlotPicker.jsx';
 import BackLink from '../components/BackLink.jsx';
@@ -57,6 +58,7 @@ function PayOption({ k, current, set, title, sub }) {
 }
 
 export default function CheckoutScreen({ navigate, cart, onPlaceOrder, onBack, backLabel }) {
+  const { user } = useAuth();
   const [accordionOpen, setAccordionOpen] = useState('address');
   const [slotPicks,     setSlotPicks]     = useState({});
   const [payment,       setPayment]       = useState('ideal');
@@ -85,16 +87,16 @@ export default function CheckoutScreen({ navigate, cart, onPlaceOrder, onBack, b
       <div className="grid gap-7 lg:gap-9 lg:[grid-template-columns:1.7fr_1fr]">
         <div className="flex flex-col gap-4">
           {/* 1. Address */}
-          <Accordion num="1" title="Delivery address" subtitle="900237 · Maitama" open={accordionOpen === 'address'} onToggle={() => toggle('address')}>
+          <Accordion num="1" title="Delivery address" subtitle={[user?.postcode, user?.neighbourhood].filter(Boolean).join(' · ') || 'Abuja'} open={accordionOpen === 'address'} onToggle={() => toggle('address')}>
             <div className="grid gap-[18px] md:[grid-template-columns:1fr_200px]">
               <div className="flex flex-col gap-3">
-                <FormField label="FULL NAME" value="Amara Okonkwo" />
-                <FormField label="STREET + NUMBER" value="Aminu Kano Crescent 47-B" />
+                <FormField label="FULL NAME" value={user?.name || ''} />
+                <FormField label="STREET + NUMBER" value="" />
                 <div className="grid grid-cols-2 gap-3">
-                  <FormField label="POSTCODE" value="900237" mono />
+                  <FormField label="POSTCODE" value={user?.postcode || ''} mono />
                   <FormField label="CITY" value="Abuja" />
                 </div>
-                <FormField label="DELIVERY NOTES" value="Buzzer 47B, third floor — leave with downstairs neighbour if not home" textarea />
+                <FormField label="DELIVERY NOTES" value="" textarea />
               </div>
               <div className="grad grad-deepmoss rounded-[14px] relative overflow-hidden min-h-[200px]">
                 <div className="radius-rings">
@@ -162,10 +164,10 @@ export default function CheckoutScreen({ navigate, cart, onPlaceOrder, onBack, b
               </div>
             ) : (
               <div className="flex flex-col gap-3">
-                <FormField label="CARD NUMBER" value="•••• •••• •••• 4242" mono />
+                <FormField label="CARD NUMBER" value="" mono />
                 <div className="grid grid-cols-2 gap-3">
-                  <FormField label="EXPIRY" value="04 / 28" mono />
-                  <FormField label="CVC" value="•••" mono />
+                  <FormField label="EXPIRY" value="" mono />
+                  <FormField label="CVC" value="" mono />
                 </div>
               </div>
             )}

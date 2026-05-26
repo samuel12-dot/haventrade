@@ -180,18 +180,6 @@ export default function CartScreen({ navigate, cart, setCart, onBack, backLabel 
           {Object.entries(groups).map(([sid, list], gi) => (
             <>
               <SellerCartGroup key={sid} sellerId={sid} items={list} setQty={setQty} navigate={navigate} />
-              {gi === 0 && (
-                <div key="promo" className="bg-saffron rounded-[14px] px-[18px] py-3.5 my-4 flex flex-col sm:flex-row sm:items-center gap-3">
-                  <div className="flex items-start gap-3 flex-1">
-                    <span className="w-8 h-8 rounded-full bg-ink text-saffron inline-flex items-center justify-center font-mono text-sm flex-shrink-0">+</span>
-                    <div>
-                      <div className="font-mono text-[10px] text-ink">ALMOST THERE</div>
-                      <div className="font-serif italic text-sm text-ink">Add ₦2,000 more from Sanne's Studio for free delivery on this group</div>
-                    </div>
-                  </div>
-                  <button className="btn btn--dark btn--sm w-full sm:w-auto" onClick={() => navigate('storefront', { id: 'sanne' })}>BROWSE STUDIO</button>
-                </div>
-              )}
             </>
           ))}
           <a onClick={() => navigate('home')} className="inline-flex items-center gap-2 mt-2 text-sm text-ink-muted underline underline-offset-4 cursor-pointer">← Keep looking on your street</a>
