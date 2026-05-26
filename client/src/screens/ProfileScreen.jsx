@@ -61,7 +61,7 @@ function TabBar({ tab, setTab }) {
   );
 }
 
-function ProfileTab({ user }) {
+function ProfileTab({ user, navigate }) {
   const { refreshUser } = useAuth();
   const [name,          setName]          = useState(user?.name         || '');
   const [postcode,      setPostcode]      = useState(user?.postcode     || '');
@@ -91,9 +91,9 @@ function ProfileTab({ user }) {
     try {
       await api.updateProfile({ sellerProfile: { since: String(new Date().getFullYear()) } });
       await refreshUser();
+      navigate('dashboard');
     } catch (err) {
       setMsg(err.message); setIsError(true);
-    } finally {
       setBecomingBuyer(false);
     }
   }
@@ -285,7 +285,7 @@ export default function ProfileScreen({ navigate, savedSet, toggleSave, onBack, 
 
       <TabBar tab={tab} setTab={setTab} />
 
-      {tab === 'profile'  && <ProfileTab user={user} />}
+      {tab === 'profile'  && <ProfileTab user={user} navigate={navigate} />}
       {tab === 'saved'    && <SavedTab navigate={navigate} savedSet={savedSet} toggleSave={toggleSave} />}
       {tab === 'security' && <SecurityTab />}
     </div>

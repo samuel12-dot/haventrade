@@ -15,7 +15,12 @@ import errorHandler   from './src/middleware/errorHandler.js';
 const app = express();
 
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'http://localhost:3001',
+  'http://localhost:3000',
+].filter(Boolean);
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -33,9 +38,9 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB first, then start accepting requests
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`HavenTrade API — http://localhost:${PORT}  [${process.env.NODE_ENV}]`);
-  });
+// Start server immediately, connect DB in background
+app.listen(PORT, () => {
+  console.log(`HavenTrade API — http://localhost:${PORT}  [${process.env.NODE_ENV}]`);
 });
+
+connectDB();

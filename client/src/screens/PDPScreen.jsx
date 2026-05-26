@@ -622,32 +622,63 @@ export default function PDPScreen({ navigate, listingId, addToCart, savedSet, to
         )}
       </div>
 
-      {/* Related listings */}
-      {seller.name && (
-        <div className="mt-12 md:mt-16">
-          <div className="divider-ticket">
-            <span className="font-mono text-[11px] text-hearth">
-              MORE FROM {seller.name.toUpperCase()}
-            </span>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-[18px]">
-            {[
-              ...LISTINGS.filter(
-                (l) => l.sellerId === listing.sellerId && l.id !== listing.id,
-              ),
-              ...LISTINGS.filter((l) => l.sellerId !== listing.sellerId),
-            ]
-              .slice(0, 4)
-              .map((l) => (
+      {/* More from seller */}
+      {(() => {
+        const sameSeller = LISTINGS.filter(
+          (l) => l.sellerId === listing.sellerId && l.id !== listing.id,
+        ).slice(0, 4);
+        if (!sameSeller.length || !seller.name) return null;
+        return (
+          <div className="mt-12 md:mt-16">
+            <div className="divider-ticket">
+              <span className="font-mono text-[11px] text-hearth">
+                MORE FROM {seller.name.toUpperCase()}'S STUDIO
+              </span>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-[18px]">
+              {sameSeller.map((l) => (
                 <ListingCard
                   key={l.id}
                   listing={l}
+                  saved={savedSet?.has(l.id)}
+                  onSave={toggleSave}
                   onClick={() => navigate("pdp", { id: l.id })}
                 />
               ))}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
+
+      {/* Related products */}
+      {(() => {
+        const shownIds = new Set(
+          LISTINGS.filter((l) => l.sellerId === listing.sellerId && l.id !== listing.id).map((l) => l.id),
+        );
+        shownIds.add(listing.id);
+        const related = LISTINGS.filter(
+          (l) => l.category === listing.category && !shownIds.has(l.id),
+        ).slice(0, 4);
+        if (!related.length) return null;
+        return (
+          <div className="mt-12 md:mt-16">
+            <div className="divider-ticket">
+              <span className="font-mono text-[11px] text-hearth">RELATED PRODUCTS</span>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-[18px]">
+              {related.map((l) => (
+                <ListingCard
+                  key={l.id}
+                  listing={l}
+                  saved={savedSet?.has(l.id)}
+                  onSave={toggleSave}
+                  onClick={() => navigate("pdp", { id: l.id })}
+                />
+              ))}
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 }

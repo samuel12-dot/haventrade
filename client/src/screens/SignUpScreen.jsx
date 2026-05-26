@@ -85,8 +85,8 @@ export default function SignUpScreen({ navigate }) {
     setError('');
     setLoading(true);
     try {
-      await register({ name, email, password, postcode, isSeller });
-      navigate('home');
+      const newUser = await register({ name, email, password, postcode, isSeller });
+      navigate(newUser.isSeller ? 'dashboard' : 'home');
     } catch (err) {
       setError(err.message || 'Registration failed. Please try again.');
       setErrorKey((k) => k + 1);
