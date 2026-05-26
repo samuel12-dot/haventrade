@@ -2,8 +2,10 @@ const BASE = import.meta.env.VITE_API_URL || '/api';
 
 // ── Fetch wrapper ─────────────────────────────────────────────────────────────
 
-async function req(path, options = {}) {
+async function req(path, options = {}, attempt = 1) {
   const { body, ...rest } = options;
+  const MAX_ATTEMPTS = 3;
+  const RETRY_DELAY  = 4000; // ms between retries (Render cold-start needs ~30-60s total)
 
   let res;
   try {
@@ -14,6 +16,10 @@ async function req(path, options = {}) {
       ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
     });
   } catch {
+    if (attempt < MAX_ATTEMPTS) {
+      await new Promise((r) => setTimeout(r, RETRY_DELAY));
+      return req(path, options, attempt + 1);
+    }
     throw new Error('Could not reach the server. Check your connection and try again.');
   }
 
