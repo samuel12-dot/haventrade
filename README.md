@@ -79,18 +79,7 @@ npm run install:all
 
 ### Environment — `server/.env`
 
-```
-PORT=5001
-MONGO_URI=mongodb://localhost:27017/haventrade
-JWT_SECRET=your_secret_here
-JWT_EXPIRES_IN=7d
-CLIENT_URL=http://localhost:3001
-NODE_ENV=development
-
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-```
+Copy `server/.env.example` to `server/.env` and fill in your own values.
 
 ### Run
 
